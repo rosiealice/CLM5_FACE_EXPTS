@@ -12,10 +12,10 @@ npft = 15
 natvg = [2:npft];
 nv=13
 
-
+pftdirname='FACE_pftfiles'
 
 % default name of new parameter files. 
-froot='/glade/u/home/rfisher/Matlab/pft_files/FACE_CLM_params/FACE_CLM_params_may1_highleaf_'
+froot=char(strcat('/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/',pftdirname,'/FACE_CLM_params_may1_highleaf_'))
 
                                           
 varnames = {'slatop','froot_leaf','stem_leaf','ekn_active','akn_active','kn_nonmyc','ekc_active','akc_active','kc_nonmyc','FUN_fracfixers','leafcn','grperc','medlynslope','lmr_intercept_atkin','perecm','fun_cn_flex_a','fun_cn_flex_b','fun_cn_flex_c','leafcn'}
