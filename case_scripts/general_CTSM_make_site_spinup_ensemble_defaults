@@ -1,0 +1,51 @@
+#! /bin/tcsh -f
+#This code makes an ensemble of CLM site instances. 
+
+setenv CODENAME clm5.0_mar18/
+setenv NAME FACE_ENSEMBLE_
+set niter=5
+set nparam=15
+set p=1
+set nsites=4
+set BASEBUILD=CLM5-pf1.2000_DATM%1PT_CLM50%BGC_SICE_SOCN_RTM_SGLC_SWAV.cheyenne.Cedd59ca-F52bad28.1521489651
+set BASEYEAR=321
+set PARAMROOT='/glade/u/home/rfisher/Matlab/pft_files/FACE_CLM_params/FACE_CLM_params_jan18_pi'
+set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0i' 'CLM5_ORNL.1521596285')
+set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
+
+set s=1
+while ($s<$nsites)
+  set BASECASE=$RESTARTCASES[$s]
+  
+       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_PI00
+       cd  /glade/p/work/rfisher/git/$CODENAME
+       cd cime/scripts
+       cd BCI_SENS_TEST
+       rm -rf $EXPTNAME
+       rm -rf /glade/scratch/rfisher/$EXPTNAME
+       ../create_clone --clone ../$BASECASE --case $EXPTNAME
+
+       cd $EXPTNAME
+
+       ./xmlchange STOP_N=100
+       ./xmlchange STOP_OPTION=nyears
+       ./xmlchange RESUBMIT=1
+       ./xmlchange CCSM_CO2_PPMV=287
+       ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
+       ./xmlchange BUILD_COMPLETE="TRUE"
+       ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
+
+       #./xmlchange JOB_QUEUE=share
+       #./xmlchange MAX_TASKS_PER_NODE=1
+       #./xmlchange MPILIB=mpi-serial
+
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
+echo  $uclm >user_nl_clm
+
+       ./case.setup
+       #./case.build
+       ./case.submit
+@ s ++
+end
+
+    
