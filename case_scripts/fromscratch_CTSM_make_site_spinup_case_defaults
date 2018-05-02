@@ -190,8 +190,8 @@ echo " "
 echo "*** Update FATES param file ***"
 echo " "
 cat >> user_nl_clm <<EOF
-fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'
-paramfile='/glade/u/home/rfisher/Matlab/pft_files/FACE_CLM_params/FACE_CLM_params_may1_highleaf_pi100.nc'
+fsurdat='/glade/u/home/rfisher/single_point_drivers/${SITE_NAME}/surfdata_${SITE_NAME}.nc'
+paramfile='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'
 EOF
 
 
