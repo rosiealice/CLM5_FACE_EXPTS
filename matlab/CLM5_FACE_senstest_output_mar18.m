@@ -36,10 +36,10 @@ sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
 vchoose = [1 2 9 3 5]; % variables.
-ychoose = 10; %choose year
+ychoose = 85; %choose year
 mchoose = 8 %6:9 %choose month
 fileend = '.nc'
- pr=0 %are we printing figures?
+ pr=1 %are we printing figures?
 anom=0; %are we doing anomolies?
 schoose = 1:3
 fleafcn=0
