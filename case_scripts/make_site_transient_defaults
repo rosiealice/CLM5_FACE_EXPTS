@@ -1,0 +1,62 @@
+#! /bin/tcsh -f
+#This code makes an ensemble of CLM site instances. 
+
+setenv CODENAME clm5.0_apr26/
+setenv NAME FACE_ENSEMBLE_TRANSIENT_
+set niter=5
+set nparam=15
+set p=1
+set nsites=4
+set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN 
+set BASEYEAR=101
+set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
+set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0i'  'CLM5_SPR_SPIN_HL_.1x1pt_US-ORN')
+set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
+set SITENAMES_NEW=('CAX' 'BCI' 'ORN')
+set casesdir = CLM5_POINTSIMS
+
+set s=1
+while ($s<$nsites)
+       set BASECASE=CLM5_$SITENAMES[$s]_ens_PI00 
+  
+       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_transient_PI00
+       cd  /glade/p/work/rfisher/git/$CODENAME
+       cd cime/scripts
+       cd $casesdir
+       rm -rf $EXPTNAME
+       rm -rf /glade/scratch/rfisher/$EXPTNAME
+       pwd
+       ../create_clone --clone $BASECASE --case $EXPTNAME
+
+       cd $EXPTNAME
+
+       ./xmlchange STOP_N=150
+       ./xmlchange STOP_OPTION=nyears
+       ./xmlchange RESUBMIT=2
+       ./xmlchange CCSM_CO2_PPMV=287
+       ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
+       ./xmlchange BUILD_COMPLETE="TRUE"
+       ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
+       ./xmlchange RUN_STARTDATE=1768-01-01
+       ./xmlchange CLM_CO2_TYPE=diagnostic
+       ./xmlchange PROJECT=P93300041
+       ./xmlchange DATM_CO2_TSERIES=20tr
+       ./xmlchange CCSM_BGC=CO2A
+
+       #./xmlchange JOB_QUEUE=share
+       #./xmlchange MAX_TASKS_PER_NODE=1
+       #./xmlchange MPILIB=mpi-serial
+
+      # set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
+      set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/$BASECASE/run/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
+echo  $uclm >user_nl_clm
+      
+       ./case.setup
+
+       cp /glade/u/home/rfisher/clm_case_scripts/datm.streams.txt.co2tseries_elev_newformat /glade/scratch/rfisher/$EXPTNAME/run/datm.streams.txt.co2tseries
+       #./case.build
+       ./case.submit
+@ s ++
+end
+
+    
