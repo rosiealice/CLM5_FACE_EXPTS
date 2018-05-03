@@ -6,7 +6,7 @@ setenv NAME FACE_ENSEMBLE_
 set niter=5
 set nparam=15
 set nsites=3
-set BASEBUILD=CLM5-pf1.2000_DATM%1PT_CLM50%BGC_SICE_SOCN_RTM_SGLC_SWAV.cheyenne.Cedd59ca-F52bad28.1521489651
+set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
 set BASEYEAR=321
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
 set RESTARTCASES=('CLM5_SPR_SPIN_HL_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_HL_.bci_0.1x0.1_v4.0i' 'CLM5_SPR_SPIN_HL_.1x1pt_US-ORN')
