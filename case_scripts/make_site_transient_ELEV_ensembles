@@ -23,13 +23,23 @@ while ($s<$nsites)
     set x=1
     while ($x<$niter)
        setenv RESTARTCASE CLM5_$SITENAMES[$s]_ens_PI$p$x
-
        setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_transient_ELEV_PI$p$x
        cd  /glade/p/work/rfisher/git/$CODENAME
-pwd
+       pwd
        cd cime/scripts/
        cd ${POINTDIR}
        pwd
+       echo $EXPTNAME
+#       set testfile=$EXPTNAME/$EXPTNAME'.run.o**'
+
+set c=`ls -a $EXPTNAME/$EXPTNAME.run.o**| wc | awk '{print $1}'`
+echo "${c}"
+if ( "${c}" == 2 ) then
+
+       echo "this case exists already"     
+       
+       else
+       echo "no case run files exist"
 
        rm -rf $EXPTNAME
        rm -rf /glade/scratch/rfisher/$EXPTNAME
@@ -48,7 +58,18 @@ pwd
        #./xmlchange MAX_TASKS_PER_NODE=1
        #./xmlchange MPILIB=mpi-serial
 
-       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$RESTARTCASE/rest/0$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='$PARAMROOT$p$x.nc'"
+
+set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+if ( -f  $finifile) then 
+else
+set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+endif
+
+if ( -f  $finifile) then
+else
+set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0101-01-01-00000.nc
+endif
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$p$x.nc'"
 echo  $uclm >user_nl_clm
       
        #add co2 streams file to run dir
@@ -59,6 +80,7 @@ echo  $uclm >user_nl_clm
        ./case.setup
        #./case.build
        ./case.submit
+       endif  #case exists
        @ x ++
        end
    @ p ++
