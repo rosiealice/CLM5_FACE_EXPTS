@@ -14,4 +14,4 @@
  mapalgo = 'bilinear','bilinear','bilinear'
  mapmask = 'nomask','nomask','nomask'
 streams = "datm.streams.txt.CLM1PT.CLM_USRDAT 2003 2003 2016", "datm.streams.txt.presaero.clim_2000 1 1 1","datm.streams.txt.co2tseries 1765 1765 2005"
- taxmode = 'cycle','cycle','cycle'
+ taxmode = 'cycle','cycle','extend'
