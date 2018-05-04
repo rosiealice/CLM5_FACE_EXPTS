@@ -1,0 +1,33 @@
+
+<dataSource>
+   GENERIC
+</dataSource>
+<domainInfo>
+  <variableNames>
+     time    time
+        lonc    lon
+        latc    lat
+        area    area
+        mask    mask
+  </variableNames>
+  <filePath>
+     /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab
+  </filePath>
+  <fileNames>
+     co2_datm_ORNL_ELEV.nc
+  </fileNames>
+</domainInfo>
+<fieldInfo>
+   <variableNames>
+     CO2        co2diag
+   </variableNames>
+   <filePath>
+     /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab
+   </filePath>
+   <fileNames>
+    co2_datm_ORNL_ELEV.nc
+   </fileNames>
+   <offset>
+      0
+   </offset>
+</fieldInfo>
