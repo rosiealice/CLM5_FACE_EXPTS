@@ -6,7 +6,7 @@ setenv NAME FACE_ENSEMBLE_TRANSIENT_
 set niter=5
 set nparam=15
 set p=1
-set nsites=3
+set nsites=4
 set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN 
 set BASEYEAR=201
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
@@ -30,9 +30,9 @@ while ($s<$nsites)
 
        cd $EXPTNAME
 
-       ./xmlchange STOP_N=150
+       ./xmlchange STOP_N=100
        ./xmlchange STOP_OPTION=nyears
-       ./xmlchange RESUBMIT=2
+       ./xmlchange RESUBMIT=3
        ./xmlchange CCSM_CO2_PPMV=287
        ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
        ./xmlchange BUILD_COMPLETE="TRUE"
