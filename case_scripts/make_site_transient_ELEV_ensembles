@@ -1,4 +1,4 @@
-#! /bin/tcsh -f
+1;95;0c#! /bin/tcsh -f
 #This code makes an ensemble of CLM site instances. 
 
 setenv CODENAME clm5.0_apr26/
@@ -12,6 +12,7 @@ set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FA
 set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00')
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set POINTDIR=CLM5_POINTSIMS
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.20tr'
 
 set s=1
 while ($s<$nsites)
@@ -46,8 +47,8 @@ if ( "${c}" == 2 ) then
        ../create_clone --clone $BASECASE --case $EXPTNAME
 
        cd $EXPTNAME
-
-       ./xmlchange STOP_N=100
+       ./xmlchange RUN_STARTDATE="1850-01-01"
+       ./xmlchange STOP_N=80
        ./xmlchange STOP_OPTION=nyears
        ./xmlchange RESUBMIT=2
        ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
@@ -57,7 +58,7 @@ if ( "${c}" == 2 ) then
        #./xmlchange JOB_QUEUE=share
        #./xmlchange MAX_TASKS_PER_NODE=1
        #./xmlchange MPILIB=mpi-serial
-
+       cp $co2streams . 
 
 set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
 if ( -f  $finifile) then 
