@@ -31,14 +31,14 @@ while ($s<$nsites)
 
        cd $EXPTNAME
 
-       ./xmlchange STOP_N=100
+       ./xmlchange STOP_N=80
        ./xmlchange STOP_OPTION=nyears
        ./xmlchange RESUBMIT=3
        ./xmlchange CCSM_CO2_PPMV=287
        ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
        ./xmlchange BUILD_COMPLETE="TRUE"
        ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
-       ./xmlchange RUN_STARTDATE=1768-01-01
+       ./xmlchange RUN_STARTDATE=1850-01-01
        ./xmlchange CLM_CO2_TYPE=diagnostic
        ./xmlchange PROJECT=P93300041
        ./xmlchange DATM_CO2_TSERIES=20tr
