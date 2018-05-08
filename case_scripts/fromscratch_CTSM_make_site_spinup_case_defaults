@@ -38,7 +38,7 @@ export MAC=cheyenne                                          # Name your machine
 export COMPILER=gnu                                          # Name your compiler
 export RUNSUBDIR=CLM5_POINTSIMS
 export CASEROOT=/glade/p/work/rfisher/git/clm5.0_apr26/cime/scripts/${RUNSUBDIR}                       # Where the build is generated (probably on scratch partition)
-export SITE_BASE_DIR=/glade/u/home/rfisher/single_point_drivers
+export SITE_BASE_DIR=/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/
 export RUNDIRROOT=/glade/scratch/rfisher/
 
  
