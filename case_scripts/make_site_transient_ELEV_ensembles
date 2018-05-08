@@ -1,4 +1,4 @@
-1;95;0c#! /bin/tcsh -f
+#! /bin/tcsh -f
 #This code makes an ensemble of CLM site instances. 
 
 setenv CODENAME clm5.0_apr26/
@@ -31,16 +31,17 @@ while ($s<$nsites)
        cd ${POINTDIR}
        pwd
        echo $EXPTNAME
-#       set testfile=$EXPTNAME/$EXPTNAME'.run.o**'
+#      set testfile=$EXPTNAME/$EXPTNAME'.run.o**'
 
-set c=`ls -a $EXPTNAME/$EXPTNAME.run.o**| wc | awk '{print $1}'`
-echo "${c}"
-if ( "${c}" == 2 ) then
+       set c=`ls -a $EXPTNAME/$EXPTNAME.run.o**| wc | awk '{print $1}'` 
+       echo "${c}"
+#       if ( "${c}" == 2 ) then
 
-       echo "this case exists already"     
+#       echo "this case exists already"     
        
-       else
-       echo "no case run files exist"
+#       else
+ 
+       echo "setting up a new case"
 
        rm -rf $EXPTNAME
        rm -rf /glade/scratch/rfisher/$EXPTNAME
@@ -60,28 +61,26 @@ if ( "${c}" == 2 ) then
        #./xmlchange MPILIB=mpi-serial
        cp $co2streams . 
 
-set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
-if ( -f  $finifile) then 
-else
-set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
-endif
+       set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+       if ( -f  $finifile) then 
+       else
+       set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+       endif
 
-if ( -f  $finifile) then
-else
-set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0101-01-01-00000.nc
-endif
+       if ( -f  $finifile) then
+       else
+       set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0101-01-01-00000.nc
+       endif
+
        set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$p$x.nc'"
-echo  $uclm >user_nl_clm
+       echo  $uclm >user_nl_clm
       
-       #add co2 streams file to run dir
-       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/datm.streams.txt.co2tseries_ELEV_ORNL  /glade/scratch/rfisher/$EXPTNAME/run/datm.streams.txt.co2tseries
-       #bring in correct user_nl_datm to case dir
-       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_$SITENAMES[$s] user_nl_datm
+       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
 
        ./case.setup
        #./case.build
        ./case.submit
-       endif  #case exists
+#       endif  #case exists
        @ x ++
        end
    @ p ++
