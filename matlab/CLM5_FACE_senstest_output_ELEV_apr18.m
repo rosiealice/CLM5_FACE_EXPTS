@@ -15,13 +15,13 @@ end
 figdir = 'figures'
 u=3600*24*365'
 vars         = ({'GPP','NPP','TLAI','QVEGT','TOTVEGC','BTRANMN','COST_NFIX','COST_NRETRANS','NPP_NUPTAKE','NACTIVE','NFIX','NRETRANS','LEAFN'})
-namevars     = ({'Gross Production (gCm^{-2}y^{-1})','Net Production (gCm^{-2}y^{-1})','Leaf Area Index (m^{2}m^{-2})','QVEGT','Total Veg Carbon (gm^{-2})' ,'BTRANMN' ,'COST NFIX','COST RETRANS' ,'N uptake cost (gCm^{-2}y^{-1})','NACTIVE','NFIX','NRETRANS','LEAFN'})
+namevars     = ({'Gross Production (gCm^{-2}y^{-1})','Net Production (gCm^{-2}y^{-1})','Leaf Area Index (m^{2}m^{-2})','QVEGT','Total Veg Carbon (Kgm^{-2})' ,'BTRANMN' ,'COST NFIX','COST RETRANS' ,'N uptake cost (gCm^{-2}y^{-1})','NACTIVE','NFIX','NRETRANS','Leaf Nitrogen (g m^{-2})'})
 miny            = [3550  1400    6    1500    15700             1       10           10           0.4              10         10         5    0]
 maxy            = [3350  1100    7    1500    19000             1       10           10              0.4           10         10       5      3]
-unit_conversion = [u      u      1      u      1             1       1            1               u              u         u        u  1]
+unit_conversion = [u      u      1      u      1/1000             1       1            1               u              u         u        u  1]
 co2max          = [3.1    4      3.2    1      1.5            1       1            1               14             1         1        1 1]
 co2max          = co2max.*0 +1.9
-namevarsco2     = ({'\delta Gross Production)','\delta Net Production','\delta Leaf Area Index','QVEGT','\delta Total Veg Carbon' ,'BTRANMN' ,'COST NFIX','COST RETRANS' ,'\delta N uptake cost','NACTIVE','NFIX','NRETRANS','\delta LEAFN'})
+namevarsco2     = ({'\delta Gross Production)','\delta Net Production','\delta Leaf Area Index','QVEGT','\delta Total Veg Carbon' ,'BTRANMN' ,'COST NFIX','COST RETRANS' ,'\delta N uptake cost','NACTIVE','NFIX','NRETRANS','\delta Leaf Nitrogen'})
 
 params  = {'slatop','froot:leaf','stem:leaf','ncosts',...
 'fracfixers','leafcn','grperc','medlynslope',...
@@ -155,7 +155,7 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
     end
 
     if(vcount==6)
-       xlabel('parameter deviation')
+       xlabel('Relative Parameter Deviation')
     end
     l=legend(params(pchoose))
     set(l,'position', [0.7551    0.2585    0.1393    0.0729])
@@ -248,7 +248,7 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
        end
 
        if(vcount==6)
-	  xlabel('parameter deviation')
+	  xlabel('Relative Parameter Deviation')
        end
 
        l=legend(params(pchoose))
