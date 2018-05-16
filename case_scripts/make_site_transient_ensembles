@@ -4,7 +4,7 @@
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_
 set niter=5
-set nparam=15
+set nparam=16
 set nsites=4
 set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
 set BASEYEAR=201
@@ -12,12 +12,14 @@ set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FA
 set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00')
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set POINTDIR=CLM5_POINTSIMS
+set lunap=15
+set lunaparamfile=6
 
 set s=1
 while ($s<$nsites)
   set BASECASE=$BASECASES[$s]
   
-  set p=1
+  set p=15
   while ($p<$nparam)
 
     set x=1
@@ -49,6 +51,11 @@ pwd
        #./xmlchange MPILIB=mpi-serial
 
        set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$RESTARTCASE/rest/0$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='$PARAMROOT$p$x.nc'"
+   
+   if($p == $lunap)then #LUNA cases  
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$RESTARTCASE/rest/0$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='$PARAMROOT$lunaparamfile$x.nc'\nuse_luna=.false."
+   endif     
+       
 echo  $uclm >user_nl_clm
 
        ./case.setup
