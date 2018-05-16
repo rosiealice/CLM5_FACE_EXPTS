@@ -19,7 +19,7 @@ set s=1
 while ($s<$nsites)
        set BASECASE=CLM5_$SITENAMES[$s]_ens_PI00_lunaoff
   
-       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_transient_PI00
+       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_transient_PI00_lunaoff
        cd  /glade/p/work/rfisher/git/$CODENAME
        cd cime/scripts
        cd $casesdir
