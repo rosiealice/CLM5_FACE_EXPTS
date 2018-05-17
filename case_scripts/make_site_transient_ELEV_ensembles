@@ -51,7 +51,7 @@ while ($s<$nsites)
        ./xmlchange RUN_STARTDATE="1850-01-01"
        ./xmlchange STOP_N=80
        ./xmlchange STOP_OPTION=nyears
-       ./xmlchange RESUBMIT=2
+       ./xmlchange RESUBMIT=3
        ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
        ./xmlchange BUILD_COMPLETE="TRUE"
        ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
