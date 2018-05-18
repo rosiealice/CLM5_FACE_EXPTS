@@ -14,7 +14,7 @@ set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set SITENAMES_NEW=('CAX' 'BCI' 'ORN')
 set casesdir = CLM5_POINTSIMS
-set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.20tr'
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
 
 set s=1
 while ($s<$nsites)
@@ -57,7 +57,7 @@ echo  $uclm >user_nl_clm
       echo $uclm
 
       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
-      cp $co2streams .
+      cp $co2streams user_datm.streams.txt.co2tseries.20tr
        ./case.setup
 
        #./case.build
