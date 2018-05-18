@@ -47,8 +47,8 @@ while ($s<$nsites)
        #./xmlchange MAX_TASKS_PER_NODE=1
        #./xmlchange MPILIB=mpi-serial
 
-      # set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
-      set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/$BASECASE/run/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
+#      set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/$BASECASE/run/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
 echo  $uclm >user_nl_clm
       
        ./case.setup
