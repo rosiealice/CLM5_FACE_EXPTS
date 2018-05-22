@@ -119,7 +119,7 @@ for s=schoose
 
 
     dir_clm = strcat('/glade/scratch/rfisher/archive/',defdirname,'/lnd/hist/')
-    dir_clm = strcat('/glade/scratch/rfisher/',defdirname,'/run/')
+%    dir_clm = strcat('/glade/scratch/rfisher/',defdirname,'/run/')
     for v = vchoose			
       for y = ychoose
 	 for m=mchoose								
@@ -202,8 +202,8 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
        %read default
 
 
-       dir_clm = strcat('/glade/scratch/rfisher/',defdirname,'/run/')
-% dir_clm = strcat('/glade/scratch/rfisher/archive/',defdirname,'/lnd/hist/')
+%       dir_clm = strcat('/glade/scratch/rfisher/',defdirname,'/run/')
+ dir_clm = strcat('/glade/scratch/rfisher/archive/',defdirname,'/lnd/hist/')
 
        for v = vchoose			
 	 for y = ychooseco2 
