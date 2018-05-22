@@ -19,12 +19,15 @@ time_ORNL_elev=ncread(ornlfile,'time');
 
 co2s=squeeze(co2);
 times=squeeze(time);
+
+t=find(time_ORNL_elev>8.5155*10^4)
+
+co2_ORNL_elev(t)=550;
+
 co2_ORNL_elevs=squeeze(co2_ORNL_elev);
 time_ORNL_elevs=squeeze(time_ORNL_elev);
 
-t=find(time_ORNL_elevs>8.5155*10^4)
 
-co2_ORNL_elevs(t)=550;
 
 figure
 plot(times,co2s,'r.');hold on
