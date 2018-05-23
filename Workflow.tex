@@ -1,0 +1,257 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{color}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\title{Workflow for CLM5 paper}
+\maketitle{}
+
+Scripts for these analyses should all be found in the public github repo at:
+{\color{blue}\small{\url{https://github.com/rosiealice/CLM5_FACE_EXPTS}}}\\
+
+The scripts are specific to usage on the NCAR Cheyenne machine...
+
+{\color{blue} Scripts, on github are in blue}\\
+{\color{cyan} Paths on scratch are in cyan}\\
+{\color{red}  .nc files are in red}\\
+{\color{magenta} Figures on github are in magenta}\\
+
+\section{Obtain CLM5 code}
+cd /glade/p/work/rfisher/git/\\
+(this is 'gitpath' from now on)
+
+git clone https://github.com/ESCOMP/ctsm 
+\section{Parameters}
+
+
+\subsection{Make new ensemble param files with high leaf allocation }
+
+Use PFT script
+
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/FACE_clm5_ens_oaat.m}}}\\ 
+commit b6ba94
+
+Using the basefile. \\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/clm5_params.c171017_highleaf.nc}}} \\
+commit c539e89
+
+
+Output location..\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi11.nc }}} \\
+commit 54f863b
+
+Copy default file into '00'..\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc }}} \\
+commit 61517c5 
+
+\section{Spin-up}
+\subsection{Make 1850 spin-up default runs from scratch}
+Make single point case from scratch for each site by running this script (based on Charlie's FATES version) three times once for each site (that could be improved on!)..:\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/fromscratch_CTSM_make_site_spinup_case_defaults}}}\\
+commit 38ced1 
+
+
+The resulting cases are \\
+{\color{cyan}{\small{\url{/glade/scratch/rfisher/CLM5_SPR_SPIN_HL_.1x1pt_US-ORN}}}\\
+\small{\url{/glade/scratch/rfisher/CLM5_SPR_SPIN_HL_.bci_0.1x0.1_v4.0i}}\\
+\small{\url{/glade/scratch/rfisher/CLM5_SPR_SPIN_HL_.1x1pt_Br-cax}}}\\
+
+These are all run out to year 321. 
+
+\subsection{Make 1850 spin-up ensembles for each site}
+
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_ensembles}} }\\
+commit 2bb89c5
+
+Case names are along the lines of:\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_PI**}}\\
+\small{\url{CLM5_1x1pt_Br-cax_ens_PI**}}\\
+\small{\url{CLM5_1x1pt_US-ORN_ens_PI*}}}\\
+
+These are all run to y201. 
+
+\subsection{Make 1850 spin-up defaults for each site}
+
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_defaults}}}\\
+commit 0d2894a
+
+Case names are:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_PI00}}}
+
+\subsection{Analyse output of spinup cases}
+
+Run analysis script on spinup ensemble output (at 1850 CO2). \\
+{\color{blue}\small{\url{/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/CLM5_FACE_senstest_output_mar18.m}}}\\
+commit 7043e8b  
+
+Output here\\
+{\color{magenta}\small{\url{https://github.com/rosiealice/CLM5_FACE_EXPTS/tree/master/matlab/figures\frac_deviation_p1CLM5_1x1pt_Br-cax_ens_PI_y1.png}}}\\
+commit 1f9a57c  
+
+\section{Transients}
+
+\subsection{Make transient defaults}
+Use this script. It employs the 20tr default CO2 ramping, but with an 1850 climate. .\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_defaults}}}\\
+commit 36ced2a
+
+Case names are:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_transient_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_PI00}}}
+
+\subsection{Make transient ensemble}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ensembles}}}\\
+commit 7b8bca7
+
+Case names are along the lines of:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_transient_PI**}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI**}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_PI**}}}
+
+\subsection{Analyse transient ensemble}
+
+\section{Elevated CO$_{2}$ transient runs}
+\subsection{Make elevated CO$_{2}$ file}
+Use this script\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/modify_co2_drivers.m}}}\\
+commit 0d4fb93
+
+Which generates\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/co2_datm_ORNL_ELEV.nc}}}\\
+commit 0d4fb93  
+
+\subsection{Make elevated CO$_{2}$ defaults}
+Use this script:\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_defaults}}}\\
+commit 8e6a3a5    
+
+
+Which uses these user$\_$nl$\_$datm files:\\
+{\color{blue}\small{\url{gitpath/co2_files/user_nl_datm_FACE_transient_ELEV_1x1pt_Br-cax}}}\\
+{\color{blue}\small{\url{gitpath/co2_files/user_nl_datm_FACE_transient_ELEV_bci_0.1x0.1_v4.0i}}}\\
+{\color{blue}\small{\url{gitpath/co2_files/user_nl_datm_FACE_transient_ELEV_1x1pt_US-ORN}}}\\
+commit 4cb99a4
+
+And this user$\_$datm.streams.txt.co2tseries.20tr file\\
+{\color{blue}\small{\url{gitpath/co2_files/user_datm.streams.txt.co2tseries.20tr}}}\\
+commit 41d4aeb  
+
+Which references the previous co2 file\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/co2_datm_ORNL_ELEV.nc}}}\\
+commit 0d4fb93
+
+The case names are:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_ELEV_PI00}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI00}}}
+
+\subsection{Make elevated CO$_{2}$ ensemble}
+Use this script:\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_ensembles}}}\\
+commit ffe1b6b 
+
+The case names are like:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI**}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_ELEV_PI**}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI**}}} 
+
+\subsection{Analyze elevated CO2 runs}
+Use this script:\\
+{\color{blue}\small{\url{gitpath/matlab/CLM5_FACE_senstest_output_ELEV_apr18.m}}}\\
+commit ec202a0  
+
+Creates these figures:
+{\color{magenta}\small{\url{gitpath/matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI_y1.png}}}\\
+commit 23ce56e
+
+\section{Make runs with LUNA off}
+
+\subsection{Make ensemble spinup runs with LUNA off}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_ensembles}} }\\
+commit 88b6508    
+
+Case names are along the lines of:\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_PI15*}}\\
+\small{\url{CLM5_1x1pt_Br-cax_ens_PI15*}}\\
+\small{\url{CLM5_1x1pt_US-ORN_ens_PI15*}}}\\
+
+\subsection{Make default spinup runs with LUNA off}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_defaults_lunaoff}} }\\
+commit 88b6508  
+
+Case names are along the lines of:\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_PI00_noluna}}\\
+\small{\url{CLM5_1x1pt_Br-cax_ens_PII00_noluna}}\\
+\small{\url{CLM5_1x1pt_US-ORN_ens_PII00_noluna}}}\\
+
+\subsection{Make transient runs with LUNA off}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ensembles}} }\\
+commit acdee08
+
+The case names are like:\\
+{\color{cyan}\small{\url{CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI15*}}}\\
+{\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_ELEV_PI15*}}}\\
+{\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI15*}}} 
+
+\subsection{Make default transient runs with LUNA off}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_defaults_lunaoff}} }\\
+commit b26f487  
+
+
+\section{Correct the CO2 fertilization to be all year}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/modify_co2_drivers_allyear.m }} }\\
+commit 723bbf3      
+
+File is here: 
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/mco2_datm_ORNL_ELEV_allyear.nc }} }\\
+commit 8604dd9  
+
+\subsection{Restart ensemble transients with new CO2 file}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_ensembles}}}\\
+commit 9f8c771  
+
+\subsection{Restart default transients with new CO2 file}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_defaults}}}\\
+commit cc6e00e    
+
+\subsection{Restart LUNA defaults transients with new CO2 file}
+Use.\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_defaults_lunaoff}}}\\
+commit cc6e00e   
+
+\subsection{Analyze new elevated CO2 runs}
+Use this script:\\
+{\color{blue}\small{\url{gitpath/matlab/CLM5_FACE_senstest_output_ELEV_apr18.m}}}\\
+commit  7eab468  
+
+Creates these figures:
+{\color{magenta}\small{\url{gitpath/matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI_y1.png}}}\\
+commit 23ce56e
+
+
+\section{Add additional sites}
+
+\section{Add parameters to look at open/closed N cycle}
+
+\section{Modify range of FlexCN parameters to completely stop C:N flexibility?}
+
+\section{Investigate differences in driving data for single sites vs reanalysis}
+
+\section{Add Nitrogen fertilization experiments}
+
+\end{document}
