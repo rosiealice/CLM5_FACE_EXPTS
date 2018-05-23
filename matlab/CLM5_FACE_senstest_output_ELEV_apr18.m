@@ -32,6 +32,7 @@ params  = {'slatop','froot:leaf','stem:leaf','ncosts',...
 root = 'CLM5_1x1pt_Br-cax_ens_PI'
 ending = '_ens_transient_ELEV_'
 sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
+figsitenames = {'CAX','BCI','ORN'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
 vchoose = [1 2 3 5 13]; % variables.
@@ -72,6 +73,7 @@ set(0,'DefaultAxesColorOrder',colord)
 
 for s=schoose
   root = strcat('CLM5_',char(sitenames(s)),ending,'PI')
+  figroot = strcat('CLM5_',char(figsitenames(s)),'_')
   clear('var_arrayl','var_array2');
   for pp =[5]
 
@@ -159,9 +161,10 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
     end
     l=legend(params(pchoose))
     set(l,'position', [0.7551    0.2585    0.1393    0.0729])
+    set(l,'fontsize',7)
     if(pr==1)
       wysiwyg
-      fnm = strcat(figdir,'/frac_deviation_p',char(num2str(pchoose(1))),root,'_y',char(num2str((pchoose(1)))),'.png') 
+      fnm = strcat(figdir,'/frac_deviation_p',char(num2str(pchoose(1))),figroot,'_y',char(num2str((pchoose(1)))),'.png') 
       print('-dpng', '-r100', char(fnm) )
     end
     
@@ -252,10 +255,11 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
        end
 
        l=legend(params(pchoose))
+       set(l,'fontsize',7)
        set(l,'position', [0.7551    0.2585    0.1393    0.0729])
        if(pr==1)
 	 wysiwyg
-	 fnm = strcat(figdir,'/frac_deviation_CO2_response_',char(num2str(pchoose(1))),root,'_y',char(num2str((pchoose(1)))),'.png') 
+	 fnm = strcat(figdir,'/frac_deviation_CO2_response_',char(num2str(pchoose(1))),figroot,'_y',char(num2str((pchoose(1)))),'.png') 
 	 print('-dpng', '-r100', char(fnm) )
        end
        

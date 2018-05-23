@@ -14,9 +14,9 @@ set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set SITENAMES_NEW=('CAX' 'BCI' 'ORN')
 set casesdir = CLM5_POINTSIMS
-set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.20tr'
 
-set s=1
+set s=3
 while ($s<$nsites)
        set BASECASE=CLM5_$SITENAMES[$s]_ens_PI00_lunaoff
   

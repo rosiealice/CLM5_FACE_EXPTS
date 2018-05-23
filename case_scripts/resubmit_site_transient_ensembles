@@ -4,14 +4,15 @@
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_
 set niter=5
-set nparam=15
-set nsites=4
+set nparam=16
+set nsites=3
 set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
 set BASEYEAR=201
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
 set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00')
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set POINTDIR=CLM5_POINTSIMS
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
 
 set s=1
 while ($s<$nsites)
@@ -32,11 +33,12 @@ while ($s<$nsites)
 
        cd $EXPTNAME
        pwd
-       ./xmlchange STOP_N=100
-       ./xmlchange RESUBMIT=0
+       ./xmlchange STOP_N=80
+       ./xmlchange RESUBMIT=3
        ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
-       ./xmlchange CONTINUE_RUN="TRUE"
-       ./case.submit
+#       ./xmlchange CONTINUE_RUN="FALSE"
+
+#       ./case.submit
        @ x ++
        end
    @ p ++
