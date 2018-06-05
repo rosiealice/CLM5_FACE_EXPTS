@@ -4,7 +4,7 @@
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_
 set niter=5
-set nparam=16
+set nparam=22
 set nsites=3
 set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
 set BASEYEAR=201
@@ -13,13 +13,13 @@ set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_bci_0.1x0.1_v4.0i_en
 set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
 set POINTDIR=CLM5_POINTSIMS
 set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
-set lunacase=15
+set lunap=15
 
 set s=1
 while ($s<$nsites)
   set BASECASE=$BASECASES[$s]
   
-  set p=15
+  set p=18
   while ($p<$nparam)
 
     set x=1
@@ -63,6 +63,7 @@ while ($s<$nsites)
        cp $co2streams user_datm.streams.txt.co2tseries.20tr
 
        set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+       echo $finifile
        if ( -f  $finifile) then 
        else
        set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
@@ -73,12 +74,31 @@ while ($s<$nsites)
        set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0101-01-01-00000.nc
        endif
 
-       if($p == $lunacase)then
-set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat\
-='$finifile'\nparamfile='$PARAMROOT$p$x.nc'\nuse_luna=.false."
+       if($p > $lunap)then
+       setenv nlf /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/namelists/namelistPI$p$x.txt
+       sed -i -e 's/,/=/g' $nlf
+       set nn="`cat $nlf`"
+       set px='00'
        else
-       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$p$x.nc'"
+       set nn=" "
+       set px='$p$x'
        endif
+
+       if($p == $lunap)then
+        set LN='.false.'
+       else
+        set LN='.true.'
+       endif
+       echo " $nn "
+       echo " $nlf "
+       echo "  $LN "
+       rm -f user_nl_clm
+
+       echo "*** Update FATES param file ***"
+       echo " "
+
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn  "
+
        echo  $uclm >user_nl_clm
       
        cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
