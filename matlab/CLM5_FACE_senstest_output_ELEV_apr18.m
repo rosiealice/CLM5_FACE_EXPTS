@@ -26,7 +26,7 @@ namevarsco2     = ({'\delta Gross Production)','\delta Net Production','\delta L
 params  = {'slatop','froot:leaf','stem:leaf','ncosts',...
 'fracfixers','leafcn','grperc','medlynslope',...
 'lmr-intercept','frac-ectomy-fungi','cn-flex-a','cn-flex-b',...
-'cn-flex-c','luna'}
+'cn-flex-c','luna','','','p1','denit resp coef','denit resp exp','denit nit coef ','denit nit exp'}
 
 
 root = 'CLM5_1x1pt_Br-cax_ens_PI'
@@ -49,8 +49,8 @@ nploth = 2;nplotv=1 %plots
 co2response =1
 
 imap = [1 2 4 5]
-N=13
 
+N=13
 X = linspace(0,pi*3,1000); 
 Y = bsxfun(@(x,n)sin(x+2*n*pi/N), X.', 1:N); 
 colord = linspecer(N); 
@@ -75,14 +75,14 @@ for s=schoose
   root = strcat('CLM5_',char(sitenames(s)),ending,'PI')
   figroot = strcat('CLM5_',char(figsitenames(s)),'_')
   clear('var_arrayl','var_array2');
-  for pp =[5]
+  for pp =[6]
 
     if(pp==1);pchoose=[ 1 2 3];end
     if(pp==2);pchoose=[ 4 5 6 7];end
     if(pp==3);pchoose=[ 11 12 13 ];end
     if(pp==4);pchoose=[ 8 9 14];end 
     if(pp==5);pchoose=[ 1:13];end   
-
+    if(pp==6);pchoose=[19:21];end
 
     for p=pchoose %parameter loop. 
 	pstr=char(num2str(p))
