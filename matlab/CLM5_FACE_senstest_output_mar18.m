@@ -25,7 +25,7 @@ namevarsco2     = ({'\delta Gross Production)','\delta Net Production','\delta L
 params  = {'slatop','froot:leaf','stem:leaf','ncosts',...
 'fracfixers','leafcn','grperc','medlynslope',...
 'lmr-intercept','frac-ectomy-fungi','cn-flex-a','cn-flex-b',...
-'cn-flex-c','luna'}
+'cn-flex-c','luna','','','p1','denit resp coef','denit resp exp','denit nit coef ','denit nit exp'}
 
 root = 'FUN_sens_ens_C_PI'
 root = 'FUN_sens_ens_transient_PI'
@@ -36,7 +36,7 @@ sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
 vchoose = [1 2 9 3 5]; % variables.
-ychoose = 85; %choose year
+ychoose = 80; %choose year
 mchoose = 8 %6:9 %choose month
 fileend = '.nc'
  pr=1 %are we printing figures?
@@ -53,14 +53,14 @@ imap = [1 2 4 5]
 for s=schoose
   root = strcat('CLM5_',char(sitenames(s)),'_ens_PI')
 
-  for pp =[5]
+  for pp =[6]
 
     if(pp==1);pchoose=[ 1 2 3];end
     if(pp==2);pchoose=[ 4 5 6 7];end
     if(pp==3);pchoose=[ 11 12 13 ];end
     if(pp==4);pchoose=[ 8 9 14];end 
     if(pp==5);pchoose=[ 1:14];end   
-
+    if(pp==6);pchoose=[18:21];end
 
     for p=pchoose %parameter loop. 
 	pstr=char(num2str(p))
@@ -100,7 +100,7 @@ for s=schoose
 
 
     dir_clm = strcat('/glade/scratch/rfisher/archive/',dirname,'/lnd/hist/')
-    dir_clm = strcat('/glade/scratch/rfisher/',dirname,'/run/')
+%    dir_clm = strcat('/glade/scratch/rfisher/',dirname,'/run/')
     for v = vchoose			
       for y = ychoose
 	 for m=mchoose								
