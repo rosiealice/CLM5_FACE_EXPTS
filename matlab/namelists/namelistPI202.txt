@@ -1,1 +1,1 @@
-denitrif_nitrateconc_coefficient=0.575
+denitrif_nitrateconc_coefficient,0.575
