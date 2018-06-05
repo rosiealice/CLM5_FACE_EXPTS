@@ -4,8 +4,8 @@
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_
 set niter=5
-set nparam=22
-set nsites=2
+set nparam=18
+set nsites=4
 set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
 set BASEYEAR=321
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
@@ -18,7 +18,7 @@ set s=1
 while ($s<$nsites)
   set BASECASE=$RESTARTCASES[$s]
   
-  set p=18
+  set p=17
   while ($p<$nparam)
 
     set x=1
