@@ -1,0 +1,116 @@
+#! /bin/tcsh -f
+#This code makes an ensemble of CLM site instances. 
+
+setenv CODENAME clm5.0_apr26/
+setenv NAME FACE_ENSEMBLE_
+set niter=5
+set nparam=23
+set nsites=4
+set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
+set BASEYEAR=201
+set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
+set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00')
+set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
+set POINTDIR=CLM5_POINTSIMS
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
+set lunap=15
+
+set s=1
+while ($s<$nsites)
+  set BASECASE=$BASECASES[$s]
+  
+  set p=1
+  while ($p<$nparam)
+
+    set x=1
+    while ($x<$niter)
+       setenv RESTARTCASE CLM5_$SITENAMES[$s]_ens_PI$p$x
+       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_transient_NDEP_PI$p$x
+       cd  /glade/p/work/rfisher/git/$CODENAME
+       pwd
+       cd cime/scripts/
+       cd ${POINTDIR}
+       pwd
+       echo $EXPTNAME
+#      set testfile=$EXPTNAME/$EXPTNAME'.run.o**'
+
+       set c=`ls -a $EXPTNAME/$EXPTNAME.run.o**| wc | awk '{print $1}'` 
+       echo "${c}"
+#       if ( "${c}" == 2 ) then
+
+#       echo "this case exists already"     
+       
+#       else
+ 
+       echo "setting up a new case"
+
+       rm -rf $EXPTNAME
+       rm -rf /glade/scratch/rfisher/$EXPTNAME
+       ../create_clone --clone $BASECASE --case $EXPTNAME
+
+       cd $EXPTNAME
+       ./xmlchange RUN_STARTDATE="1850-01-01"
+       ./xmlchange STOP_N=80
+       ./xmlchange STOP_OPTION=nyears
+       ./xmlchange RESUBMIT=3
+       ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
+       ./xmlchange BUILD_COMPLETE="TRUE"
+       ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
+
+       #./xmlchange JOB_QUEUE=share
+       #./xmlchange MAX_TASKS_PER_NODE=1
+       #./xmlchange MPILIB=mpi-serial
+       cp $co2streams user_datm.streams.txt.co2tseries.20tr
+
+       set finifile=/glade/scratch/rfisher/archive/$RESTARTCASE/rest/$BASEYEAR-01-01-00000/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+       echo $finifile
+       if ( -f  $finifile) then 
+       else
+       set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0$BASEYEAR-01-01-00000.nc
+       endif
+
+       if ( -f  $finifile) then
+       else
+       set finifile=/glade/scratch/rfisher/$RESTARTCASE/run/$RESTARTCASE.clm2.r.0101-01-01-00000.nc
+       endif
+
+       if($p > $lunap)then
+       setenv nlf /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/namelists/namelistPI$p$x.txt
+       sed -i -e 's/,/=/g' $nlf
+       set nn="`cat $nlf`"
+       set px='00'
+       else
+       set nn=" "
+       set px=$p$x
+       endif
+
+       if($p == $lunap)then
+        set LN='.false.'
+       else
+        set LN='.true.'
+       endif
+       echo " $nn "
+       echo "  $LN "
+       rm -f user_nl_clm
+
+       echo "*** Update FATES param file ***"
+       echo " "
+
+       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn\nstream_fldfilename_ndep='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/HIGH5g_fndep.nc'\nstream_year_first_ndep=1849\nstream_year_last_ndep=2006\nmodel_year_align_ndep=1"
+
+       echo  $uclm >user_nl_clm
+      
+#       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
+
+       ./case.setup
+       #./case.build
+       ./case.submit
+#       endif  #case exists
+       @ x ++
+       end
+   @ p ++
+   end
+@ s ++
+end
+
+    
