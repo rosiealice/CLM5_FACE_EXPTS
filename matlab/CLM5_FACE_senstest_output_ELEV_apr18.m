@@ -35,7 +35,7 @@ sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
 figsitenames = {'CAX','BCI','ORN'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
-vchoose = [1 2 3 5 13]; % variables.
+vchoose = [1 2 3 9 13]; % variables.
 ychoose = 1995; %choose year
 mchoose = 6 %6:9 %choose month
 fileend = '.nc'
@@ -75,13 +75,13 @@ for s=schoose
   root = strcat('CLM5_',char(sitenames(s)),ending,'PI')
   figroot = strcat('CLM5_',char(figsitenames(s)),'_')
   clear('var_arrayl','var_array2');
-  for pp =[6]
+  for pp =[5]
 
     if(pp==1);pchoose=[ 1 2 3];end
     if(pp==2);pchoose=[ 4 5 6 7];end
     if(pp==3);pchoose=[ 11 12 13 ];end
     if(pp==4);pchoose=[ 8 9 14];end 
-    if(pp==5);pchoose=[ 1:13];end   
+    if(pp==5);pchoose=[ 1:13,18:21];end   
     if(pp==6);pchoose=[19:21];end
 
     for p=pchoose %parameter loop. 
@@ -110,6 +110,7 @@ for s=schoose
 	      var_arrayl(p,imap(i),v) = sum(vm)/length(mchoose);
              if(v==9);var_arrayl(p,imap(i),v) = var_arrayl(p,imap(i),v)./var_arrayl(p,imap(i),2);end
             if(v==13);var_arrayl(p,imap(i),v) = var_arrayl(p,imap(i),v)./var_arrayl(p,imap(i),3);end
+	    if(v==11);var_arrayl(p,imap(i),v) = var_arrayl(p,imap(i),v)./var_arrayl(p,imap(i),2);end
 	   end % v
 	end	%i
     end %p
@@ -134,8 +135,9 @@ for s=schoose
       i=3
       for p=pchoose
         var_arrayl(p,i,v) = sum(vm)/length(mchoose);
-if(v==9);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),2);end
-if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
+        if(v==9);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),2);end
+        if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
+        if(v==11);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),2);end
       end
     end % v
 
@@ -198,6 +200,7 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
 		 var_array2(p,imap(i),v) = sum(vm)/length(mchoose);
                   if(v==9);var_array2(p,imap(i),v) = var_array2(p,imap(i),v)./var_array2(p,imap(i),2);end
                   if(v==13);var_array2(p,imap(i),v) = var_array2(p,imap(i),v)./var_array2(p,imap(i),3);end
+		  if(v==11);var_array2(p,imap(i),v) = var_array2(p,imap(i),v)./var_array2(p,imap(i),2);end 
 	      end % v
 	   end	%i
        end %p
@@ -222,6 +225,7 @@ if(v==13);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),3);end
            var_array2(p,i,v) = sum(vm)/length(mchoose);
           if(v==9); var_array2(p,(i),v) = var_array2(p,(i),v)./var_array2(p,(i),2);end
           if(v==13);var_array2(p,(i),v) = var_array2(p,(i),v)./var_array2(p,(i),3);end
+	  if(v==11);var_array2(p,(i),v) = var_array2(p,(i),v)./var_array2(p,(i),2);end
 	 end
        end % v
 

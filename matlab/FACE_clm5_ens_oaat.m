@@ -32,7 +32,7 @@ mult(:,9)=[ 0.8539 0.9531 1.1512 1.25]%lmr_intercept_atkin
 mult(:,10)=[0 0.5 1  1] %perecm. 1 is the default. 
 mult(:,11)=[0 0.5 2  4] %fun_cn_flex_a. 5 is the default.limit beyond which there is a reduction in N uptake..
 mult(:,12)=[0.1 0.5 2  4] %fun_cn_flex_b. 100 is the default.  scales the difference between a and the resistance into a reduction rate. 
-mult(:,13)=[0.1 0.5 2  4] %fun_cn_flex_c. 8 is the default.  Scales the difference in leafcn. so, 8 is the differnce for which the c spent is scaled back up to one (only impacts if n costs is high)
+mult(:,13)=[0.001 0.1 10 100] %fun_cn_flex_c. 8 is the default.  Scales the difference in leafcn. so, 8 is the differnce for which the c spent is scaled back up to one (only impacts if n costs is high)
 mult(:,14)=[  0.7413 0.8932 1.1970 1.349]; %leafcn
 %LUNA on & off
 

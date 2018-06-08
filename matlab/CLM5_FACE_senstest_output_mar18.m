@@ -35,7 +35,7 @@ root = 'CLM5_1x1pt_Br-cax_ens_PI'
 sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
-vchoose = [1 2 9 3 5]; % variables.
+vchoose = [1 2 3 5 9]; % variables.
 ychoose = 80; %choose year
 mchoose = 8 %6:9 %choose month
 fileend = '.nc'
@@ -50,16 +50,38 @@ co2response =0
 
 imap = [1 2 4 5]
 
+N=13
+X = linspace(0,pi*3,1000); 
+Y = bsxfun(@(x,n)sin(x+2*n*pi/N), X.', 1:N); 
+colord = linspecer(N); 
+colord = [1.0  0.0  0.0;...
+          0.7  0.0  0.0;...
+          0.8  0.1  0.4;...
+          0.8  0.6  0.1;...
+          0.0  0.0  1.0;...
+          0.0  0.6  0.8;...
+          0.5  0.0  0.8;...
+          0.4  0.4  0.4;...
+          0.1  0.1  0.1;...
+          0.8  0.8  0.8;...
+          0.0  1.0  0.0;...
+          0.1  0.8  0.6;...
+          0.6  0.8  0.1]
+
+
+set(0,'DefaultAxesColorOrder',colord)
+
+
 for s=schoose
   root = strcat('CLM5_',char(sitenames(s)),'_ens_PI')
 
-  for pp =[6]
+  for pp =[5]
 
     if(pp==1);pchoose=[ 1 2 3];end
     if(pp==2);pchoose=[ 4 5 6 7];end
     if(pp==3);pchoose=[ 11 12 13 ];end
     if(pp==4);pchoose=[ 8 9 14];end 
-    if(pp==5);pchoose=[ 1:14];end   
+    if(pp==5);pchoose=[ 1:14,18:21];end   
     if(pp==6);pchoose=[18:21];end
 
     for p=pchoose %parameter loop. 
