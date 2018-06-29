@@ -8,10 +8,10 @@
 \title{Workflow for CLM5 paper}
 \maketitle{}
 
-Scripts for these analyses should all be found in the public github repo at:
+Scripts for these analyses should all be found in the public github repo at:\\
 {\color{blue}\small{\url{https://github.com/rosiealice/CLM5_FACE_EXPTS}}}\\
 
-The scripts are specific to usage on the NCAR Cheyenne machine...
+The scripts are specific to usage on the NCAR Cheyenne machine...\\
 
 {\color{blue} Scripts, on github are in blue}\\
 {\color{cyan} Paths on scratch are in cyan}\\
@@ -243,15 +243,93 @@ Creates these figures:
 {\color{magenta}\small{\url{gitpath/matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI_y1.png}}}\\
 commit 23ce56e
 
-
-\section{Add additional sites}
-
 \section{Add parameters to look at open/closed N cycle}
+\subsection{Make namelist files witht this matlab script}
+{\color{blue}\small{\url{gitpath/matlab/make_namelist_files.m}}}\\
+commit 532c208  
+
+Files are in here:
+{\color{magenta}\small{\url{gitpath/matlab/namelists/**}}}\\
+commit c7633e9 
+
+\subsection{Make spinup runs for namelist parameters}
+{\color{blue}\small{\url{gitpath//case_scripts/make_site_spinup_ensembles}}}\\
+commit faa49a9
+
+ 
+\subsection{Analyze spinup results for namelist parameters} 
+matlab script modified
+{\color{blue}\small{\url{gitpath/matlab/CLM5_FACE_senstest_output_mar18.m
+}}}\\
+e04d71
+
+\subsection{Make transient runs for namelist parameters}
+
+{\color{blue}\small{\url{gitpath//case_scripts/case_scripts/make_site_transient_ELEV_ensembles}}}\\
+commit 96fafee
+
+\subsection{Analyze transient runs for namelist parameters}
+
+
+{\color{blue}\small{\url{gitpath/matlab/CLM5_FACE_senstest_output_ELEV_mar18.m}}}\\
+commit fe1a59
+
+
 
 \section{Modify range of FlexCN parameters to completely stop C:N flexibility?}
 
-\section{Investigate differences in driving data for single sites vs reanalysis}
+\subsection{Modified ranges of flex\_cn\_c parameters}
+
+{\color{blue}\small{\url{gitpath/matlab/FACE_clm5_ens_oaat.m 
+}}}\\
+commit b3f67e9  
+
+Parameter files here:
+Output location..\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi13*.nc }}} \\
+commit 823385e  
+
+\subsection{Set up ensemble runs just for parameter 13}
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_ensembles}} }\\
+b3f67e9  
+
+\subsection{Set up transient runs just for parameter 13}
+{\color{blue}\small{\url{gitpath//case_scripts/case_scripts/make_site_transient_ELEV_ensembles}}}\\
+b3f67e9
+
+
+\subsection{Analyze new runs}
+
 
 \section{Add Nitrogen fertilization experiments}
+\subsection{Made new +5gCm2 file}
+
+\subsection{Make transient NDEP ensembles}
+{\color{blue}\small{\url{gitpath/case_scripts/make_site_transient_NDEP_ensembles}}}\\ 
+commit 2e395ef  
+
+\subsection{Make transient NDEP defaults}
+{\color{blue}\small{\url{gitpath/case_scripts/make_site_transient_NDEP_defaults}}}\\ 
+commit 2e395ef  
+
+
+ 
+\section{Add additional sites}
+added Barrow
+
+\section{add temperature experiments}
+
+\section{add reduced form global sensitivity analysis}
+
+ \section{Figures}
+ \subsection{Make Will figure}
+ \subsection{Make initial LAI figure}
+ \subsection{Make 3D figures of parameter space}
+ 
+ 
+
+\section{Investigate differences in driving data for single sites vs reanalysis}
+
+
 
 \end{document}
