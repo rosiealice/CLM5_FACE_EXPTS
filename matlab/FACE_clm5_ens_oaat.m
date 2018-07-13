@@ -23,7 +23,7 @@ varnames = {'slatop','froot_leaf','stem_leaf','ekn_active','akn_active','kn_nonm
 mult(:,1)=[  0.6761 0.8769 1.2785 1.4791]; %slatop 10^(log10(15.7)+0.17)/15.7
 mult(:,2)=[  0.342 0.671 1.05 1.1 ]; % froot_leaf default 1.5. Maybe a bit high. 
 mult(:,3)=[  0.3057 0.61 1 1 ]; %stem_leaf default 2.3
-mult(:,4)=[  -2 -1  1 2 ]; %Ncosts
+mult(:,4)=[  0.1 0.5  5 10 ]; %Ncosts
 mult(:,5)=[  0 0.5 2 4  ]; %FUN_fracfixers
 mult(:,6)=[  0.7413 0.8932 1.1970 1.349]; %leafcn  
 mult(:,7)=[0 0.5 2 3]%grperc from 0 to the previous high value 
@@ -39,7 +39,7 @@ mult(:,14)=[  0.7413 0.8932 1.1970 1.349]; %leafcn
 
 map       = [1 2 3 4 4 4 4 4 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
 nmap      = [0 0 0 1 2 3 4 5 6 0 0 0 0 0 0  0  0  0  0  0  0  0  0  0]
-logsample = [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+logsample = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
 replv     = [1 1 1 6 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
 startn    = [1 2 3 4 10 11 12 13 14 15 16 17 18 19]
 

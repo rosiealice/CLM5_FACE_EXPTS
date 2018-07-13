@@ -3,23 +3,23 @@
 
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_
+set Ha1=6
 set niter=5
-set nparam=23
-set nsites=4
-set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN
+set nparam=5
+set nsites=8
+set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1
 set BASEYEAR=201
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
-set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_PI00' 'CLM5_bci_0.1x0.1_v4.0i_ens_transient_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_PI00')
-set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
+set BASECASES=('CLM5_1x1pt_Br-cax_ens_transient_NDEP_PI00' 'CLM5_bci_0.1x0.1_v4.0i_ens_transient_NDEP_PI00' 'CLM5_1x1pt_US-ORN_ens_transient_NDEP_PI00' 'CLM5_1x1pt_US-Brw_ens_transient_NDEP_PI00' 'CLM5_1x1pt_US-NR1_ens_transient_NDEP_PI00'  'CLM5_1x1pt_US_Ha1_ens_transient_NDEP_PI00' 'CLM5_1x1pt_US-Me2_ens_transient_NDEP_PI00' )
+set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN' '1x1pt_US-Brw' '1x1pt_US-NR1' '1x1pt_US_Ha1' '1x1pt_US-Me2')
 set POINTDIR=CLM5_POINTSIMS
-set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
 set lunap=15
 
 set s=1
 while ($s<$nsites)
   set BASECASE=$BASECASES[$s]
   
-  set p=1
+  set p=4
   while ($p<$nparam)
 
     set x=1
@@ -48,7 +48,13 @@ while ($s<$nsites)
        rm -rf /glade/scratch/rfisher/$EXPTNAME
        ../create_clone --clone $BASECASE --case $EXPTNAME
 
+
        cd $EXPTNAME
+
+       ./xmlchange JOB_QUEUE=share
+       ./xmlchange MAX_TASKS_PER_NODE=1
+       ./case.setup --reset
+
        ./xmlchange RUN_STARTDATE="1850-01-01"
        ./xmlchange STOP_N=80
        ./xmlchange STOP_OPTION=nyears
@@ -94,13 +100,16 @@ while ($s<$nsites)
 
        echo "*** Update FATES param file ***"
        echo " "
+       if( $s == $Ha1 ) then
+       set site='1x1pt_US-Ha1'
+       else
+       set site=$SITENAMES[$s]
+       endif
+       set uclm="fsurdat='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/$site/surfdata_$site.nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn\nstream_fldfilename_ndep='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/HIGH5g_fndep.nc'\nstream_year_first_ndep=1849\nstream_year_last_ndep=2006\nmodel_year_align_ndep=1849"
 
-       set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='$finifile'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn\nstream_fldfilename_ndep='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/HIGH5g_fndep.nc'\nstream_year_first_ndep=1849\nstream_year_last_ndep=2006\nmodel_year_align_ndep=1849"
 
        echo  $uclm >user_nl_clm
       
-#       cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
-
        ./case.setup
        #./case.build
        ./case.submit
