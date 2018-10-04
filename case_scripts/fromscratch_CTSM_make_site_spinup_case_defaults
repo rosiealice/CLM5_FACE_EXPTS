@@ -50,19 +50,46 @@ export CLM_USRDAT_SURDAT=surfdata_jan62018_ORNL_xy.nc # Name of surface file in 
 export SITE_NAME=1x1pt_US-ORN
 
 #FOR BCI
-#export datastart=2003
-#export dataend=2016
-#export CLM_USRDAT_DOMAIN=domain_bci_sparse_grid_c180227.nc   # Name of domain file in scripts/${SITE_DIR}/
-#export CLM_USRDAT_SURDAT=surfdata_bci_sparse_grid_c180227_pft.nc # Name of surface file in scripts/${SITE_DIR}/
-#export SITE_NAME=bci_0.1x0.1_v4.0i                                                        
+export datastart=2003
+export dataend=2016
+export CLM_USRDAT_DOMAIN=domain_bci_sparse_grid_c180227.nc   # Name of domain file in scripts/${SITE_DIR}/
+export CLM_USRDAT_SURDAT=surfdata_bci_sparse_grid_c180227_pft.nc # Name of surface file in scripts/${SITE_DIR}/
+export SITE_NAME=bci_0.1x0.1_v4.0i                                                        
 
 #FOR CAXIUANA
-#export datastart=1996
-#export dataend=1998
-#export CLM_USRDAT_DOMAIN=domain.lnd.CAX.c160406.nc    # Name of domain file in scripts/${SITE_DIR}/
-#export CLM_USRDAT_SURDAT=surfdata_mar62018_CAX_xy_pft.nc  # Name of surface file in scripts/${SITE_DIR}/
-#export SITE_NAME=1x1pt_Br-cax
+export datastart=1996
+export dataend=1998
+export CLM_USRDAT_DOMAIN=domain.lnd.CAX.c160406.nc    # Name of domain file in scripts/${SITE_DIR}/
+export CLM_USRDAT_SURDAT=surfdata_mar62018_CAX_xy_pft.nc  # Name of surface file in scripts/${SITE_DIR}/
+export SITE_NAME=1x1pt_Br-cax
 
+#FOR BARROW
+export datastart=1998 
+export dataend=2006
+export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Brw_navy.180326.nc
+export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Brw_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+export SITE_NAME=1x1pt_US-Brw
+
+#FOR HARVARD
+export datastart=1991
+export dataend=2006
+export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Ha1_navy.180326.nc
+export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Ha1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+export SITE_NAME=1x1pt_US-Ha1
+
+#FOR NIWOT
+export datastart=1998
+export dataend=2007
+export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-NR1_navy.180326.nc
+export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-NR1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+export SITE_NAME=1x1pt_US-NR1
+
+#FOR METOLIUS
+export datastart=2002
+export dataend=2010
+export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Me2_navy.180326.nc
+export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Me2_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+export SITE_NAME=1x1pt_US-Me2
 
 # Set FATES parameter path and param file here:
 # DEPENDENT PATHS AND VARIABLES (USER MIGHT CHANGE THESE..)
@@ -187,6 +214,8 @@ echo "*** Setup Case ***"
 echo " "
 ./case.setup
 
+./xmlchange CLM_ACCELERATED_SPINUP=on
+
 echo "*** Update FATES param file ***"
 echo " "
 cat >> user_nl_clm <<EOF
@@ -194,7 +223,8 @@ fsurdat='$SITE_BASE_DIR/${SITE_NAME}/surfdata_${SITE_NAME}.nc'
 paramfile='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'
 EOF
 
-
+./xmlchange EXEROOT='/glade/scratch/rfisher/CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1/bld/'
+./xmlchange BUILD_COMPLETE="TRUE"
 
 # HERE WE NEED TO MODIFY THE STREAM FILE (DANGER ZONE - USERS BEWARE CHANGING)
 # MAY WANT TO UPDATE THIS TO REMOVE FIXED DIR LINK TO CASEROOT/run
@@ -204,8 +234,6 @@ cp ${RUNDIRROOT}$CASEN/run/datm.streams.txt.CLM1PT.CLM_USRDAT user_datm.streams.
 
 cat user_datm.streams.txt.CLM1PT.CLM_USRDAT
 
-echo "*** Build Case ***"
-./case.build
 
 echo "*** Submit ***"
 ./case.submit

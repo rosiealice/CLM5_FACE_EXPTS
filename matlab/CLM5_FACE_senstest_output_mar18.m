@@ -1,5 +1,6 @@
 
 
+
 %%%%%%%%%%%%%%%%%%% LOOKING AT NCL FILES IN Matlab %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % force matlab to write graphics correctly.... 
 %opengl neverselect
@@ -32,16 +33,16 @@ root = 'FUN_sens_ens_transient_PI'
 root = 'FUN_sens_ens_D_PI'
 root = 'FUN_sens_ens_transient_D_PI'
 root = 'CLM5_1x1pt_Br-cax_ens_PI'
-sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN'}
+sitenames = {'1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN' '1x1pt_US-Brw' '1x1pt_US-NR1' '1x1pt_US_Ha1','1x1pt_US-Me2'}
 
 ichoose = 1:4  % loop roun iterations for each parameter
 vchoose = [1 2 3 5 9]; % variables.
-ychoose = 80; %choose year
+ychoose = 100; %choose year
 mchoose = 8 %6:9 %choose month
 fileend = '.nc'
  pr=1 %are we printing figures?
 anom=0; %are we doing anomolies?
-schoose = 1:3
+schoose = 1:7
 fleafcn=0
 fmrf=0
 arc=1 %in archive? 
@@ -81,7 +82,7 @@ for s=schoose
     if(pp==2);pchoose=[ 4 5 6 7];end
     if(pp==3);pchoose=[ 11 12 13 ];end
     if(pp==4);pchoose=[ 8 9 14];end 
-    if(pp==5);pchoose=[ 1:14,18:21];end   
+    if(pp==5);pchoose=[ 1:11];end   
     if(pp==6);pchoose=[18:21];end
 
     for p=pchoose %parameter loop. 
@@ -102,7 +103,11 @@ for s=schoose
 		 for m=mchoose								
 		    filen = strcat(dirname,'.clm2.h0.',num2str(y,'%04d'),'-',num2str(m,'%02d'),'.nc');
 		    filename = strcat(dir_clm,filen)
+                    if(exist(filename))
 		    rawvar = ncread(filename,char(vars(v)));
+                    else
+                    vm(m)=nan;
+                    end
 		    vm(m) = rawvar(1).*unit_conversion(v);						     
 		 end %month
 	      end %years
@@ -141,6 +146,7 @@ if(v==9);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),2);end
 
 
     figure
+    set(gcf,'name',char(sitenames(s)))
     var_array = var_arrayl(pchoose,:,:);
     vcount = 1
     for v=vchoose
@@ -154,6 +160,7 @@ if(v==9);var_arrayl(p,(i),v) = var_arrayl(p,(i),v)./var_arrayl(p,(i),2);end
        % ylim([ min(min(var_array(:,:,v)))*0.5 max(max(var_array(:,:,v)))*1.5])
        vcount = vcount+1
        ylim([0 maxy(v)])
+       axis tight
        set(gca,'XTickLabels',[-1 0 1],'XTick',[1 3 5])
     end
 

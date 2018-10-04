@@ -3,20 +3,21 @@
 
 setenv CODENAME clm5.0_apr26/
 setenv NAME FACE_ENSEMBLE_TRANSIENT_
+set Ha1=6
 set niter=5
 set nparam=15
 set p=1
-set nsites=4
-set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-ORN 
+set nsites=8
+set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1
 set BASEYEAR=201
 set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
-set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0i'  'CLM5_SPR_SPIN_HL_.1x1pt_US-ORN')
-set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN')
-set SITENAMES_NEW=('CAX' 'BCI' 'ORN')
+set RESTARTCASES=('CLM5_SPR_SPIN_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_.bci_0.1x0.1_v4.0i'  'CLM5_SPR_SPIN_HL_.1x1pt_US-ORN' 'CLM5_SPR_SPIN_HL_.1x1pt_US-Brw'  'CLM5_SPR_SPIN_HL_.1x1pt_US-NR1'  'CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1'  'CLM5_SPR_SPIN_HL_.1x1pt_US-Me2')
+set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN' '1x1pt_US-Brw' '1x1pt_US-NR1' '1x1pt_US_Ha1' '1x1pt_US-Me2')
+set SITENAMES_NEW=('CAX' 'BCI' 'ORN' 'BRW' 'NWR' 'HAF' 'MET')
 set casesdir = CLM5_POINTSIMS
-set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.20tr'
+set co2streams='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_datm.streams.txt.co2tseries.allyear.20tr'
 
-set s=3
+set s=1
 while ($s<$nsites)
        set BASECASE=CLM5_$SITENAMES[$s]_ens_PI00 
   
@@ -51,12 +52,19 @@ while ($s<$nsites)
 
       # set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'"
 
-      set uclm="fsurdat='/glade/u/home/rfisher/single_point_drivers/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'"
 
-echo  $uclm >user_nl_clm
+        if( $s == $Ha1 )then
+          set site='1x1pt_US-Ha1'
+        else
+         set site=$SITENAMES[$s]
+        endif
+
+      set uclm="fsurdat='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/$site/surfdata_$site.nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'"
+
+      echo  $uclm >user_nl_clm
       echo $uclm
 
-      cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$SITENAMES[$s] user_nl_datm
+      cp /glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/co2_files/user_nl_datm_FACE_transient_ELEV_$site user_nl_datm
       cp $co2streams user_datm.streams.txt.co2tseries.20tr
        ./case.setup
 
