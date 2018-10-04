@@ -1,15 +1,16 @@
 \documentclass[draft,linenumbers]{agujournal}
-\draftfalse
-\usepackage{hyperref}
 
+\draftfalse
+
+\usepackage{hyperref}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan}
 
 \journalname{Journal of Advances in Modeling Earth Systems (JAMES)}
+
 \begin{document}
 
 \authors{Rosie Fisher\affil{1},
@@ -24,7 +25,6 @@ Mingjie Shi\affil{4},
 Katie Dagon\affil{1},
 Danica Lombardozzi\affil{1},
 Anthony Walker\affil{5},
-S\"onke Zaehle\affil{6},
 Gordon Bonan\affil{1},
 David Lawrence\affil{1}
 }
@@ -33,176 +33,344 @@ David Lawrence\affil{1}
 \author{rosie fisher}
 \date{April 2018}
 
-
 \affiliation{1}{National Center for Atmospheric Research, Table Mesa Drive, Boulder, Colorado, USA}
+
 \affiliation{2}{Lawrence Berkeley National Laboratory, Berkeley, California, USA}
+
 \affiliation{3}{Los Alamos National Laboratory, Los Alamos, New Mexico, USA}
+
 \affiliation{4}{NASA Jet Propulsion Laboratory, Pasadena, California, USA}
+
 \affiliation{5}{Oak Ridge National Laboratory, Oak Ridge, Tennessee, USA}
-\affiliation{6}{Max Planck Institute for Biogeochemistry, Jena, Germany}
+
 \correspondingauthor{Rosie Fisher}{rfisher@ucar.edu}
 
+
 \begin{keypoints}
-\item A suite of modifications to the Nitrogen cycle representation were added to the Community Land Model (version 5).
-\item New features of the N model include prognostic $V_{c,max}$ and $J_{max}$, representation of the carbon economic cost of Nitrogen uptake, switching of N uptake between alternative sources, variable tissue C:N ratios, dependant on N costs and distance from the target C:N ratio, and dynamic leaf resorption of Nitrogen. 
-\item Here we assess the sensitivity of the model to a suite of parameters pertinent to the cycle of Carbon and Nitrogen. We assess the dependence of the model state to parameter uncertainty, and also the responses of the system to higher CO2, Nitrogen and temperature.
-\item The model responses to CO2 and N fertilization are linked to the representation of the fraction of plants that can fix Nitrogen, and to the costs of N in the environment. Responses to temperature depend upon x,y,z.
-\item The model runs are conducted at representative sites in temperate, tropical and boreal systems. 
+
+\item A suite of modifications to the Nitrogen cycle representation were added to the Community Land Model, version 5 (CLM5).
+
+\item New features of the N model include prognostic $V_{c,max}$ and $J_{max}$, representation of the carbon economic cost of Nitrogen uptake, switching of N uptake between alternative sources, variable tissue C:N ratios and dynamic leaf resorption of Nitrogen.
+
+\item Here we assess the sensitivity of the model to a suite of parameters pertinent to the cycle of Carbon and Nitrogen. We assess the dependence of the both the model state, and also the responses of the system to higher CO2, Nitrogen and temperature to parameter uncertainty. Model runs are conducted at representative individual sites in temperate, tropical and boreal systems.
+
+\item The model responses to CO2 and N fertilization are primarily linked to the representation of the fraction of plants that can fix Nitrogen, and to the costs of N in the environment.
+
+\item Identification of the primary factors driving ecosystem responses to fertilization both assists in the interpretation of global simulations and in the identification of priorities for fieldwork and process updates.
 
 \end{keypoints}
 
-
-
 \section{Introduction}
 
-Simulating the cycling of nutrients, and how nutrient availability impacts ecosystem growth and function, has been repeatedly identified as a crucial element of Earth system models (\cite{piao2013}, \cite{gruber2008}, \cite{wang2009}). In the CMIP5 multi-model intercomparison process, only one model, the Community Land Model v4.0, included an active nitrogen (N) cycle. The CLM4.0 projected that inclusion of N dynamics might significantly limit the ability of the terrestrial biosphere to respond to fertilization by increasing atmospheric carbon dioxide (\cite{friedlingstein2006},\cite{friedlingstein2014}, \cite{arora2013}).  This result raises the question of whether the inclusion of Nitrogen cycling necessarily generates such substantial limitations controls on the fertilization response of the biosphere. 
+Simulating the cycling of nutrients, and how nutrient availability impacts ecosystem growth and function, has been repeatedly identified as a crucial element of Earth system models (\cite{piao2013}, \cite{gruber2008}, \cite{wang2009}). In the CMIP5 multi-model intercomparison process, only one model, the Community Land Model v4.0, included an active nitrogen (N) cycle. The CLM4.0 projected that inclusion of N dynamics might significantly limit the ability of the terrestrial biosphere to respond to fertilization by increasing atmospheric carbon dioxide (\cite{friedlingstein2006},\cite{friedlingstein2014}, \cite{arora2013}). Subsequent and parallel to CMIP5, many terrestrial biosphere and land surface models that represent N dynamics using alternative structural assumptions have been developed \cite{wang2007}, \cite{zaehle2010}, \cite{goll2012}, \cite{smith2014}). Nonetheless, substantial uncertainty remains in the land surface modeling community regarding how nutrient limitations should be represented in models (\cite{zaehledalmonech2011}).
 
-Substantial uncertainty remains in the land surface modeling community regarding how nutrient limitations should be represented in models (\cite{zaehledalmonech2011}). Unlike representations of photosynthetic responses to environmental conditions, or radiative transfer through forest canopies, our understanding of how nutrient cycling functions both within plants and in whole ecosystems is not governed by any well-tested and widely accepted paradigms.  
 
-Subsequent and parallel to CMIP5, many terrestrial biosphere and land surface models that represent N dynamics using alternative structural assumptions have been developed \cite{wang2007}, \cite{zaehle2010},  \cite{goll2012}, \cite{smith2014} ). Detailed model-data synthesis activities, notably those conducted at North American free-air carbon dioxide enrichment (FACE) experiments, have revealed important differences in model behavior emerging in part from the theoretical framework for and parameterization of nutrient cycling processes (\cite{zaehle2014}).  
+Unlike representations of photosynthetic responses to environmental conditions, or radiative transfer through forest canopies, our understanding of how nutrient cycling functions both within plants and in whole ecosystems is not governed by any well-tested and widely accepted paradigms. Detailed model-data synthesis activities, notably those conducted at North American free-air carbon dioxide enrichment (FACE) experiments, have revealed important differences in model behavior emerging in part from the absence of a broadly accepted theoretical framework for construction and parameterization of nutrient cycling processes (\cite{zaehle2014}). Few, if any studies, however, have looked at how CO$_{2}$ or N fertilization are governed by the parameters or structure of a given model.
 
-The Community Land Model is the land surface representation within the Community Earth System Model (CESM, \cite{hurrell2013}.  Version 5 of the CLM was recently released to the research community as part of the CESM2.0 release. An overview of model developments is presented by \cite{lawrence2018}, a descriptions of the global Nitrogen cycling by Wieder et al. (in prep), the crop model (Lombardozzi et al. in prep), the land use components (Lawrence P et al. in prep), land surface hydrology (Swenson et al. in prep) and plant hydraulics (Kennedy et al. in prep). 
 
-The CLM5 model includes numerous major update of the nitrogen cycling representation subsequent to CLM4.0 and CLM4.5. The introduction of these new dynamic features into the CLM5 model has implications for parameter uncertainty and responses to environmental forcing. Wieder et al. (in prep) report the global-scale implications of the full model update.  In this paper, we describe the new components of the biogeochemical cycling of nitrogen, their impacts upon the model system state and responses to environmental forcing. 
+The Community Land Model is the land surface representation within the Community Earth System Model (CESM, \cite{hurrell2013}). Version 5 of the CLM was recently released to the research community as part of the CESM2.0 release. An overview of model developments is presented by \cite{lawrence2018}, a descriptions of the global Nitrogen cycling by Wieder et al. (in prep), the crop model (Lombardozzi et al. in prep), the land use components (Lawrence P et al. in prep), land surface hydrology (Swenson et al. in prep) and plant hydraulics (Kennedy et al. in prep).
+
+
+The CLM5 model includes numerous major update of the nitrogen cycling representation subsequent to CLM4.0 and CLM4.5. The introduction of several new dynamical features into the CLM5 has implications for both parameteric uncertainty and responses to environmental forcing. Wieder et al. (in prep) report the global-scale implications of the full model update and note that the CLM( responds more strongly to CO2 and less strongly to N fertilization than its predecessors. In this paper, we describe the new components of the biogeochemical cycling of nitrogen, their impacts upon the model system state and responses to environmental forcing.
 
 
 \subsection{Model Updates}
-The CLM5 nitrogen cycling builds on the developments of the implementation of the CLM4.0 'CN' model (\cite{thornton2007}), and on modifications to the biogeochemical cycling (notably vertically stratified soil decomposition processes) included in the interim CLM4.5 model (\cite{koven2013}, \cite{bonan2012}).  The new model integrates three major additional prognostic elements of the Nitrogen cycle, including: \\
 
-1)	The LUNA model (Leaf Utilization of Nitrogen for Assimilation), which simulates distribution of N between different leaf assimilation processes ( \cite{xu2012} and \cite{ali2016}) \\
-2)  The FUN module (Fixation and Uptake of Nitrogen), which simulates the dynamics of Nitrogen acquisition from the environment \cite{fisher2010fun} \cite{brzostek2014} and \cite{shi2016}.\\
-3)	The `FLEXCN' N cycle implementation, which is used primarily to allow variation in tissue C:N ratios, and is adapted from \cite{ghimire2016}.\\
+The CLM5 nitrogen cycling builds on the developments of the implementation of the CLM4.0 'CN' model (\cite{thornton2007}), and on modifications to the biogeochemical cycling (notably vertically stratified soil decomposition processes) included in the interim CLM4.5 model (\cite{koven2013}, \cite{bonan2012}). The new model integrates three major additional prognostic elements of the Nitrogen cycle, including: \\
 
 
-More details on each of these new components is given below. A full technical description of the CLM5 is an appendix to \cite{lawrence2018} and is also available online at \url{https://escomp.github.io/ctsm-docs}
+1) The `LUNA' model (Leaf Utilization of Nitrogen for Assimilation), which simulates distribution of N between different leaf assimilation processes (\cite{xu2012}, \cite{ali2016}) \\
+
+2) The `FUN' module (Fixation and Uptake of Nitrogen), which simulates the dynamics of Nitrogen acquisition from the environment (\cite{fisher2010fun}, \cite{brzostek2014}, \cite{shi2016}).\\
+
+3) The `FLEXCN' N cycle implementation, which is used here primarily to allow variation in tissue C:N ratios, and is adapted from \cite{ghimire2016}.\\
+
+
+
+More details on each of these new components is given below. A full technical description of the CLM5 is an appendix to \cite{lawrence2018} and is also available online at \url{(https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/index.html).}
+
 
 \subsubsection{LUNA}
 
-Most land surface models predict photosynthetic parameters from leaf nitrogen content (\cite{kattge2009}, \cite{bonan2012}). There is significant evidence, however, that plant photosynthetic capacity can respond to environmental conditions, including CO$_{2}$ fertilization \cite{ainsworth2007} and changing temperature \cite{hikosaka2005}, irradiance (\cite{niinemets1998}) and soil moisture (\cite{keenan2009}). Given the importance of photosynthetic capacity as a key model parameter (\cite{rogers2017}) the use of a static photosynthetic capacity appears to be a poor means of capturing its variation in time and space and responses to climatic change (\cite{walker2017}).
+Most land surface models predict photosynthetic parameters from leaf nitrogen content (\cite{kattge2009}, \cite{bonan2012}). There is significant evidence, however, that plant photosynthetic capacity can respond to environmental conditions, including CO$_{2}$ fertilization (\cite{ainsworth2007}) and changing temperature (\cite{hikosaka2005}), irradiance (\cite{niinemets1998}) and soil moisture (\cite{keenan2009}). Given the importance of photosynthetic capacity as a key model parameter (\cite{rogers2017}) the use of a static photosynthetic capacity appears to be a poor means of capturing its variation in time and space and responses to climatic change (\cite{walker2017}).
 
-The LUNA model predicts the optimal balance of of $V_{c,max}$ and $J_{max}$ for the prevailing time-averaged environmental conditions.   The model determines the rate constants that are consistent with a co-limitation of photosynthesis by both electron capture and carboxylation processes. In this fashion, $V_{c,max}$ is primarily controlled by the N per unit leaf area ($N_{area}$) and environmental conditions. The capacity of the LUNA model to represent appropriate responses to temperature and CO$_{2}$ was assessed by \cite{xu2012} while the global calibration and the geographical predictions of the model were described by \cite{ali2016}.  
+
+The LUNA model predicts the optimal balance of of $V_{c,max}$ and $J_{max}$ for the prevailing time-averaged environmental conditions. The model determines the rate constants that are consistent with a co-limitation of photosynthesis by both electron capture and carboxylation processes. In this fashion, $V_{c,max}$ is primarily controlled by the N per unit leaf area ($N_{area}$, which is itself a function of the target C/N ratio, the specific leaf area, and the prognostic variation in leaf C/N ratios) and environmental conditions. The capacity of the LUNA model to represent appropriate responses to temperature and CO$_{2}$ was assessed by \cite{xu2012} while the global calibration and the geographical predictions of the model were described by \cite{ali2016}.
+
 
 \subsubsection{FUN}
-Under circumstances where insufficient N exists to match all of the carbon assimiliated for a given C:N ratio, the CLM4.0 model reduced the gross photosynthetic flux down to the level at which growth could be supported by the assmilated N. This process occurred after the calculation of stomatal condutance (which is linked to assimilation rates via the Ball-Berry model) and therefore created inconsistancies between C assimilation and water cycling, especially under conditions of N limitation, as discussed extensively in the literature (\cite{medlyn2011}, \cite{dekauwe2014}, \cite{walker2014}, \cite{bonan2012}). One major issue confronting N cycle models is how to deal with this 'excess' carbon under N limiting conditions. DISCUSS OTHER MODELS, OCN, ETC. 
 
-The FUN model operates on the principle that for the primary sources of Nitrogen acquisition by plants (active uptake from soil, retranslocation from senescing tissues, and symbiotic N fixation) there is a concurrent cost in terms of carbon. Further, the cost of each of these uptake pathways is variable in time and space, and thus plants will likely take up Nitrogen from pathways which are 'cheaper' to them. Where N is scarce in the environment, carbon that would otherwise have been used for growth can be deployed to acquire more N. The central element of FUN is a simulataneous equation which assumes, firstly, that the carbon available for growth ($C_{growth}$) is the total carbon available ($C_{avail}$), minus that used for Nitrogen uptake, $C_{nuptake}$:
+Under circumstances where insufficient N exists to match all of the carbon assimilated for a given C:N ratio, the CLM4.0 model reduced the gross photosynthetic flux down to the level at which growth could be supported by the assimilated N. This process occurred after the calculation of stomatal conductance (which is linked to assimilation rates via the Ball-Berry model) and therefore created inconsistencies between C assimilation and water cycling, especially under conditions of N limitation, as discussed extensively in the literature (\cite{medlyn2011}, \cite{bonan2012}, \cite{dekauwe2014}, \cite{walker2014}).
 
-\begin{equation}
-C_{growth}=C_{avail}-C_{nuptake}
-\end{equation}
 
-Further, the Nitrogen acquired from the environment must equal that which is deployed in the growing plant tissues. The carbon used for growth is further reduced by the growth respiration term ($f_{gr}$) which applies only to tissues that are constructed:
+One major issue confronting N cycle models is how to deal with this 'excess' carbon under N limiting conditions (\cite{zaehle2010}, \cite{dekauwe2014}). The FUN model operates on the principle that for the alternative sources of Nitrogen acquisition by plants (active uptake from soil, retranslocation from senescent tissues, and symbiotic N fixation) there is a concurrent cost in terms of carbon. Further, the cost of each of these uptake pathways is variable in both time and space. FUN hypothesizes that plants will take up Nitrogen from pathways which are 'cheaper' to them. Where N is scarce in the environment, carbon that would otherwise have been used for plant growth can be deployed to acquire (pay for) more N. The central element of FUN is a simultaneous equation which assumes, firstly, that ($C_{avail}$), the total carbon available (after maintenance respiration and replenishment of stores are accounted for) is either used for plant growth ($C_{growth}$) or for Nitrogen uptake, ($C_{nuptake}$).
+
 
 \begin{equation}
-C_{nuptake}/N_{cost} =\frac{C_{growth}}{(CN_{target}/(1.0+f_{gr})}
+C_{growth}=C_{avail}+C_{nuptake}
 \end{equation}
+
+
+Further, the Nitrogen acquired from the environment ($N_{uptake}$) must equal that which is deployed in the growing plant tissues. The carbon used for growth is further reduced by the growth respiration term ($f_{gr}$) which applies only to tissues that are constructed:
+
+
+\begin{equation}
+N_{uptake}=C_{nuptake}/N_{cost} =\frac{C_{growth}}{(CN_{target}/(1.0+f_{gr})}
+\end{equation}
+
 
 Thus the Carbon that is expended on N uptake is determined by:
+
 \begin{equation}
 C_{nuptake} =\frac{C_{avail}}{ ( (1.0+f_{gr})*(CN_{target} / N_{cost}) + 1) }
 \end{equation}
 
+
 The average Nitrogen cost ($N_{cost}$) is derived from the simultaneous uptake of N across all uptake streams, while the target CN ratio ($CN_{target}$) is the combined target CN ratio of all the plant tissues, weighted for the size of the different pools. The FUN model is documented \href{https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/FUN/CLM50_Tech_Note_FUN.html}{here}
 
-A further issue addressed by FUN is the preferential use of symbiotic N fixation by leguminous plants when N is very limiting. The CLM4.0 and CLM4.5 predict N fixation as a linear function of net primary productivity. \cite{wieder2015} illustrate the impacts of uncertainty in this function, but FUN considers fixation rates to be an emergent property of plant assimilation rates, the relative costs of environmental N acquisition, and temperature, which exerts a primary control over the enzymatic processes, following \cite{houlton2008}. 
+
+A further issue addressed by FUN is the preferential use of symbiotic N fixation when soil mineral N concentrations are low (\cite{vitousek2002}). The CLM4.0 and CLM4.5 predict N fixation as a linear function of net primary productivity (\cite{wieder2015} illustrate the impacts of uncertainty in this function) but FUN considers fixation rates to be an emergent property of plant assimilation rates (providing carbon for fixation), the relative costs of environmental N acquisition, and temperature (which exerts a primary control over the enzymatic processes, following \cite{houlton2008}). Fixation is preferred when the costs of N acquisition are higher than that of fixation. Note that while the CLM5 has no representation of biological succession (\cite{fisher2018}), this property nonetheless affects the amount of time taken to achieve a spun-up state from bare ground, in productive areas, N fixation is preferred and soil N builds up much quicker. In low productivity areas, carbon is required to fix N from a 'col start' initial state, impacting the survival of marginal plants; thus higher initial stocks of N are required to allow growth once metabolic and turnover costs have been met in early spin-up.
+
 
 \subsubsection{FLEXCN}
-Several elements of model behaviour that are critical for simulation of plant responses to variation in nitrogen availability  emerged from the FACE model data synthesis activity that were not captured by previous versions of the CLM Nitrogen cycle (\cite{zaehle2014}, \cite{medlyn2015using}). For example, changes in the C:N ratio accounted for large changes in ecosystem carbon storage,  but these are not captured by the static tissue C:N ratios used in the CLM4.0 and CLM4.5 nitrogen cycle. For this reason, we introduce a flexible tissue C:N ratio into the CLM5. 
 
-\cite{ghimire2016} implemented a suite of modifications to the Nitrogen cycling including variable tissue C:N ratio, prognostic Vcmax (resulting from this dynamic leaf N content) and also an alternative Nitrogen uptake algorithm. In CLM5, the LUNA model predicts $V_{c,max}$ from leaf N content (while also taking into account environmental conditions), and the FUN model represents Nitrogen uptake, the primary element of CLM5 utilized from the \cite{ghimire2016} model is the modification to the allocation scheme that allows tissue C:N ratios to be modified in response to varying supply of Nitrogen. In this new algorithm, Nitrogen supply is partitioned between tissues according to their relative 'demand' terms (ascertained from the target C:N ratio and the carbon allocated to the pool) and C:N ratios vary with Nitrogen supply rates. This new allocation code we term the FLEXCN module, and it is documented in ***. 
+Several elements of model behaviour that are critical for simulation of plant responses to variation in nitrogen availability emerged from the FACE model data synthesis activity that were not captured by previous versions of the CLM Nitrogen cycle (\cite{zaehle2014}, \cite{medlyn2015using}). For example, changes in the C:N ratio accounted for large changes in ecosystem carbon storage, but these are not captured by the static tissue C:N ratios used in the CLM4.0 and CLM4.5 nitrogen cycle. For this reason, we introduce a flexible tissue C:N ratio into the CLM5.
+
+
+\cite{ghimire2016} implemented a suite of modifications to the CLM Nitrogen cycling model, including variable tissue C:N ratio, prognostic $V_{c,max}$ (resulting from this dynamic leaf N content) and also an alternative Nitrogen uptake algorithm. In the default configuration of CLM5, the LUNA model predicts $V_{c,max}$ from leaf N content (while also taking into account environmental conditions), and the FUN model represents Nitrogen uptake, the primary element of CLM5 utilized from the \cite{ghimire2016} model is the modification to the allocation scheme that allows tissue C:N ratios to be modified in response to varying supply of Nitrogen (although the alternative schemes implemented by \cite{ghimire2016} are available as options). In this new allocation algorithm, the total Nitrogen supply in each timestep is partitioned between tissues according to their relative 'demand' terms (ascertained from the target C:N ratio and the carbon allocated to the pool) and C:N ratios vary with Nitrogen supply rates. This new allocation code we term the FLEXCN module.
+
 
 \subsubsection{Adaptation of FUN to flexible CN ratios}
-The FUN model was originally conceived with a static tissue CN ratio, and will by default allocated an amount of carbon to N uptake that will exactly track the target CN ratio. In CLM5, one of the aims of the development process was to incorporate a varying CN ratio. To that end, it is necessary to modify the amount of Carbon expended on N uptake (and thus the amount of N required). The degree to which tissue CN content varies as N becomes limiting in unclear in the literature, and N cycle models typically include heuristic representations of tissue N adjustments in light of limitations (including \cite{zaehle2010},\cite{ghimire2016}). Here we include a placeholder algorithm that adapts to 1) the environmental cost of N acquisition and 2) the degree to which the plant is already far from it's target N content. When N is expensive in the environment, less C is spent on uptake, increasing CN ratios where N is scarce. When plants become extremely N limited, however, expenditure increases again to prevent CN ratios becoming unrealistically high.    
+
+The FUN model was originally conceived with a static tissue CN ratio, and will by default allocated an amount of carbon to N uptake that will exactly track the target CN ratio. In CLM5, one of the aims of the development process was to incorporate a varying CN ratio. To that end, it is necessary to modify the amount of Carbon expended on N uptake (and thus the amount of N required). The degree to which tissue CN content varies as N becomes limiting in unclear in the literature, and N cycle models typically include heuristic representations of tissue N adjustments in light of limitations (including \cite{zaehle2010},\cite{ghimire2016}). Here we include a placeholder algorithm that adapts to 1) the environmental cost of N acquisition and 2) the degree to which the plant is already far from it's target N content. When N is expensive in the environment, less C is spent on uptake, increasing CN ratios where N is scarce. When plants become extremely N limited, however, expenditure increases again to prevent CN ratios becoming unrealistically high. This new algorithm is also documented in the CLM5 technical description ((\url{(https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/index.html)}) and includes three tuning parameters ($flexcn_{a}$, $flexcn_{b}$ \& $flexcn_{c}$) the sensitivity of which is investigated here.
 
 
-\subsubsection{Content of this paper}
+\subsection{Content of this paper}
+
 In this paper, we assess in detail the sensitivity of the CLM5 model structure to its input parameters. We use\\
+
 1. A range of single site experiments \\
+
 2. One-at-a-time and global parameter uncertainty analyses\\
+
 3. CO$_{2}$ fertilization experiments and\\
+
 4. Nitrogen addition experiments.\\
-to fully investigate the performance of the model under steady state, transient and step-change modifications. We thus illustrate how model parametric choices might affect overall behaviour in larger-scale experiments,  provide guidance on which elements of the model system require greatest attention in future model development and testing cycles. 
-Because of the increased number of prognostic processes with the CLM5, many alternative representation of C:N cycle interactions are possible within the same model structural space, including a removal of N fixation capacity and a return to fixed C:N ratios. We further investigate the consequences of turning off the LUNA model and returning to a fixed leaf N/$V_{c,max}$ relationship as defined by \cite{ghimire2016}. 
+
+to fully investigate the performance of the model under steady-state and step-change modifications in forcing. Given the large amount of analysis and attention devoted to assessing the impacts of transient CO$_{2}$ and N in the context of global feedback loop analysis, we thus consider it a worthwhile exercise to illustrate how parametric choices in the CLM5 might affect overall behaviour in larger-scale experiments, including the controls on global carbon fertilization `$\beta$' values. We also hope to highlight areas of process and parameter uncertainty that appear to require greater attention in future model development and testing cycles. 
+
+Because of the increased number of prognostic processes with the CLM5, many alternative representation of C:N cycle interactions are possible within the same model structural space, including an effective removal of N fixation capacity (where carbon available for fixation is fixed at 0$\%$ of assimilation) and variation in the degree to which to C:N ratios are flexible. We further investigate the consequences of turning off the LUNA model and returning to the fixed leaf N/$V_{c,max}$ relationship from \cite{ghimire2016}.
 
 \section{Methods}
 
+
 \subsection{Sites}
-For this experiment we use three different model evaluation sites. Two in tropical forests (Caxiuana and Barro Colorado Island) one in temperate forest (the Oak Ridge National Lab - Free Air Carbon Dioxide Enrichment (FACE) experiment) and the Barrow flux tower, as an example of a boreal system. 
+
+For this experiment we utilized six different experimental sites. Two in tropical forests (Caxiuana and Barro Colorado Island) two in temperate forest (the Oak Ridge National Lab - Free Air Carbon Dioxide Enrichment (FACE) experiment and Harvard Forest), one in high altitude forest (Niwot Ridge, Colorado) and one in seasonally dry evergreen forest (Metolius Forest).
+
 
 \subsection{Simulation Protocol}
-We spun up the default version of the model for 400 years at each site, using pre-industrial CO$_{2}$ concentrations (274ppm) and recycling the available meterological inputs. 400 years was sufficient to bring all carbon and nitrogen pools into equilibrium. Subsequent to this, parameters we perturbed (see below), and a second spin-up conducted for 180 years at each site. Using the state at the end of the perturbed spin-ups, we ran transient simulations for each site and parameter combination starting in 1850 and invoking transient CO$_{2}$ and Nitrogen deposition. We ran additional CO$_{2}$ and Nitrogen deposition experiments by increasing the CO$_{2}$ concentration to 550ppm. In the case of the Oak Ridge FACE experiment, we only increased CO$_{2}$ in the growing season, in line with the experimental protocol applied there and using the observed CO$_{2}$ timeseries. For all other sites, we increased CO$_{2}$ to 550ppm year round starting in 1997**.  For Nitrogen, we added 5kgN/$m^{2}$/year, also starting in 1997, so that the results can be compared with those reported by Wieder et al. (in prep). 
+
+We spun up the default version of the model for 400 years at each site, in 'accelerated spin-up' mode (where the turnover of slower cycling carbon and nitrogen pools is accelerated, see (/cite{lawrence}) using pre-industrial CO$_{2}$ concentrations (274ppm) and recycling the available site-level meteorological inputs. 400 years was sufficient to bring all carbon and nitrogen pools into equilibrium. Subsequent to this, parameters were perturbed (see below), and a second spin-up conducted for 180 years at each site, with accelerated mode turned off. Using the state at the end of the perturbed parameter spin-ups, we ran transient simulations for each site and parameter combination starting in 1850 and invoking transient CO$_{2}$ and Nitrogen deposition until the end of the observed meteorological forcing. We ran additional CO$_{2}$ and Nitrogen deposition experiments by increasing the CO$_{2}$ concentration to 550ppm. For the Oak Ridge FACE site, we only increased CO$_{2}$ in the growing season, in line with the experimental protocol applied there and using the observed CO$_{2}$ time-series. For all other sites, we increased CO$_{2}$ to 550ppm year round starting in 1997**. For Nitrogen, we added 5kgN $m^{-2}$/year, also starting in 1997, so that the results can be compared with those reported by Wieder et al. (in prep).
+
 
 \subsection{Perturbed Physics Ensemble (PPE)}
-The CLM5 has a very large number of parameters to which the C and N cycles are potentially sensitive. Here we focused on parameters of particular relevance to the C and N cycles and on those which are newly introduced by the modified N cycle. We choose a larger set of parameters for one-a-time analyses, followed by a smaller set of these to which we subject the model to global sensitivity tests. Knowledge of model structure as well as previous investigations of the CLM model informs our choice of parameters here. Our principle goal is to identify parameters that might have large impacts on responses to model forcing, as opposed to changes in the base state of the model, since these are the primary determinants of the carbon cycle feedback in the context of the Earth System Model.  However, we also report responses of the model state to perturbations. Additional investigations into the parametric sensitivity of the hydrology and surface energy balance in the CLM5 are planned (Dagon et al. in prep) and into the plant hydraulics parmeterizations (Kennedy et al in prep).
 
-In the first instance, we conduct one-at-a-time (OAAT) perturbations of the parameters around a mean state, to allow a straightforward visualization and interpretation of the results. For each parameter, for each site, we conduct four simulations, with two above and two below the default value (as well as the default simulation).  
+The CLM5 has a very large number of parameters to which the C and N cycles are potentially sensitive. Here we focused on parameters of particular relevance to the C and N cycles and on those which are newly introduced by the modified N cycle. We choose a larger set of parameters for one-at-a-time analyses, followed by a smaller set of these to which we subject the model to global sensitivity tests. Knowledge of model structure as well as previous investigations of the CLM model informs our choice of parameters. Our principle goal is to identify parameters that might have large impacts on responses to model forcing, as opposed to changes in the base state of the model, since these are the primary determinants of the carbon cycle feedback in the context of the Earth System Model. However, we also report responses of the model state to perturbations. Additional investigations into the parametric sensitivity of the hydrology and surface energy balance in the CLM5 are planned (Dagon et al. in prep) and into the plant hydraulics parameterizations (Kennedy et al in prep), thus, we have not included the full range of those parameters here.
+
+
+In the first instance, we conduct one-at-a-time (OAAT) perturbations of the parameters around a mean state, to allow a straightforward visualization and interpretation of the results. For each parameter, for each site, we conduct four simulations, with two above and two below the default value (as well as the default simulation).
+
 
 \subsubsection{Parameter Choices}
-The parameters included in our sensitivity analysis (Table \ref{table_parameters}) are: 1) \textbf{Specific Leaf Area}, \emph{`SLA'}, which is a critical parameter determining the area of canopy (in m$^{2}$) derived from one gram of leaf biomass. This parameter is known to be one of the critical elements of the leaf economics spectrum, and is well-characterized by the TRY database (\cite{kattge2011}). 2) \textbf{Fine root are per unit leaf area}, \emph{`froot\_leaf'}, the ratio of fine root biomass to leaf area. Unlike in previous versions of the CLM, fine root biomass now affects the capacity of the model to acquire both water and nutrients, thus the impact of this parameter is of greater interest than it's previous functionality as a simple 'tax' on plant growth. 3) \textbf{Stem to leaf are ratio}, \emph{`stem\_leaf'}, reflects the balance between accumulation of stem and woody biomass, and leaf area, and thus has large impacts both on the leaf area index achievable for a given productivity, and conversely on the equilibrium woody biomass stored. 4) \textbf{Nitrogen Costs}, \emph{`n\_costs'}, are a set of parameters that determine the environmental cost of Nitrogen uptake from the soils. These six parameters were previously defined by \cite{brzostek2014}. Here and in CLM5 in general, we maintain the ratios of the parameters as defined by the existing FUN model calibration, but then allow the magnitudes of the parameters to change concomitantly. These parameters include \emph{ekc\_active} and  \emph{ekn\_active}, the rate constants that relate the cost of ectomycorhhizal uptake to root carbon (ekc) and soil N concentration (ekn), and their counterparts \emph{akc\_active} and  \emph{akn\_active} for arbuscular mycorrhizal fungi, and  \emph{kc\_nonmyc} and  \emph{kn\_nonmyc} for non-mycorrhizal active uptake. 5) \textbf{The fraction of carbon that can be used for fixation}, \emph{fracfixers}. This parameter is the fraction of the assimilation ($gpp$ - $R_{auto}$) that can be used for symbiotic N fixation by the FUN model, and is a proxy for the ecosystem-level fractional productivity of Nitrogen fixing plants. 6) \textbf{The fraction of carbon spent on respiration per unit of new tissue (growth respiration)}, \emph{grperc}, was revised substantially in CLM5 based on Atkin O. (pers comm.) from 0.3 to 0.11. Here we test the impacts of this change on overall carbon budgets. 7) \textbf{Leaf carbon:nitrogen target}, \emph{leafcn}. CLM5 uses the concept of a 'target' leafcn ratio, around which flexibility is allowed, given the environmental costs of Nitrogen. LeafCN ratios are used also as input to the LUNA model to determine photosynthetic rate constants ($V_{c,max}$ and $J_{max}$) 8)  \textbf{Slope of stomatal conductance model}, \emph{medlyn\_slope}.  This new parameter, which replaces the fixed Ball-Berry slope used in CLM5, (and is PFT-dependant), is critically linked to the response of ecosystems to CO$_{2}$, assessed in this set of experiments. 9) \emph{The intercept of the Atkin 2015 leaf maintenance respiration model}, \textbf{lmr\_intercept}. The new leaf maintenance respiration model, proposed by \cite{atkin2015} and adopted by CLM5, has it's intercept as a PFT dependant parameter, with variation between PFTs reported by \cite{atkin2015} and used herein. Here we test the impacts of the uncertainty in the observations of this parameter. 10) \textbf{Fraction of uptake that is ectomycorrhizal}, \emph{frac\_ecto}, is another ecosystem-level property defined by the FUN model and allowing the proportions of the fungal symbiotic pathways to be modified. This capacity was not fully developed in the CLM5 development process and so here we assess its importance. 11,12,13) \textbf{Parameters a,b and c of the flexible CN model linked to FUN}, \emph{cn\_flex\_a, cn\_flex\_b, \& cn\_flex\_c}, as described in Appendix 1.  
+
+The parameters included in our sensitivity analysis (Table \ref{table_parameters}) are: \\
+
+1) \textbf{Specific Leaf Area}, \emph{`SLA'}, which is a critical parameter determining the area of canopy (in m$^{2}$) derived from one gram of leaf biomass. This parameter is known to be one of the primary elements of the leaf economics spectrum (\cite{wright2004}), and is well-characterized by the TRY database (\cite{kattge2011}).\\
+
+2) \textbf{Fine root area per unit leaf area}, \emph{`froot\_leaf'}, the ratio of fine root biomass to leaf area. Unlike in previous versions of the CLM, fine root biomass now affects the capacity of the model to acquire both water and nutrients (via the resistance to water flow and the cost of N acquisition), thus the impact of this parameter is of greater interest than it's previous functionality as a simple 'tax' on plant growth. \\
+
+3) \textbf{Stem to leaf area ratio}, \emph{`stem\_leaf'}, reflects the balance between accumulation of stem and woody biomass, and leaf area. Increases in this parameter decrease the leaf area index achievable for a given productivity, and conversely increase the equilibrium woody biomass predictions.\\
+
+4) \textbf{Nitrogen Costs}, \emph{`n\_costs'}, are a set of parameters that determine the environmental cost of Nitrogen uptake from the soils. These six parameters were previously defined by \cite{brzostek2014}. Here and in CLM5 in general, we maintain the ratios of the parameters as defined by the existing FUN model calibration, but then allow the magnitudes of the parameters to change concomitantly, since the definitions of soil N availability vary between CLM5 and \cite{brzostek2014}. These parameters include \emph{ekc\_active} and \emph{ekn\_active}, the rate constants that relate the cost of ectomycorhhizal uptake to root carbon (ekc) and soil N concentration (ekn), and their counterparts \emph{akc\_active} and \emph{akn\_active} for arbuscular mycorrhizal fungi, and \emph{kc\_nonmyc} and \emph{kn\_nonmyc} for non-mycorrhizal active uptake. \\
+
+5) \textbf{The fraction of carbon that can be used for fixation}, \emph{`'fracfixers'}. This parameter is the fraction of the assimilation (gross primary productivity - autotropihic respiration, or $gpp$ - $R_{auto}$) that can be used for symbiotic N fixation by the FUN model, and is a proxy for the ecosystem-level fractional productivity of Nitrogen fixing plants, in lieu of, for example, a prognostic model of N fixer distributions, or an input map of their abundance, both of which could plausibly be added in future generations of CLM. \\
+
+6) \textbf{The fraction of carbon spent on respiration per unit of new tissue (growth respiration)}, \emph{grperc}, was revised substantially in CLM5 based on Atkin O. (pers comm.) from 0.3 to 0.11. Here we test the impacts of this change on overall carbon budgets.\\
+
+7) \textbf{Leaf carbon:nitrogen target}, \emph{leafcn}. CLM5 uses the concept of a 'target' leafcn ratio, around which flexibility is allowed, given the environmental costs of Nitrogen. LeafCN ratios are used also as input to the LUNA model to determine photosynthetic rate constants ($V_{c,max}$ and $J_{max}$) \\
+
+8) \textbf{Slope of stomatal conductance model}, \emph{medlyn\_slope}. This new parameter, which replaces the fixed Ball-Berry slope used in CLM5, (and is PFT-dependant), is critically linked to the response of ecosystems to CO$_{2}$, assessed in this set of experiments. \\
+
+9) \textbf{Respiration intercept}, \emph{lmr\_intercept}. The new leaf maintenance respiration model, proposed by \cite{atkin2015} and adopted by CLM5, has it's intercept as a PFT dependant parameter, with variation between PFTs reported by \cite{atkin2015} and used herein. Here we test the impacts of the uncertainty in the observations of this parameter. \\
+
+10) \textbf{Fraction of uptake that is ectomycorrhizal}, \emph{frac\_ecto}, is another ecosystem-level property defined by the FUN model and allowing the proportions of the fungal symbiotic pathways to be modified. Default parameters are as provided by \cite{shi2016}. This capacity was not fully explored in the CLM5 development process and so here we assess its importance. \\
+
+11,12,13) \textbf{Parameters a,b and c of the flexible CN model linked to FUN}, \emph{cn\_flex\_a, cn\_flex\_b, \& cn\_flex\_c}, as described in Appendix 1, which determine the response of tissue CN ratios to depletion of N in both the environment and the plant tissues themselves.
+
 
 \subsubsection{Parameters not used}
-We conducted a set of tests on the parameters of the denitrification model, to assess the impacts of differing rates of N loss on the system. However, analysis has shown that the rates of denitrification in CLM5 are very low, overall (compared to plant uptake and immobilization) and hence these parameters had very little impact. We did not conduct tests on leaf lifespan, since for evergreen trees in CLM5, leaf lifespan and specific leaf area have very similar impacts on overall achievable leaf area. Parameters related to the hydrological cycle and to the plant hydraulics scheme are the subject of assessment in Dagon et al. (in prep). We did not investigate any parameters relating to the crop model (Lombardozzi et al. in prep) nor to plant harvest, fire, dust, soil biogeochemical cycling (which is largely unaltered from CLM4.5, \cite{koven2013} apart from modifications presented by Lawrence et al. (in prep). 
+
+We conducted a set of tests on the parameters of the denitrification model, to assess the impacts of differing rates of N loss on the system. However, recent analysis has shown that the rates of overall denitrification in CLM5 are very low, overall (compared to plant uptake and immobilization \textbf{I've forgotten why this is? Can someone remind me}) and hence these parameters had very little impact. We did not conduct tests on leaf lifespan, since for evergreen trees in CLM5, leaf lifespan and specific leaf area have very similar impacts on overall achievable leaf area, and for deciduous trees, leaf lifespan is primarily determined by phenological triggers. We did not investigate any parameters relating to the crop model (Lombardozzi et al. in prep) nor to plant harvest, fire, dust, soil biogeochemical cycling (the latter being is largely unaltered from CLM4.5, \cite{koven2013} apart from modifications presented by \cite{lawrence}.
+
 
 \subsubsection{Parameter Ranges}
-1. \emph{Specific Leaf Area} and \emph{leafCN} are defined in the TRY database, and their distributions are log-normally distributed. Thus, we take the average log-normal standard deviation range from TRY and apply it across all PFTs. Thus the lower bounds are closer to the mean than the higher bounds (Table \ref{table_ranges}). The range of \emph{fracfixers} was set to vary across the whole logical range from 0 to 1.  \emph{grperc} ranges from zero up to the range of the previously used CLM value (0.3). \emph{lmr\_intercept} and \emph{medlyn\_slope} are both set such that the range of values tested represents the range across all the PFTs reported in \cite{atkin2015} and \cite{dekauwe2015}. The ranges of the \emph{cn\_flex} parameters are unknown, since these physiological controls are poorly understood, thus we used ranges that span the response limits of these parameters, particularly for  \emph{cn\_flex\_c} which we explored across four orders of magnitude to investigate the impacts of leafCN flexibility. The allometric parameters ***
 
-\subsection{Analysis}
-We calculated the impact of the CO$_{2}$ and N deposition by assessing the ratio between the control and the transient simulations ** for the years 2001-2003. For some parameter settings, the constraint on growth caused by the parameter itself placed the system in a state close to death. Addition of N or CO$_{2}$ therefore causes either a very strong recovery of the plants, or no recovery at all, leading to large non-linearities in how parameters are linked with responses to environmental forcing. Therefore, for those parameter combinations which cause LAI to be less than 80\% of the control simulation value, we exclude the CO$_{2}$ and Nitrogen responses from our plotting, so as to focus on parameter combinations that give realistic initial vegetation conditions. 
+\emph{Specific Leaf Area} and \emph{leafcn} are defined in the TRY database, and their distributions are log-normally distributed. Thus, we take the average log-normal standard deviation range from TRY and apply it across all PFTs. Thus the lower bounds are closer to the mean than the higher bounds (Table \ref{table_ranges}). The range of \emph{fracfixers} and \emph{frac\_ecto} were set to vary across the whole logical range from 0 to 1 (0 to 100\% of ecosystem productivity being available for fixation or ectomycorrhizal uptake). \emph{grperc} ranges from its logical lower bound of zero up to the range of the previously used CLM value (0.3). \emph{lmr\_intercept} and \emph{medlyn\_slope} are both set such that the range of values tested represents the range across all the PFTs reported in \cite{atkin2015} and \cite{dekauwe2015}. The ranges of the \emph{cn\_flex} parameters are unknown, since these physiological controls are poorly understood, thus we used ranges that span the response limits of these parameters, particularly for \emph{cn\_flex\_c} which we explored across four orders of magnitude to investigate the impacts of leafCN flexibility. The allometric parameters ***. Nitrogen parameters.
+
+
+\subsection{Analysis}\\
+We calculated the impact of the CO$_{2}$ and N deposition by assessing the ratio between the control and the fertilized simulations for the years 2001-2003. For some parameter settings, the constraint on growth placed the system in a state close to death. Addition of N or CO$_{2}$ therefore caused either a very strong recovery of the plants, or no recovery at all where biomass is already zero, leading to occasional large non-linearities in how parameters are linked with responses to environmental forcing. Therefore, for those parameter combinations which cause LAI to be less than 80\% of the control simulation value, we exclude the CO$_{2}$ and Nitrogen responses from our plots, so as to focus on the responses of parameter combinations that give realistic initial vegetation conditions.
 
 
 \section{Results}
 
-\subsection{Response of state to parameter perturbation}
-One notable feature of the sensitivity analysis here is the difference in the dominant parameter responses between different output variables, particularly as one moves along the C allocation cascade from GPP, to NPP and then LAI and vegetation carbon. Leafcn ratio, for example, is a dominant control over GPP, but is much less important for NPP, where the respiration intercept ($lmr\_{intercept}$), fine root ratio, and the fraction of fixers (by means of the carbon expenditure on respiration) impart a greater impact. For LAI, the allocation parameters, specific leaf  area and stem:leaf ratio have a much greater import. It is implicit, therefore, that even a very confident understanding of gross photosynthetic fluxes would be of limited importance in predictions of vegetation structure within this model framework. 
+
+The analysis conducted involved 6 sites, with 13 parameters perturbed to 4 different values, the each of those with an increase CO2, N and control run. Including the default simulations, this is 936 different run configurations. In this analysis, we look at the parameteric responses of five chosen output variables (GPP, NPP, LAI, Leaf N and vegetation carbon) first for their impacts on the system state and then on the responses to carbon and nitrogen limitation. 
+
+\subsection{Parametric control over system state}
+Figure *** shows the one-at-a-time parameter responses of GPP, NPP, LAI, Leaf N content and the carbon spent on N uptake at the Caxiuana site. Analagous figures for the other five sites are in the SI figures 1-5 ***.
+
+One notable feature of the sensitivity analysis here is the difference in the dominant parameter responses between different output variables, particularly as one moves along the C allocation cascade from GPP, to NPP and then LAI. Leaf CN ratio, (\emph{leafcn}) for example, is a dominant control over GPP, but is much less important for NPP, where the respiration intercept ($lmr\_{intercept}$), fine root ratio, and the fraction of fixers (by means of the carbon expenditure on respiration) impart a greater impact. For leaf area index (LAI), the allocation parameters, specific leaf area, root:leaf and stem:leaf ratio, have a much greater import, than almost all the parameters that affect NPP, given the linear and fixed allocation scheme. We here discuss the causality of how each individual parameter affects the major output variables, and how these responses relate to model structure, particularly in cases where the response outputs are not intuitive. 
+
+Impact of \emph{slatop}\\
+At all sites, specific leaf area (\emph{slatop}) has a large first-order impact on LAI, (Figure **c) and on leaf N concentrations (Figure **e), since it is used directly in the calculation of both of these quantities. At most sites, however, this change in LAI is not translated into increases in GPP and NPP. For GPP, the response to SLA is often negative, despite huge increases in LAI, since increasing SLA (thinner leaves) decreases the total N per unit area of leaf, and so reduces the photosynthetic capacity, in particular of the leaf area that is in the sunlight. Thus, reductions in sunlit V$_{c,max}$ and J$_{max}$ can contribute to this outcome.
+
+Further, increasing LAI, in CLM5, can generate an under-storey of highly shaded leaves, with the possibility of those leaves being in negative carbon balance,  SLA driven increases in LAI can in principle also reduce NPP for respiratory reasons. 
+
+Impact of \emph{froot\_leaf}\\
+Low values of root:leaf ratio (\emph{froot\_leaf}) tended to increase NPP, presumably driven by lower respiratory costs. LAI also increases, which can be due to both lower maintenance costs and turnover demand for roots leaving more carbon for leaves.  GPP does not increase at higher LAI sites, reflecting different amounts of leaf area saturation.
+
+Impact of \emph{stem\_leaf}\\
+Decreases in stem:leaf ratio (stem\_leaf) below their default condition typically resulted in unrealistically high LAI. They also caused a decline in leaf N per unit area (figure **e) , and an increase in photosynthetic capacity (not shown). Litter with a high C content (woody material) has the capacity to “lock up” large amounts of soil Nitrogen in soil decomposing pools, and to require large fluxes of mineral N for decomposition. Thus, removal of this woody matter appears to alleviate some N limitation, and subsequently increasing leaf N content and thus photosynthetic capacity.  In contrast to the root:leaf ratio response, GPP is strongly increased, apparently driven primarily by changes in N limitation and not 
+
+This response is not demonstrated by the root:leaf ratio, since it has a similar C:N ratio as the leaf tissue. There are therefore large increases in GPP associated with low stem:leaf ratios, with smaller increases in NPP, given the higher respiratory load of the extra Nitrogen.
+
+Impact of \emph{Ncosts}\\
+Somewhat more complex responses include that of leaf N costs, whereby the carbon allocated to N uptake (figure 1d ***) increases when N costs reach the lowest values assessed here, as well as (intuitively) when they go up. This issue is traceable to a feature in the solutions FUN which 'over' allocates carbon to active uptake, given the lower costs of this pathway, which then cannot be used if stocks are too low. Plants are known to release carbon as exudates into soils to stimulate the uptake of nutrients, hence this 'wasted' carbon may reflect a plausible real-life process, but the relationship between the representation here and real-world optimization of this process presents a need for further research.
+
+Impact of \emph{fracfixers}\\
+\emph{Fracfixers} has a relatively moderate impact on the overall system state. NPP is moderately decreased with a lower fraction of N fixing capacity, resulting in higher N\_uptake expenditure, very slight increases in LAI and very slight response of GPP to that change. There are no response of CN ratio. These systems are only subject to transiently ramping CO2, and are thus closer to equilibrium than the step-change fertilizations, and this suggests that the ultimate state of the model N cycle might eventually be unaffected by N fixer fraction.
+
+Impact of \emph{leafcn}\\
+Changing the target leaf C:N ratio \emph{leafcn} over one standard deviation from the mean TRY values had substantial impacts on all the output variables. In particular, the higher C:N ratios had leafCN and photosynthetic capacities so low that productivity was almost zero at Oak Ridge. Low C:N ratios (high leaf N content) uniformly increased GPP, with somewhat dampened impacts on NPP, reflecting decreasing carbon use efficiency, and further dampened impacts on LAI, reflecting increased costs of N acquisition with increasing N demand.  No optimum value for leafCN ratio was found, in contrast with the standard expectation that over-investment in tissue N might at some point result in declining NPP, in line with findings in \cite{lawrence} that V${_c,max}$ numbers might be low compared to observations. We do not find much evidence of saturation in the GPP/leafCN relationships, corresponding to a dominance of carboxylation-limited photosynthesis in these simulations.
+
+Impact of \emph{grperc}.\\
+The response to modifications in the growth respiration coefficient in line with first-order expectations, where the higher numbers (which correspond to the previously used value of 0.33 in CLM4.5) resulted in substantial NPP reductions of ~30\% and corresponding changes in LAI. GPP was typically unaffected.
+
+Impact of \emph{medlyn\_slope}\\
+As expected, the change in the stomatal efficiency parameter of the Medlyn 2001 stomatal conductance model impacts GPP primarily In contrast to most of other parameters here, there were some instances where a clear optimum condition was found. Too-low values of this parameter results in not enough stomatal opening and photosynthesis, but too-high values result in to much water loss. This is illustrated for the two tropical sites in figure **a and figure **a. There was a marked difference in responses between sites, reflecting different humidity regimes. Values which caused a large decline in photosynthesis at Oak ridge, for example, did not have a large impact in the tropics, indicating that too much stomatal closure was more prohibitive there. The large response to \emph{leafcn} at this site also suggests that there is significant carboxylation limitation, potentially on account of lower temperatures. At this site, greater stomatal opening always caused more photosynthesis, indicating a lack of impact of hydraulic limitation (as inferred from the decline at high values at the tropical sites, where high atmospheric demand can cause low water potentials and stomatal closure even in high rainfall conditions [Kennedy et al. in prep].
+
+Impact of \emph{lmr\_intercept}\\
+The variance in the reported intercepts in \cite{atkin2016} have important consequences for ecosystem productivity, and deserve further investigation. These upper ranges of this parameter were among the some of the lowest NPP and LAI simulations for all sites, which, given that the range here is taken from published values, suggests a genuinely high range of uncertainty associated with the leaf maintenance respiration algorithm. Of course, the values provided by Atkin et al. were for individual PFTs, so the full range of uncertainty probed here is not necessarily relevant to each PFT. For example, the higher values of the parameter pertain to grasses, and thus are likely outside of the range of plausible values for the tree PFTs used here. 
+
+Impact of \emph{frac\_ecto\_fungi}\\
+The fraction of ectomycorhizzal vs arbuscular fungi had limited impact here, suggesting that the parameterization of the varying costs between these uptake pathways did not have a large impact on N uptake. This is somewhat surprising, and suggests that this difference is overridden by other parts of the dynamics parameterized in FUN.
+
+Impact of \emph{cn\_flex\_a}\\
+\emph{cn\_flex\_a} was positively associated with leaf N content, and hence GPP, and NPP and LAI. This is in line with expectations, since this term is used as the intercept; above which an increase in the cost of N will reduce expenditure on N uptake.  (see \href{https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/FUN/CLM50_Tech_Note_FUN.html#modifications-to-allow-variation-in-c-n-ratios} for details. Thus, low values of \emph{cn\_flex\_a}  results in more common reductions in expenditure on N uptake when N is too expensive, and therefore on lower tissue N content, and vice-versa.  The threshold response to this parameter (only the very highest values have an impact) results from a lower bound (0.50) on the degree to which N cost can reduce uptake, suggesting that the sites here were operating in the region of this limit. 
+
+Impact of \emph{cn\_flex\_b}\\
+\emph{cn\_flex\_b} is slightly negatively associated with leaf N concentration, GPP;, NPP and LAI, but positively associated with NPP spent on carbon uptake. This is a somewhat confusing outcome, since, in principle the responses of \emph{cn\_flex\_a} and \emph{cn\_flex\_b} should be the same way around, as increases in both increase the amount of carbon spent on N uptake. There is some indication that at low values of this parameter, C allocated to N uptake might end up being too high, thus creating some of the 'wasted' carbon expenditure described in the ( see Ncosts section), but this potentially merits investigation (notwithstanding the point the this algorithm is a placeholder for a more evidence-based depiction of stoichiometric flexibility). 
+
+Impact of \emph{cn\_flex\_c}\\
+\emph{cn\_flex\_c} has the greatest impact of the three CN flexibility parameters. Notably, high values of this calibration parameter allow significant increases in leaf N content, which are, counterintuituively, associated with decreases in expenditure on N uptake, but little chqnge in LAI, implying increases in N uptake for less cost. Potentially, decreasing the C allocated to N uptake in a given timestep (when N is cheap) might be in some cases avoiding 'wasted' carbon. Further investigation of this phenomenon would be merited.
 
 
 \subsection{Parametric control over CO$_{2}$ and Ndep responses}
+To illustrate the relationships between N and CO$_{2}$ fertilization, and to reduce the dimensionality of the output, figures ** to ** illustrate the response for GPP (figure **), NPP (figure **), LAI (figure **) and vegetation carbon (figure **) for five sites each. Here we summarize the impact of each parameter on the output patterns. 
 
+Impact of \emph{slatop}\\
+Despite it’s very large impact on the system state, via modifications to the LAI predictions, specific leaf area has limited impact on the overall response to fertilization, compared to other parameters, and the responses to both N and CO$_{2}$ fertilization differ between sites, potentially reflecting the different limiting conditions at each site.  
 
-Figure ** shows the response of GPP, for each site, to CO$_{2}$ and nitrogen fertilization, respectively, for each one-at-a-time parameter modification. Figure ** shows the same for Net Primary Productivity, and Figure ** for LAI, and Figure ** for leaf N concentration. There is a large quantity of infomation contained in these figures, and, given that the analysis is partly meant to serve as a resource for users interested in the functionality of C and N cycling in the CLM5,  rather than describe the results exhaustively, we focus here on explaining the functionality behind a few of the major patterns observed.
+Impact of \emph{froot\_leaf}\\
+\emph{froot\_leaf} had very little impact on fertilization responses, except in the case of very low values, which were generally associated with limited response to N fertilization. This might reflect either a lack of demand for N, or an inability to respond to the fertilization itself through lack of root matter. 
 
-1. \textbf{Impact of fracfixers}. The results quite strongly illustrate that the fraction of fixers (blue line, Figures ** to **) is a highly dominant control over all aspects of the environmental response surfaces.  For GPP and LAI, all sites displayed a 'trade-off', whereby high N fixer systems responded strongly to CO$_{2}$ but not N, and low fixer systems responded strongly to N but not CO$_{2}$. In low fixer systems, N uptake is highly expensive in the first instance, and is greatly alleviated by the increase in available N, leading to larger allocations to leaves, and thus higher leaf area and GPP. For NPP, this result is muted for the two (less N limited) tropical sites, particularly Caxiuaxa (Figure **)  because the increase in shaded leaves and in tissue C:N ratios (Figure **)  with fertilization increased the respiratory load on these systems. 
+Impact of \emph{stem\_leaf}\\
+Low values of the stem/leaf ratio also caused very limited responses to N fertilization at some sites, and CO$_{2}$ fertilization at others. These very low values were associated with very high LAI numbers, which potentially were already subject to light limitation; so as not to profit too much from the addition of extra N or CO$_{2}$. **think about the LAI vs fertilization response figure**
 
-2. \textbf{Impact of Ncosts}
-Most of the variables and sites displayed a complex relationship between the Nitrogen costs and the response to CO$_{2}$ and N addition. 
-For the tropical sites, where default N limitation is low and responses to Ndep are smaller, the simulations with a higher cost of N uptake push the system into a space where N expenditure is higher and so the response to fertilization is more pronounced. Conversely, for all sites, decreasing the cost of N uptake increase Leaf Area Index 
+Impact of \emph{N\_costs}\\
+As described previously, too-low N costs in the environment tend to increase the amount of carbon wasted during N uptake (on the attempted acquisition of N which is not there).  The model calibration at present appears to be in an interim point, but **we probably need to reduce the bounds of the sensitivity analysis to make this all a bit less shocking**
 
+Impact of \emph{frac\_fixers}\\
+The fraction of N fixers in the system has a particularly dominant role over the model response to step changes in N and to CO$_{2}$. In line with expectations, for GPP and LAI, all sites displayed a 'trade-off', whereby high N fixer systems responded strongly to CO$_{2}$ but not N, and low fixer systems responded strongly to N but not CO$_{2}$. For NPP, this result is muted for the two (less N limited) tropical sites, particularly Caxiuaxa (Figure **) because the increase in shaded leaves and in tissue C:N ratios (Figure **) with fertilization increases the respiratory load on these systems.  Note that NPP reported here is the total C available for growth and N uptake, and therefore a lower NPP (as in figure **a) can still be reconciled with a higher LAI (figure **a).
 
+In CLM5, each PFT except crops has the same N fixation fraction (0.25), but this analysis clearly suggests that much greater emphasis should be afforded to the dynamics of changing N fixation capacity under transient atmospheric conditions.
 
+One interesting feature of this response is that, despite not exhibiting much difference in N limitation in the present day (given the muted response of the system state to changes in \emph{frac\_fixers}), simulations with low (or no) fixer capacity had typically very high responses to N fertilization.  ** this needs an explanation from looking at the N response plots on their own...**
 
+Impact of \emph{leafcn}\\
+ High target C:N ratio simulations exhibited a degree of N limitation in the control condition, which was strongly alleviated by N fertilization. Similarly, these scenarios had lower responses to CO$_{2}$, since in many cases, insufficient N was available to expand the canopy, leading to declines in leaf N concentration and a less strong (but still positive) fertilization response. 
 
+Impact of \emph{grperc}\\
+Of all the variables tested, \emph{grperc} had one of the lowest impacts on fertilization responses, since the degree to which growth is 'taxed' is not responsive to any of the physiological processes upstream that depend on fertilization.
 
-This is not unexpected, but future implementations of the model would do well to focus on the dynamics of N fixer dynamics in space and time. For NPP, all sites showed the same responses, except for Caxiuana, where leaf N responded strongly to N deposition (Figure **) and so altered respiratory costs of the low N fixer state . For LAI, at all sites, the reduction in the uptake costs of N in  allows higher allocation to growing tissues. 
+Impact of \emph{medlyn\_slope}\\
+For many sites, the response of the system to CO$_{2}$ fertilization with low values of the \emph{medlyn\_slope} parameter was higher than the cut-off imposed for our visualization (>80\% of control LAI). For example figure si** indicates that the lowest values had a x4 increase in GPP under double CO2 scenarios with the lowest values of this parameter, illustrative of very low leaf internal CO$_{2}$ concentrations where stomatal opening is heavily restricted.
 
+Impact of \emph{lmr\_intercept}\\
+Like \emph{grperc}, the respiration intercept has only a straightforward linear impact on the model state, and while the very high values of this parameter were in some cases completely prohibitive of growth, they do not impact sensitivity to fertilization in any notable fashion. 
 
+Impact of \emph{frac\_ectomy\_fungi}\\
+In line with its limited impact on the system state, \emph{frac\_ectomy\_fungi} had no discernible impact on fertilization responses. 
 
-For the two tropical sites, (BCI and Caxiuana) the response surfaces are similar,
-
-\subsection{Response of Nitrogen fertilization to parameter perturbation}
+Impact of \emph{cn\_flex\_a},  \emph{cn\_flex\_b} and \emph{cn\_flex\_c}\\
+**These will all need looking at once a more careful set of runs are done**
+Low values of \emph{cn\_flex\_b}, where the leafCN concentration can increase in response to fertilization, showed very high responses to n fertilization, and low responses to CO2 fertilization (where N content of leaves declined). 
 
 
 \section{Discussion}
+The responses of land surface models to CO$_{2}$ fertilization are the subject of intense investigations, and vast quantities of computing time will be expended on the single release version of each model, under the auspices of the various CMIP model inter-comparison projects and associated activities  (\cite{meehl2014}). In all of these activities, the carbon cycle feedbacks reported by each modeling group will be from a single default instance of the parameter space.  At the time of writing, we do not yet know the climate feedback strength of the default version of CLM5 compared to it's predecessors, but it is clear from these investigations that many model parameters can and will have had a large impact on these outcomes, without necessarily changing the control state to a large extent. As expected, parameters the relate most strongly to the acquisition \emph{frac\_fixers}, \emph{Ncosts} and use \emph{leafcn}, \emph{cn\_flex\_b}, have dominant roles over the fertilization responses to CO$_{2}$ and nitrogen. 
+
+\subsection{Limitations of step-change experiments}
+Here we propose to investigate the parameter space of the model using step-change experiments. However, such experiments necessarily involve unrealistically rapid changes in environmental boundary condition, and cannot necessarily be considered as analagous to either real-world or transient future scenario conditions. We assessed the response to the ramping historical CO2, to illustrate how parameter responses differed between the rapid and slow responses. The results are in figure SI **
+
+\subsection{Limitations from single sites}
+The analysis presented here deliberately does not focus on the relative fit of the model to the data collected at the individual sites. The fit at individual sites of the globally adjusted model cannot be seen as indicative or otherwise of its skill in the absence of specific parameterization using the local vegetation, soil and hydrological characteristics, which is beyond the scope of this paper. Instead, we chose a set of individual sites, rather than global analysis, to allow for the 936 model integrations that comprise our sensitivity tests, and to probe a set of alternative vegetation and climate conditions. This study is incomplete, as are all investigations of the climatic and parameteric space of land surface models. 
+
+
+\subsection{Discussions of parameterization issues}
+During the development of CLM5, we conducted extensive testing into the possibility of inverse-calibration of the model using neural network derived emulators, in conjunction with a variety of gridded global data products. We did not use the results of this effort for a variety of reasons, including,  1) the high dimensionality of the space, 2) the degree of non-orthogonal behaviour in the parameter response surfaces,  3) the tendency of the modeled ecosystem to die under past low-CO$_{2}$ conditions when calibrated using present-day CO$_{2}$, 4) the dominance of high productivity areas over the calibration of a particular PFT at the expense of marginal areas, and the resulting pattern that those marginal areas die off in model spin-up, 5) the subjectivity in weighting of the different data products and 6) philosophical issues concerning whether the structural validity of the calibrated model could be independently assessed, given the sparsity of validation datasets. Thus, the parameterization used in the default version of the model is a less objective calibration than is ideal, and a limited set of parameters were tuned 'by hand' to avoid excessively spurious values for some model states.  Given the sensitivity of the fertilization responses in the CLM5, we advocate careful interpretation of the outcome of the model, particularly with regard to the climate feedback strength.
+
+\subsection{How to reduce model uncertainty}
+Many model development efforts are motivated under the auspices of 'reducing uncertainty'.  Our efforts to improve the fidelity of the nitrogen cycle in the CLM5 are partly motivated by the need to move the model behaviour closer to several key observable features of the system. Notably, the dynamics of leaf Nitrogen content with respect to environmental scarcity (\cite{zaehle2014}, \cite{brzostek2014}), the dynamics of photosynthetic capacity with respect to environmental conditions (\cite{xu2012}, \cite{ali2016},\cite{rogers2017}), the changes in N fixation rate with vegetation state and the scarcity of N (\cite{vitousek2002}), and to include a means of deploying carbon as a means to acquire additional nitrogen. The latter acts as a proxy for the numerous ways in which plant symbiont systems might adapt to low nutrient conditions, including increases in fine root exudation and allocation, fungal biomass, tissue metabolic rates and turnover/nutrient foraging.  We argue that all of these development generate model emergent behaviour that is closer in essence to reality. However, in doing so, we integrate a suite of physiological processes that lack complete mechanistic and quantititive understanding. 
+
+The development of the CLM5 also slightly pre-dated the operational usage of the International Land Model Benchmarking Project (ILAMB) package \cite{collier2016} for assessing model skill across a very broad range of model components.  In principle, integrating more targeted dataset and data products should narrow the range of model parameter sets that are acceptable, as well as accelerate the rejection of model structures that are unrealistic. Ideally, this effort should include synthesis of ecosystem manipulation experiments that provide altered boundary conditions in real life, given the large differences observed here between the sets of parameters affecting present day conditions and those that impact transient responses. 
+
+
+
+
+This implies that a critical control in the CLM, and in coupled simulations with the CESM for CMIP are dependant on the representation of Nitrogen fixations and its dynamics. 
 
 \subsubsection{Discourse on how target CN ratio could be optimized but isn't}
+
 \cite{thomas2014}, \cite{friedlingstein1999}, \cite{franklin2012}, \cite{mcmurtrie2013}, \cite{anten2011}, \cite{vanwijk2003}
 
+
 \subsubsection{Discuss geographical spread of predictions for N and CO2 fertilization}
+
 \cite{hickler2008}
 
+
 \subsubsection{Discourse on whether nitrogen fixation is realistic in CLM5}
-The 'fraction of fixers' ($frac\_fixers$) is a proxy for the community level composition of Nitrogen fixing plants. Technically, because plant density is not represented in the CLM5, this parameter really represents the fraction of net assimilated carbon ($gpp$ - $R_{auto}$) that can be used for symbiotic N fixation. Ideally, this feature of the model would be prognostic, and the fraction of N fixing plants would response to changes in environmental conditions and the relative competitive abilities of N fixing plants. In general, Nitrogen fixers are known to primarily exist in early successional parts of ecosystems (references**), and therefore representation of their ecological dynamics would likely include a representation of vegetation demographics and succession (\cite{fisher2018vegetation}, \cite{trugman2016climate}).  The results included here indicate that the 
+
+The 'fraction of fixers' (\emph{frac\_fixers}) is a proxy for the community level composition of Nitrogen fixing plants. Technically, because plant density is not represented in the CLM5, this parameter really represents the fraction of net assimilated carbon ($gpp$ - $R_{auto}$) that can be used for symbiotic N fixation. Ideally, this feature of the model would be prognostic, and the fraction of N fixing plants would response to changes in environmental conditions and the relative competitive abilities of N fixing plants. In general, Nitrogen fixers are known to primarily exist in early successional parts of ecosystems (references**), and therefore representation of their ecological dynamics would likely include a representation of vegetation demographics and succession (\cite{fisher2018vegetation}, \cite{trugman2016climate}). The results included here indicate that the
 
 
- \cite{thomas2013global} find that the CLM4.0 model responds very strongly to nutrient additions, and is heavily limited by nitrogen availability in the present day.
+
+\cite{thomas2013global} find that the CLM4.0 model responds very strongly to nutrient additions, and is heavily limited by nitrogen availability in the present day.
+
 
 
 \section{Conclusions}
 
 
+
+
 \pagebreak
 \begin{table}
 \begin{center}
-\begin{tabular}{ |c|c|c| } 
+\begin{tabular}{ |c|c|c|c|c| } 
  \hline
  Parameter Name & Meaning & Units & Min & Max \\
   \hline
@@ -255,50 +423,44 @@ The 'fraction of fixers' ($frac\_fixers$) is a proxy for the community level com
 \end{table}
 
 
+
 \section{Figures}
 
+
 Figure 1: Sensitivity analysis of state of CLM at site to N parameters @ORNL
+
 Figure 2: Sensitivity analysis of the response of CLM5 to CO2 \& Ndep fertilization @ORNL
+
 Figure 3: Sensitivity analysis of state of CLM at site to N parameters @BCI
+
 Figure 4: Sensitivity analysis of the response of CLM5 to CO2 \& Ndep fertilization @BCI
+
 Figure 5: Sensitivity analysis of state of CLM at site to N parameters @CAX
+
 Figure 6: Sensitivity analysis of the response of CLM5 to CO2 \& Ndep fertilization @CAX
-Figure 7: Operation of the flexCN ratio module. 
+
+Figure 7: Operation of the flexCN ratio module.
+
 Figure 8: Operation of the leaf N retranslocation module
+
 Figure 9: Details on the N uptake in FUN
-Figure 10: Some sort of Will figure. 
 
-Also add LUNA on and off simulations to figures. 
+Figure 10: Some sort of Will figure.
+
+\section{To Do}
+Add data from the CO2 experiment to figures.
+
+Add a figure of the transient responses through time to CO2 and N... 
+
+Look at the transient response to ramping CO2 and see if its different to the step response
+
+Also add LUNA on and off simulations to figures.
 
 
+\nocite{*}
 
-\nocite{*} 
 \bibliography{aguCLM5_bibtex}
 
-
-\section{Appendix 1: Technical Documentation of Nitrogen Cycle}
-\subsubsection{Modifications to allow variable C:N ratio}
-The total cost of N uptake is calculated based on the assumption that carbon is partitioned to each stream in proportion to the inverse of the cost of uptake. So, more expensive pathways receive less carbon. Earlier versions of FUN (Fisher et al., 2010)) utilized a scheme whereby plants only took up N from the cheapest pathway. Brzostek et al. (2014) introduced a scheme for the simultaneous uptake from different pathways. Here we calcualate a ‘conductance’ to N uptake (analagous to the inverse of the cost function conceptualized as a resistance term) N_{conductance} ( gN/gC) as:
-
-N_{conductance,f}=  \sum{(1/N_{cost,x})}
-
-From this, we then calculate the fraction of the carbon allocated to each pathway as
-
-C_{frac,x} = \frac{1/N_{cost,x}}{N_{conductance}}
-
-These fractions are used later, to calculate the carbon expended on different uptake pathways. Next, the N acquired from each uptake stream per unit C spent (N_{exch,x}, gN/gC) is determined as
-
-N_{exch,x} = \frac{C_{frac,x}}{N_{cost,x}}
-
-We then determine the total amount of N uptake per unit C spent (N_{exch,tot}, gN/gC) as the sum of all the uptake streams.
-
-N_{exch,tot} = \sum{N_{exch,x}}
-
-and thus the subsequent overall N cost is
-
-N_{cost,tot} = 1/{N_{exch,tot}}
-
-Retranslocation is determined via a different set of mechanisms, once the N_{cost,tot} is known
 
 
 
@@ -306,3 +468,4 @@ Retranslocation is determined via a different set of mechanisms, once the N_{cos
 
 
 \end{document}
+
