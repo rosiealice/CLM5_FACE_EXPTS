@@ -1,7 +1,10 @@
 \documentclass[draft,linenumbers]{agujournal}
 \draftfalse
 \usepackage{hyperref}
-
+\usepackage[export]{adjustbox}
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+	
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -10,52 +13,76 @@
 }
 
 \journalname{Journal of Advances in Modeling Earth Systems (JAMES)}
+
 \begin{document}
+
  \begin{figure}[h]
-     \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_p1CLM5_CAX__y1.png}
+    % \centering\includegraphics[width=0.5\textwidth, right]{lion-lo9
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_p1CLM5_CAX__y1.png}
      \caption{Caxiuana State Parameter Sensitivity}
      \label{CAX state}
   \end{figure}
   
    \begin{figure}[h]
      \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_p1CLM5_BCI__y1.png}
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_p1CLM5_BCI__y1.png}
      \caption{BCI State Parameter Sensitivity}
      \label{BCI state}
   \end{figure}
   
  \begin{figure}[h]
      \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_p1CLM5_ORN__y1.png}
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_p1CLM5_ORN__y1.png}
      \caption{Oak Ridge State Parameter Sensitivity}
      \label{ORN state}
   \end{figure}
   
+  
  \begin{figure}[h]
      \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI_y1.png}
-     \caption{Response to Nitrogen Deposition}
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_Br-cax_ens_transient_ELEV_PI_y1.png}
+     \caption{Caxiuana CO2 response}
      \label{Caxiuana CO2 response Parameter Sensitivity }
   \end{figure}
   
   
-  
  \begin{figure}[h]
      \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI_y1.png}
-     \caption{Response to Nitrogen Deposition}
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_CO2_response_1CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI_y1.png}
+     \caption{Oak Ridge CO2 response}
      \label{Oak Ridge CO2 response Parameter Sensitivity}
   \end{figure}
   
+
   
  \begin{figure}[h]
      \centering
-     \includegraphics[width=35pc]{matlab/figures/frac_deviation_CO2_response_1CLM5_BCI__y1.png}
-     \caption{Response to Nitrogen Deposition}
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/frac_deviation_CO2_response_1CLM5_BCI__y1.png}
+     \caption{BCI CO2 response}
      \label{BCI CO2 response Parameter Sensitivity}
   \end{figure}
   
+      
+ \begin{figure}[h]
+     \centering
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/rel_GPP.png}
+     \caption{GPP CO2 and N respones}
+     \label{GPP CO2 and N respones}
+  \end{figure}
+  
+      
+ \begin{figure}[h]
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/rel_NPP.png}
+     \caption{NPP CO2 and N respones}
+     \label{NPP CO2 and N respones}
+  \end{figure}
+    
+ \begin{figure}[h]
+     \centering
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/rel_LAI.png}
+     \caption{LAI CO2 and N respones}
+     \label{LAI CO2 and N respones}
+  \end{figure}
   
 
   

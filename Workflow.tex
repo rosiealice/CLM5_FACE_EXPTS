@@ -6,7 +6,7 @@
 
 \begin{document}
 \title{Workflow for CLM5 paper}
-\maketitle{}
+
 
 Scripts for these analyses should all be found in the public github repo at:\\
 {\color{blue}\small{\url{https://github.com/rosiealice/CLM5_FACE_EXPTS}}}\\
@@ -118,8 +118,8 @@ Case names are along the lines of:\\
 
 \subsection{Analyse transient ensemble}
 
-\section{Elevated CO$_{2}$ transient runs}
-\subsection{Make elevated CO$_{2}$ file}
+\subsection{Elevated CO2}
+\subsection{Make elevated CO2 file}
 Use this script\\
 {\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/modify_co2_drivers.m}}}\\
 commit 0d4fb93
@@ -128,7 +128,7 @@ Which generates\\
 {\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/co2_datm_ORNL_ELEV.nc}}}\\
 commit 0d4fb93  
 
-\subsection{Make elevated CO$_{2}$ defaults}
+\subsection{Make elevated CO2 defaults}
 Use this script:\\
 {\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_defaults}}}\\
 commit 8e6a3a5    
@@ -153,7 +153,7 @@ The case names are:\\
 {\color{cyan}\small{\url{CLM5_bci_0.1x0.1_v4.0i_ens_transient_ELEV_PI00}}}\\
 {\color{cyan}\small{\url{CLM5_1x1pt_US-ORN_ens_transient_ELEV_PI00}}}
 
-\subsection{Make elevated CO$_{2}$ ensemble}
+\subsection{Make elevated CO2 ensemble}
 Use this script:\\
 {\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_transient_ELEV_ensembles}}}\\
 commit ffe1b6b 
