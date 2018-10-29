@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{color}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\title{Final Workflow for CLM5 paper}
+
+
+Scripts for these analyses should all be found in the public github repo at:\\
+{\color{blue}\small{\url{https://github.com/rosiealice/CLM5_FACE_EXPTS}}}\\
+
+The scripts are specific to usage on the NCAR Cheyenne machine...\\
+
+{\color{blue} Scripts, on github are in blue}\\
+{\color{cyan} Paths on scratch are in cyan}\\
+{\color{red}  .nc files are in red}\\
+{\color{magenta} Figures on github are in magenta}\\
+
+\section{Obtain CLM5 code}
+cd /glade/p/work/rfisher/git/\\
+(this is 'gitpath' from now on)
+
+git clone https://github.com/ESCOMP/ctsm 
+\section{Parameters}
+
+Make ensemble parameter files using
+
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/FACE_clm5_ens_oaat.m}}}\\ 
+
+Using the basefile. \\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/clm5_params.c171017.nc}}} \\
+
+Output location..\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_defpft_pi11.nc }}} \\
+
+Copy default file into '00'..\\
+{\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_defpft_pi00.nc }}} \\
+
+\section{Spin-up}
+\subsection{Make 1850 spin-up default runs from scratch}
+Make single point case from scratch for each site by running this script (based on Charlie's FATES version) 'n' times once for each site (that could be improved on!)..:\\
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/fromscratch_CTSM_make_site_spinup_case_defaults}}}\\
+
+
+
+\end{document}
