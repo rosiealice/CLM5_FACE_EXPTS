@@ -1,23 +1,22 @@
 #! /bin/tcsh -f
 #This code makes an ensemble of CLM site instances. 
 
-setenv CODENAME clm5.0_apr26/
+setenv CODENAME clm5.0/
 setenv NAME FACE_ENSEMBLE_
 set nsites=8
-set BASEBUILD=CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1
-set BASEYEAR=341
-set PARAMROOT='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
-set RESTARTCASES=('CLM5_SPR_SPIN_HL_.1x1pt_Br-cax' 'CLM5_SPR_SPIN_HL_.bci_0.1x0.1_v4.0i' 'CLM5_SPR_SPIN_HL_.1x1pt_US-ORN' 'CLM5_SPR_SPIN_HL_.1x1pt_US-Brw' 'CLM5_SPR_SPIN_HL_.1x1pt_US-NR1'  'CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1'  'CLM5_SPR_SPIN_HL_.1x1pt_US-Me2')
-set SITENAMES=('1x1pt_Br-cax' 'bci_0.1x0.1_v4.0i' '1x1pt_US-ORN' '1x1pt_US-Brw' '1x1pt_US-NR1' '1x1pt_US_Ha1' '1x1pt_US-Me2')
+set BASEBUILD=CLM50_basebuild
+set BASEYEAR=321
+set PARAMROOT='/glade/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi'
+set RESTARTCASES=('CLM50_FS_SPIN_HL_.1x1pt_Br-cax' 'CLM50_FS_SPIN_HL_.1x1pt_US-ORN' 'CLM50_FS_SPIN_HL_.1x1pt_US-Brw' 'CLM50_FS_SPIN_HL_.1x1pt_US-NR1'  'CLM50_FS_SPIN_HL_.1x1pt_US-Ha1'  'CLM50_FS_SPIN_HL_.1x1pt_US-Me2')
+set SITENAMES=('1x1pt_Br-cax' '1x1pt_US-ORN' '1x1pt_US-Brw' '1x1pt_US-NR1' '1x1pt_US_Ha1' '1x1pt_US-Me2')
 set POINTDIR=CLM5_POINTSIMS
-set lunap=15
-set lunaparamfile=6
+
 set s=1
 while ($s<$nsites)
-  set BASECASE=$RESTARTCASES[$s]
+       set BASECASE=$RESTARTCASES[$s]
   
-       setenv EXPTNAME CLM5_$SITENAMES[$s]_ens_PI00
-       cd  /glade/p/work/rfisher/git/$CODENAME
+       setenv EXPTNAME CLM50_$SITENAMES[$s]_ens_PI00
+       cd  /glade/work/rfisher/git/$CODENAME
        pwd
        cd cime/scripts/
        cd ${POINTDIR}
@@ -25,12 +24,12 @@ while ($s<$nsites)
 
        rm -rf $EXPTNAME
        rm -rf /glade/scratch/rfisher/$EXPTNAME
-       ../create_clone --clone $BASECASE --case $EXPTNAME
+       ../create_clone --clone /gpfs/fs1/work/rfisher/git/ctsm_oct18/cime/scripts/$POINTDIR/$BASECASE --case $EXPTNAME
 
        cd $EXPTNAME
-./xmlchange JOB_QUEUE=share
+       ./xmlchange JOB_QUEUE=share
        ./xmlchange MAX_TASKS_PER_NODE=1
-./case.setup --reset
+       ./case.setup --reset
        ./xmlchange STOP_N=100
        ./xmlchange STOP_OPTION=nyears
        ./xmlchange RESUBMIT=1
@@ -38,11 +37,8 @@ while ($s<$nsites)
        ./xmlchange EXEROOT="/glade/scratch/rfisher/$BASEBUILD/bld/"
        ./xmlchange BUILD_COMPLETE="TRUE"
        ./xmlchange JOB_WALLCLOCK_TIME=05:45:00
-
        ./xmlchange CLM_ACCELERATED_SPINUP=off
-       #./xmlchange JOB_QUEUE=share
-       #./xmlchange MAX_TASKS_PER_NODE=1
-       #./xmlchange MPILIB=mpi-serial
+
 
        set nn=" "
        set px=00
@@ -55,9 +51,8 @@ while ($s<$nsites)
        echo "*** Update FATES param file ***"
        echo " "
 
- set uclm="fsurdat='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn  "
-echo  $uclm >user_nl_clm
-
+      set uclm="fsurdat='/glade/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/$SITENAMES[$s]/surfdata_$SITENAMES[$s].nc'\nfinidat='/glade/scratch/rfisher/archive/$BASECASE/rest/0$BASEYEAR-01-01-00000/$BASECASE.clm2.r.0$BASEYEAR-01-01-00000.nc'\nparamfile='$PARAMROOT$px.nc'\nuse_luna=$LN\n$nn  "
+      echo  $uclm >user_nl_clm
 
        ./preview_namelists
        ./case.setup

@@ -30,15 +30,15 @@
 # =======================================================================================
 
 
-export MODEL_SOURCE=/glade/p/work/rfisher/git/clm5.0_apr26   # CTSM/CLM/ELM source directory
-export TAG='CLM5_SPR_SPIN_HL_'                                         # User defined tag to differentiate runs
+export MODEL_SOURCE=/glade/work/rfisher/git/clm5.0   # CTSM/CLM/ELM source directory
+export TAG='CLM50_FS_SPIN_DEFPFT_'                                         # User defined tag to differentiate runs
 export COMPSET=2000_DATM%1PT_CLM50%BGC_SICE_SOCN_RTM_SGLC_SWAV
 export RES=CLM_USRDAT
 export MAC=cheyenne                                          # Name your machine
 export COMPILER=gnu                                          # Name your compiler
 export RUNSUBDIR=CLM5_POINTSIMS
-export CASEROOT=/glade/p/work/rfisher/git/clm5.0_apr26/cime/scripts/${RUNSUBDIR}                       # Where the build is generated (probably on scratch partition)
-export SITE_BASE_DIR=/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/
+export CASEROOT=/glade/work/rfisher/git/ctsm_oct18/cime/scripts/${RUNSUBDIR}                       # Where the build is generated (probably on scratch partition)
+export SITE_BASE_DIR=/glade/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts/sitefiles/
 export RUNDIRROOT=/glade/scratch/rfisher/
 
  
@@ -57,39 +57,39 @@ export CLM_USRDAT_SURDAT=surfdata_bci_sparse_grid_c180227_pft.nc # Name of surfa
 export SITE_NAME=bci_0.1x0.1_v4.0i                                                        
 
 #FOR CAXIUANA
-export datastart=1996
-export dataend=1998
-export CLM_USRDAT_DOMAIN=domain.lnd.CAX.c160406.nc    # Name of domain file in scripts/${SITE_DIR}/
-export CLM_USRDAT_SURDAT=surfdata_mar62018_CAX_xy_pft.nc  # Name of surface file in scripts/${SITE_DIR}/
-export SITE_NAME=1x1pt_Br-cax
+#export datastart=1996
+#export dataend=1998
+#export CLM_USRDAT_DOMAIN=domain.lnd.CAX.c160406.nc    # Name of domain file in scripts/${SITE_DIR}/
+#export CLM_USRDAT_SURDAT=surfdata_mar62018_CAX_xy_pft.nc  # Name of surface file in scripts/${SITE_DIR}/
+#export SITE_NAME=1x1pt_Br-cax
 
 #FOR BARROW
-export datastart=1998 
-export dataend=2006
-export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Brw_navy.180326.nc
-export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Brw_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
-export SITE_NAME=1x1pt_US-Brw
+#export datastart=1998 
+#export dataend=2006
+#export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Brw_navy.180326.nc
+#export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Brw_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+#export SITE_NAME=1x1pt_US-Brw
 
 #FOR HARVARD
-export datastart=1991
-export dataend=2006
-export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Ha1_navy.180326.nc
-export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Ha1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
-export SITE_NAME=1x1pt_US-Ha1
+#export datastart=1991
+#export dataend=2006
+#export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Ha1_navy.180326.nc
+#export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Ha1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+#export SITE_NAME=1x1pt_US-Ha1
 
 #FOR NIWOT
-export datastart=1998
-export dataend=2007
-export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-NR1_navy.180326.nc
-export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-NR1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
-export SITE_NAME=1x1pt_US-NR1
+#export datastart=1998
+#export dataend=2007
+#export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-NR1_navy.180326.nc
+#export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-NR1_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+#export SITE_NAME=1x1pt_US-NR1
 
 #FOR METOLIUS
-export datastart=2002
-export dataend=2010
-export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Me2_navy.180326.nc
-export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Me2_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
-export SITE_NAME=1x1pt_US-Me2
+#export datastart=2002
+#export dataend=2010
+#export CLM_USRDAT_DOMAIN=domain.lnd.1x1pt_US-Me2_navy.180326.nc
+#export CLM_USRDAT_SURDAT=surfdata_1x1pt_US-Me2_16pfts_Irrig_CMIP6_simyr2000_c180326.nc
+#export SITE_NAME=1x1pt_US-Me2
 
 # Set FATES parameter path and param file here:
 # DEPENDENT PATHS AND VARIABLES (USER MIGHT CHANGE THESE..)
@@ -120,6 +120,9 @@ echo "Running with HLM-FATES location: "${MODEL_SOURCE}/${RUNSUBDIR}
 echo "*** Move to case directory ***"
 cd ${CASE_NAME}
 echo $PWD
+./xmlchange JOB_QUEUE=share
+./xmlchange MAX_TASKS_PER_NODE=1
+./case.setup --reset
 
 
 # SET PATHS TO SCRATCH ROOT, DOMAIN AND MET DATA (USERS WILL PROB NOT CHANGE THESE)
@@ -181,7 +184,7 @@ echo "*** setting PE layout"
 ./xmlchange --id DATM_CLMNCEP_YR_END --val ${dataend}
 ./xmlchange --id DATM_CLMNCEP_YR_ALIGN --val ${datastart}
 ./xmlchange --id CCSM_CO2_PPMV --val 287
-./xmlchange --id PROJECT --val P93300041
+./xmlchange --id PROJECT --val P93300641
 
 # MACHINE SPECIFIC, AND/OR USER PREFERENCE CHANGES (USERS WILL CHANGE THESE)
 # =================================================================================
@@ -220,10 +223,11 @@ echo "*** Update FATES param file ***"
 echo " "
 cat >> user_nl_clm <<EOF
 fsurdat='$SITE_BASE_DIR/${SITE_NAME}/surfdata_${SITE_NAME}.nc'
-paramfile='/glade/p/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'
+paramfile='/glade/work/rfisher/git/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_highleaf_pi00.nc'
+paramfile='/glade/p/cesm/cseg/inputdata/lnd/clm2/paramdata/clm5_params.c171017.nc'
 EOF
 
-./xmlchange EXEROOT='/glade/scratch/rfisher/CLM5_SPR_SPIN_HL_.1x1pt_US-Ha1/bld/'
+./xmlchange EXEROOT='/glade/scratch/rfisher/CLM50_basebuild/bld/'
 ./xmlchange BUILD_COMPLETE="TRUE"
 
 # HERE WE NEED TO MODIFY THE STREAM FILE (DANGER ZONE - USERS BEWARE CHANGING)
