@@ -221,101 +221,132 @@ We conducted a set of tests on the parameters of the denitrification model, to a
 
 
 \subsection{Analysis}\\
-We calculated the impact of the CO$_{2}$ and N deposition by assessing the ratio between the control and the fertilized simulations for the years 2001-2003. For some parameter settings, the constraint on growth placed the system in a state close to death. Addition of N or CO$_{2}$ therefore caused either a very strong recovery of the plants, or no recovery at all where biomass is already zero, leading to occasional large non-linearities in how parameters are linked with responses to environmental forcing. Therefore, for those parameter combinations which cause LAI to be less than 80\% of the control simulation value, we exclude the CO$_{2}$ and Nitrogen responses from our plots, so as to focus on the responses of parameter combinations that give realistic initial vegetation conditions.
+We calculated the impact of the CO$_{2}$ and N deposition by assessing the ratio between the control and the fertilized simulations for the years 2001-2003. For some parameter settings, the constraint on growth placed the system in a state close to death. Addition of N or CO$_{2}$ therefore caused either a very strong recovery of the plants, or no recovery at all where biomass is already zero, leading to occasional large non-linearities in the relationship between parameters and  with  to environmental forcing. Therefore, for those parameter combinations which cause LAI to be less than 80\% of the control simulation value, we exclude the CO$_{2}$ and Nitrogen responses from our plots, so as to focus on the responses of parameter combinations that give realistic initial vegetation conditions.
 
 
 \section{Results}
-The analysis conducted involved 6 sites, with 13 parameters perturbed to 4 different values, the each of those with an increase CO2, N and control run. Including the default simulations, this is 936 different run configurations. In this analysis, we look at the parameteric responses of five chosen output variables (GPP, NPP, LAI, Leaf N and vegetation carbon) first for their impacts on the system state and then on the responses to carbon and nitrogen limitation. 
+The analysis conducted involved four sites, with 13 parameters perturbed to 4 different values, each of those with an increase CO$_{2}$, N and control run. Including the default simulations, this is 672 different run configurations. In this analysis, we look at the parametric responses of five chosen output variables (GPP, NPP, LAI, Leaf N and vegetation carbon), first at the impacts of parameteric variation on the system state and then on the responses to carbon and nitrogen fertilization. 
 
 \subsection{Parametric control over system state}
-Figure *** shows the one-at-a-time parameter responses of GPP, NPP, LAI, Leaf N content and the carbon spent on N uptake at the Caxiuana site. Analagous figures for the other five sites are in the SI figures 1-5 ***.
+Figure \ref{NWRstate} shows the one-at-a-time parameter responses of GPP, NPP, LAI, Leaf N content and the carbon spent on N uptake at the Niwot Ridge site. The other site state variation figures are presented in the Supplementary Information (Figures 1-3).
 
-One notable feature of the sensitivity analysis here is the difference in the dominant parameter responses between different output variables, particularly as one moves along the C allocation cascade from GPP, to NPP and then LAI. Leaf CN ratio, (\emph{leafcn}) for example, is a dominant control over GPP, but is much less important for NPP, where the respiration intercept ($lmr\_{intercept}$), fine root ratio, and the fraction of fixers (by means of the carbon expenditure on respiration) impart a greater impact. For leaf area index (LAI), the allocation parameters, specific leaf area, root:leaf and stem:leaf ratio, have a much greater import, than almost all the parameters that affect NPP, given the linear and fixed allocation scheme. We here discuss the causality of how each individual parameter affects the major output variables, and how these responses relate to model structure, particularly in cases where the response outputs are not intuitive. 
+In general, we found that leaf are indicies were often low for these sites, relative to both observations at the sites, and to the magnitude of LAI where gas exchange fluxes are typically known  to saturate as a function of intercepting leaf area (4-5 m$^{2}$ m$^{-2}$. This is a surprising result, given the generally good agreement of globally-driven model output with LAI reported by \cite{lawrence2018}. A seperate set of simulations (not shown here) conducted with higher allocation to leaves (lower stem and root allocation parameters) indicated that, with the resulting higher LAI's, the model was less sensitive to both CO$_{2}$ and N deposition, given the amplifying effect of increasing leaf area increasing fluxes at unsaturated LAIs.  In the default set of simulations the same parameters dominate the responses for differnt variables, given the intrinsic correlation between LAI and GPP, but for saturating LAI conditions, a greater disparity between the dominant parameters is obtained. 
+
+Here we assess the impacts of each parameter on the overall output both at the Niwot Ridge site shown and the other sites in the SI figures. 
 
 Impact of \emph{slatop}\\
-At all sites, specific leaf area (\emph{slatop}) has a large first-order impact on LAI, (Figure **c) and on leaf N concentrations (Figure **e), since it is used directly in the calculation of both of these quantities. At most sites, however, this change in LAI is not translated into increases in GPP and NPP. For GPP, the response to SLA is often negative, despite huge increases in LAI, since increasing SLA (thinner leaves) decreases the total N per unit area of leaf, and so reduces the photosynthetic capacity, in particular of the leaf area that is in the sunlight. Thus, reductions in sunlit V$_{c,max}$ and J$_{max}$ can contribute to this outcome.
+At all sites, specific leaf area (\emph{slatop}) has a large first-order impact on LAI,  and on leaf N concentrations (Figure \ref{NR1 stat}), since it is used directly in the calculation of both of these quantities.  Whether this impact on LAI is translated into an impact on GPP depends on the degree of saturated of productivity at the default LAI. 
 
-Further, increasing LAI, in CLM5, can generate an under-storey of highly shaded leaves, with the possibility of those leaves being in negative carbon balance,  SLA driven increases in LAI can in principle also reduce NPP for respiratory reasons. 
+For GPP, the impact of SLA is always positive, but the degree of it's impact shifts between sites, as it integrates a trade-off between an increase in LAI and the deployment of thinner leaves (lower carbon content per unit area) and subsequent decreases the total N per unit area of leaf reducing photosynthetic capacity 
+
+The impact on NPP however, can be negative (e.g. Metolius), since the CLM5 can generate an under-storey of shaded leaves, and with it the possibility of those leaves being in negative carbon balance.  SLA driven increases in LAI can in principle also reduce NPP for respiratory reasons. At Niwot Ridge, an optimal SLA is observed with respect to NPP, again reflecting the intrisic trade-offs between costs and benefits of thinner leaves. 
 
 Impact of \emph{froot\_leaf}\\
-Low values of root:leaf ratio (\emph{froot\_leaf}) tended to increase NPP, presumably driven by lower respiratory costs. LAI also increases, which can be due to both lower maintenance costs and turnover demand for roots leaving more carbon for leaves.  GPP does not increase at higher LAI sites, reflecting different amounts of leaf area saturation.
+Root:leaf ratio (\emph{froot\_leaf}) a direct effect on LAI, via changes in allocation fractions to different tissues, an indirect effect on NPP, given the modified maintenance costs of the resultant fine root biomass pools, and (newly introduced in CLM5) also affects the uptake of both nitrogen and water via it's impact on N uptake costs and hydraulic resistance terms respectively. The first two impacts increase NPP with \emph{froot\_leaf} and the latter two decrease it.  Both types of effect are seen here, with the Niwot Ridge and Metolius site suffering very large reductions in GPP, NPP, and LAI at low \emph{froot\_leaf} ratios, but the Harvard forest and Caxiuana sites showing increases. 
+
 
 Impact of \emph{stem\_leaf}\\
-Decreases in stem:leaf ratio (stem\_leaf) below their default condition typically resulted in unrealistically high LAI. They also caused a decline in leaf N per unit area (figure **e) , and an increase in photosynthetic capacity (not shown). Litter with a high C content (woody material) has the capacity to “lock up” large amounts of soil Nitrogen in soil decomposing pools, and to require large fluxes of mineral N for decomposition. Thus, removal of this woody matter appears to alleviate some N limitation, and subsequently increasing leaf N content and thus photosynthetic capacity.  In contrast to the root:leaf ratio response, GPP is strongly increased, apparently driven primarily by changes in N limitation and not 
+Low values of stem:leaf ratio typically resulted in much higher LAI at all sites, as well as declines in vegetation carbon, as expected from the lower stem carbon allocation. At Niwot Ridge, there is an optimum stem carbon observed, but this is due to the impacts of a too-high leaf area index, which actually appears to cause declines in NPP when LAI is above the default. At all other sites, the impact of increasing leaf allocation is to increase productivity. 
 
-This response is not demonstrated by the root:leaf ratio, since it has a similar C:N ratio as the leaf tissue. There are therefore large increases in GPP associated with low stem:leaf ratios, with smaller increases in NPP, given the higher respiratory load of the extra Nitrogen.
+Decreases in stem:leaf ratio (stem\_leaf) below their default condition also caused a decline in leaf N per unit area (figure **e).  The causes of this behaviour are still not understood **
 
 Impact of \emph{Ncosts}\\
-Somewhat more complex responses include that of leaf N costs, whereby the carbon allocated to N uptake (figure 1d ***) increases when N costs reach the lowest values assessed here, as well as (intuitively) when they go up. This issue is traceable to a feature in the solutions FUN which 'over' allocates carbon to active uptake, given the lower costs of this pathway, which then cannot be used if stocks are too low. Plants are known to release carbon as exudates into soils to stimulate the uptake of nutrients, hence this 'wasted' carbon may reflect a plausible real-life process, but the relationship between the representation here and real-world optimization of this process presents a need for further research.
+The first-order impact of N$_{costs}$ is to increase the respiration losses associated with nitrogen uptake.  Across the range tested here (bearing in mind that these parameters are somewhat unconstrained) there was limited impact of N$_{costs}$ on the system state with the exception of the Niwot Ridge site, which showed a decline in LAI, NPP, GPP and vegetation carbon when costs were high, as well as slight increases in leaf N content where costs were low. Other sites showed more muted responses in the vegetation state. 
 
 Impact of \emph{fracfixers}\\
-\emph{Fracfixers} has a relatively moderate impact on the overall system state. NPP is moderately decreased with a lower fraction of N fixing capacity, resulting in higher N\_uptake expenditure, very slight increases in LAI and very slight response of GPP to that change. There are no response of CN ratio. These systems are only subject to transiently ramping CO2, and are thus closer to equilibrium than the step-change fertilizations, and this suggests that the ultimate state of the model N cycle might eventually be unaffected by N fixer fraction.
+Increasing \emph{Fracfixers} affects the maximum amount of carbon that plants can pay to symbiotically uptake Nitrogen. In all cases here, it has a relatively moderate and positive impact on the overall system state, in particular at the Niwot and Harvard forest sites. As is the case for N$_{costs}$, with high fixing capacity N\_uptake expenditure is lower, N uptake high, and NPP is moderately increased, resulting in increases in LAI and a slight response of GPP to that change.  These systems are only subject to transiently ramping CO$_{2}$$, and are thus closer to equilibrium than the step-change fertilizations, suggesting that the ultimate state of the model N cycle might eventually be unaffected by N fixer fraction. 
 
 Impact of \emph{leafcn}\\
-Changing the target leaf C:N ratio \emph{leafcn} over one standard deviation from the mean TRY values had substantial impacts on all the output variables. In particular, the higher C:N ratios had leafCN and photosynthetic capacities so low that productivity was almost zero at Oak Ridge. Low C:N ratios (high leaf N content) uniformly increased GPP, with somewhat dampened impacts on NPP, reflecting decreasing carbon use efficiency, and further dampened impacts on LAI, reflecting increased costs of N acquisition with increasing N demand.  No optimum value for leafCN ratio was found, in contrast with the standard expectation that over-investment in tissue N might at some point result in declining NPP, in line with findings in \cite{lawrence} that V${_c,max}$ numbers might be low compared to observations. We do not find much evidence of saturation in the GPP/leafCN relationships, corresponding to a dominance of carboxylation-limited photosynthesis in these simulations.
+Changing the target leaf C:N ratio \emph{leafcn} over one standard deviation from the mean TRY values had substantial impacts on all the output variables.  As expected, higher \emph{leafcn} values decrease $N_{area}$, decreasing photosynthetic capacity and hence GPP.  In particular, the higher C:N ratios had leafCN and photosynthetic capacities so low that GPP was almost zero at Metolius and Harvard Forest and more than halved at Niwot Ridge.   
+
+For NPP, the corresponding  decreases in respiration rates at high CN somewhat ameliorated this effect, particularly at Caxiuana, which has high ambient temperatures and low carbon use efficiency as a result.  At Niwot, an optimum leaf CN ratio was apparent in the range of the default values, indicating the possibility that other sites might be operating distant from their theoretical optima according to the model, in line with findings in \cite{lawrence} that V${_c,max}$ numbers might be low compared to observations. We do not find much evidence of saturation in the GPP/leafCN relationships, corresponding to a dominance of carboxylation-limited photosynthesis in these simulations. 
+
+In general, for a given change in NPP, the relative change in LAI was lower than for other parametric modification, reflecting the increased spending on nitrogen uptake inherent in the high $N_{area}$ simulations. Interestingly, despite a lower NPP for low CN values at Niwot Ridge, LAI values were higher, for reasons not yet understood ***
+
 
 Impact of \emph{grperc}.\\
-The response to modifications in the growth respiration coefficient in line with first-order expectations, where the higher numbers (which correspond to the previously used value of 0.33 in CLM4.5) resulted in substantial NPP reductions of ~30\% and corresponding changes in LAI. GPP was typically unaffected.
+The response to modifications in the growth respiration coefficient in line with first-order expectations, where the higher numbers (which correspond to the previously used value of 0.33 in CLM4.5) resulted in  NPP reductions, corresponding changes in LAI, impacting GPP at the largest values.   The impact varied between sites, reflecting different partitioning of the carbon budget into maintenance respiration, nitrogen uptake and growth. 
 
 Impact of \emph{medlyn\_slope}\\
-As expected, the change in the stomatal efficiency parameter of the Medlyn 2001 stomatal conductance model impacts GPP primarily In contrast to most of other parameters here, there were some instances where a clear optimum condition was found. Too-low values of this parameter results in not enough stomatal opening and photosynthesis, but too-high values result in to much water loss. This is illustrated for the two tropical sites in figure **a and figure **a. There was a marked difference in responses between sites, reflecting different humidity regimes. Values which caused a large decline in photosynthesis at Oak ridge, for example, did not have a large impact in the tropics, indicating that too much stomatal closure was more prohibitive there. The large response to \emph{leafcn} at this site also suggests that there is significant carboxylation limitation, potentially on account of lower temperatures. At this site, greater stomatal opening always caused more photosynthesis, indicating a lack of impact of hydraulic limitation (as inferred from the decline at high values at the tropical sites, where high atmospheric demand can cause low water potentials and stomatal closure even in high rainfall conditions [Kennedy et al. in prep].
+The change in the stomatal efficiency parameter of the Medlyn 2011 stomatal conductance model most directly impacts GPP, with cascading impacts on all downstream properties. At the Caxiuana site, the very lowest values caused a complete death of the ecosystem. It is unclear why this occured, since the impacts can be direct, on the carbon balance itself (not enough GPP to cover costs), but also on the leaf temperature (via surface energy balance issues) and hence the respiration rates. It is hard to discern the exact reasons, given the feedback inherent between all of these properties, but no impact on the carbon balance is found at intermediate levels.
+
+At Niwot, a clear optimum was found in the Medlyn parameter, indicating that above this level, stomata lose too much water and below it, they do not photosynthesize enough. At Metolius and Harvard forest, only lower value affected the photosynthetic rates, indicating co-limitation by another process, and the absence of impacts of excessive plant transpiration on the system (note that \cite{kennedy} and \cite{dagon} discuss surface energy and plant hydrodynamic functioning of the model in much greater depth). 
 
 Impact of \emph{lmr\_intercept}\\
-The variance in the reported intercepts in \cite{atkin2016} have important consequences for ecosystem productivity, and deserve further investigation. These upper ranges of this parameter were among the some of the lowest NPP and LAI simulations for all sites, which, given that the range here is taken from published values, suggests a genuinely high range of uncertainty associated with the leaf maintenance respiration algorithm. Of course, the values provided by Atkin et al. were for individual PFTs, so the full range of uncertainty probed here is not necessarily relevant to each PFT. For example, the higher values of the parameter pertain to grasses, and thus are likely outside of the range of plausible values for the tree PFTs used here. 
+The variance in the reported intercepts in \cite{atkin2016} also have important consequences for ecosystem productivity, in line with the uncertainties in the growth respiration parameterization. For the high leaf area simulations (now shown **), the impacts of maintenance respiration parameterization were much higher, reflecting the higher amount of respiring tissue in those simulations. At Caxiuana, the warmest site here, the \emph{lmr\_intercept} was one of the most important contributing factors to the NPP, LAI and vegetation carbon states.  
 
 Impact of \emph{frac\_ecto\_fungi}\\
 The fraction of ectomycorhizzal vs arbuscular fungi had limited impact here, suggesting that the parameterization of the varying costs between these uptake pathways did not have a large impact on N uptake. This is somewhat surprising, and suggests that this difference is overridden by other parts of the dynamics parameterized in FUN.
 
 Impact of \emph{cn\_flex\_a}\\
-\emph{cn\_flex\_a} was positively associated with leaf N content, and hence GPP, and NPP and LAI. This is in line with expectations, since this term is used as the intercept; above which an increase in the cost of N will reduce expenditure on N uptake.  (see \href{https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/FUN/CLM50_Tech_Note_FUN.html#modifications-to-allow-variation-in-c-n-ratios} for details. Thus, low values of \emph{cn\_flex\_a}  results in more common reductions in expenditure on N uptake when N is too expensive, and therefore on lower tissue N content, and vice-versa.  The threshold response to this parameter (only the very highest values have an impact) results from a lower bound (0.50) on the degree to which N cost can reduce uptake, suggesting that the sites here were operating in the region of this limit. 
+\emph{cn\_flex\_a}  is the intercept above which an increase in the cost of N will reduce expenditure on N uptake.  (see \href{https://escomp.github.io/ctsm-docs/doc/build/html/tech_note/FUN/CLM50_Tech_Note_FUN.html#modifications-to-allow-variation-in-c-n-ratios} for details. Thus, low values of \emph{cn\_flex\_a}  results in reductions in expenditure on N uptake when N is too expensive, and therefore on lower tissue N content, and vice-versa.   For the range investigated here, this parameter had limited impact on the system state. 
+
 
 Impact of \emph{cn\_flex\_b}\\
-\emph{cn\_flex\_b} is slightly negatively associated with leaf N concentration, GPP;, NPP and LAI, but positively associated with NPP spent on carbon uptake. This is a somewhat confusing outcome, since, in principle the responses of \emph{cn\_flex\_a} and \emph{cn\_flex\_b} should be the same way around, as increases in both increase the amount of carbon spent on N uptake. There is some indication that at low values of this parameter, C allocated to N uptake might end up being too high, thus creating some of the 'wasted' carbon expenditure described in the ( see Ncosts section), but this potentially merits investigation (notwithstanding the point the this algorithm is a placeholder for a more evidence-based depiction of stoichiometric flexibility). 
+\emph{cn\_flex\_b} also increases the amount of carbon spent on N uptake when costs are high, but has limited impacts on the system state here. At low values, there is some indication at Niwot Ridge that it might increase LAI and vegetation carbon, indicating a decrease in the N uptake expenditure and in leaf N concentrations.  The limited impact at other sites suggests that Ncosts are rarely high enough to trigger reductions in N expenditure (notwithstanding the point the this algorithm is a placeholder for a more evidence-based depiction of stoichiometric flexibility). 
 
 Impact of \emph{cn\_flex\_c}\\
-\emph{cn\_flex\_c} has the greatest impact of the three CN flexibility parameters. Notably, high values of this calibration parameter allow significant increases in leaf N content, which are, counterintuituively, associated with decreases in expenditure on N uptake, but little chqnge in LAI, implying increases in N uptake for less cost. Potentially, decreasing the C allocated to N uptake in a given timestep (when N is cheap) might be in some cases avoiding 'wasted' carbon. Further investigation of this phenomenon would be merited.
+ Low values of \emph{cn\_flex\_c} affects the degree to whch plants attempte to maintain tissue CN values near to their target when environmental costs are varying. For the state impacts here, the role of this parameter was limited, but for the step-change fertilizations it was much more important, so we will discuss it's role further in the section below. 
 
+\subsection{CO$_{2}$ and Ndep responses}
 
-\subsection{Parametric control over CO$_{2}$ and Ndep responses}
-To illustrate the relationships between N and CO$_{2}$ fertilization, and to reduce the dimensionality of the output, figures ** to ** illustrate the response for GPP (figure **), NPP (figure **), LAI (figure **) and vegetation carbon (figure **) for five sites each. Here we summarize the impact of each parameter on the output patterns. 
+To illustrate the relationships between N and CO$_{2}$ fertilization, and to reduce the dimensionality of the output, figures \ref{GPP CO2 and N respones 2001}, \ref{NPP CO2 and N respones 2001} and \ref{LAI CO2 and N respones 2001} illustrate the response for GPP, NPP and, LAI respectively. Vegetation carbon and $N_{area}$ are in the supplemental infomation (\ref{VEGC CO2 and N respones 2001}, \ref{Leaf N CO2 and N respones 2001}).  For Niwot Ridge, figures showing the N and CO$_{2}$ responses are also shown (Figure \ref{NR1 ndep} and \ref{NR1 celev}), while the corresponding figures for the other sites are in the SI.
+
+\subsection{Differences across sites}
+The responses to CO$_{2}$ and Nitrogen fertilization were substantially different between sites and across parameter ranges. The default range of CO$_{2}$ fertilization impacts on NPP, for example, ranged from 1.22 to 1.66 at Harvard and Caxiuana respectively, with Niwot having a lower range (1.28) and Metolius higher (1.62). For Nitrogen responses, Caxiuana had a negative response (0.96), Niwot had almost no response (0.98) while Harvard and Metolius were positive (1.25 and 1.09 respectively). Impacts on GPP were all positive, from  (albeit lower for the Caxiuana and Niwot sites) through increases in leaf N content, and impacts on LAI were all positive, reflecting lower expenditure on N uptake (1.05 to 2.09). Interestingly, the highest impacts on LAI were at Niwot, which has almost no change in NPP, reflecting a large initial expenditure on nitrogen uptake ameliorated by fertilization.   
+ 
+\subsection{Impact of parameters}
+Across the four sites, parametric impacts were very varied, when compared to the relatively consistant impact of parameters on the system state. A majority of parameters show no consistant relationship with CO$_{2}$ or N deposition responses, and the range of their impacts vary over an order of magnitude between sites.  We describe here the major features of how parameteric variation controls the behaviour of the model under these fertilization scenarios.
 
 Impact of \emph{slatop}\\
-Despite it’s very large impact on the system state, via modifications to the LAI predictions, specific leaf area has limited impact on the overall response to fertilization, compared to other parameters, and the responses to both N and CO$_{2}$ fertilization differ between sites, potentially reflecting the different limiting conditions at each site.  
+ 
 
 Impact of \emph{froot\_leaf}\\
-\emph{froot\_leaf} had very little impact on fertilization responses, except in the case of very low values, which were generally associated with limited response to N fertilization. This might reflect either a lack of demand for N, or an inability to respond to the fertilization itself through lack of root matter. 
+Despite it’s  impact on the system state,\emph{froot\_leaf} had very little impact on fertilization responses, except in the case of very low values at Metolius, where it increased the CO2 responsiveness and at Harvard, where low values decrease both responses. At Harvard the low root allocation runs had higher initial LAI, and thus the responsiveness of the system to fetilization is lower since the feedback from LAI to GPP is less proncounced. 
 
-Impact of \emph{stem\_leaf}\\
-Low values of the stem/leaf ratio also caused very limited responses to N fertilization at some sites, and CO$_{2}$ fertilization at others. These very low values were associated with very high LAI numbers, which potentially were already subject to light limitation; so as not to profit too much from the addition of extra N or CO$_{2}$. **think about the LAI vs fertilization response figure**
+Impact of \emph{stem\_leaf}\\}
+Low values of \emph{stem\_leaf} ratio caused lower responses to fertilization for GPP and LAI at Caxiuana and Harvard Forest. Initial LAI was larger for these cases for these sites, explaining the decease in fertilization response as above. However, at Niwot Ridge, CO$_{2}$ fertilization was larger with lower \emph{stem\_leaf} ratios. At Niwot, however, a larger control LAI was associated with lower $N_{area}$, GPP and NPP, suggesting a high nitrogen limitation associated with these states. Nonetheless, fertilization responses of GPP here are very high, (x1.8) in response to quite small changes in $N_{area}$ (~2\%)  and LAI (~22\%) (Figure \ref{NPP CO2 and N respones 2001}). Further, Nitrogen increases LAI substantially, buft only has a very limited impact on GPP and NPP at Niwot Ridge, suggesting that the fluxes might be limited by water availability, and thus explaining the very high CO$_{2}$ sensitivity.
 
 Impact of \emph{N\_costs}\\
-As described previously, too-low N costs in the environment tend to increase the amount of carbon wasted during N uptake (on the attempted acquisition of N which is not there).  The model calibration at present appears to be in an interim point, but **we probably need to reduce the bounds of the sensitivity analysis to make this all a bit less shocking**
+Given that they impact on the respiration expended on N uptake and the availability of carbon for tissue growth, the impact of Nitrogen costs is most clear for NPP and LAI (Figure \ref{NPP CO2 and N respones 2001}, \ref{LAI CO2 and N respones 2001}}). At Caxiuana, Niwot and Harvard forest, high initial N costs resulted in stimulation of the N fertilization response, as expected from the alleviation of the higher N limitation in these cases.  There was also a slight increase in the CO$_{2}$ fertilization response (maybe on account of extra carbon alleviating some of the N limitation in those systems).  For very low values, at Caxiuana and Niwot, N responses increased, counter-intituvely. At both these sites, at very low N costs, plants appear to make leaves with higher N content (as per the algorithm which allows a higher $N_{area}$ to be achieved at low N cost). However, the total amount of N in the system remains the same with low N costs, and so these cases do not have higher leaf area. When more total N is added, the leaf area can expand, and thus the N concentration declines. 
 
 Impact of \emph{frac\_fixers}\\
-The fraction of N fixers in the system has a particularly dominant role over the model response to step changes in N and to CO$_{2}$. In line with expectations, for GPP and LAI, all sites displayed a 'trade-off', whereby high N fixer systems responded strongly to CO$_{2}$ but not N, and low fixer systems responded strongly to N but not CO$_{2}$. For NPP, this result is muted for the two (less N limited) tropical sites, particularly Caxiuaxa (Figure **) because the increase in shaded leaves and in tissue C:N ratios (Figure **) with fertilization increases the respiratory load on these systems.  Note that NPP reported here is the total C available for growth and N uptake, and therefore a lower NPP (as in figure **a) can still be reconciled with a higher LAI (figure **a).
+While nitrogen uptake costs were important to the fertilization responses, they do not affect the total amount of N in the system, and therefore appeared to play a secondary role to the amount of N fixation available, in many cases.  The fraction of N fixers in the system has a particularly dominant role over the model response to step changes in N and to CO$_{2}$. In line with expectations, for GPP and LAI, all sites displayed a 'trade-off', whereby high N fixer systems responded strongly to CO$_{2}$ but not N, and low fixer systems responded strongly to N but not CO$_{2}$. 
 
-In CLM5, each PFT except crops has the same N fixation fraction (0.25), but this analysis clearly suggests that much greater emphasis should be afforded to the dynamics of changing N fixation capacity under transient atmospheric conditions.
+For NPP, this result is muted for the Caxiuana and Metolius sites, and indeed at Caxiuana the low N fixer cases had a very negative (-8\%) NPP response (despite a positive 7.6\% GPP response), on account of the model increasing the N content of the leaves by up to 10\% in the lowest N cost case (Figure \ref{CAX ndep}). Nonetheless, given the lower N uptake costs in the fertilized N experiment, leaf area was substantially increased (up to 14\%) in these cases too. 
 
-One interesting feature of this response is that, despite not exhibiting much difference in N limitation in the present day (given the muted response of the system state to changes in \emph{frac\_fixers}), simulations with low (or no) fixer capacity had typically very high responses to N fertilization.  ** this needs an explanation from looking at the N response plots on their own...**
+At Niwot Ridge and Metolius, the changing fixation capacity had a very large impact on carbon fertilization, but not on nitrogen response, particularly for GPP. At Metolius, this impact persisted, but at Niwot the fixation capacity did have an impact on LAI. Interestingly, many variables increased NPP at this site, but only \emph{fracfixers} increased LAI, suggesting a limitation in the total available N suppressed the impact of all the other case where NPP was increased, and also that water limitation prevented any greater assimilation of carbon. 
+
 
 Impact of \emph{leafcn}\\
- High target C:N ratio simulations exhibited a degree of N limitation in the control condition, which was strongly alleviated by N fertilization. Similarly, these scenarios had lower responses to CO$_{2}$, since in many cases, insufficient N was available to expand the canopy, leading to declines in leaf N concentration and a less strong (but still positive) fertilization response. 
+The impact of target \emph{leafcn} on fertilization responses was complex (recalling that this was a significant control over the system state at all sites). t Caxiuana, high values \emph{leafcn} (low leaf  $N_{area}$) had much stronger responses to N fertilization, indicating the dominant impact of the carboxylation capacity at this tropical site.  At Niwot Ridge, low values of \emph{leafcn} (low leaf  $N_{area}$) had much stronger responses to CO$_{2}$ fertilization (the strongest responses at this site for GPP), potentially since the low stomatal conductance at this water-limited site could benefit most from additional CO$_{2}$ where carboxylation capacity was high. 
 
 Impact of \emph{grperc}\\
-Of all the variables tested, \emph{grperc} had one of the lowest impacts on fertilization responses, since the degree to which growth is 'taxed' is not responsive to any of the physiological processes upstream that depend on fertilization.
+\emph{grperc}, or the degree to which growth is 'taxed' is constant and not responsive to any of the physiological processes upstream that depend on fertilization. Thus, its effects are all likely due to indirect impacts on the initial state. Two main impacts were observed. At Niwot Ridge low values of \emph{grperc} caused higher responses to CO$_{2}$ fertilization for GPP and NPP, but not LAI. These values corresponded to high initial LAI (on account of larger amounts of C being available for N uptake) and therefore allowed greater leverage of the increasing CO$_{2}$.  At Harvard forest, high \emph{grperc} had caused low levels of LAI, resulting in increased capacity for CO$_{2}$ fertilization at that site.
 
 Impact of \emph{medlyn\_slope}\\
-For many sites, the response of the system to CO$_{2}$ fertilization with low values of the \emph{medlyn\_slope} parameter was higher than the cut-off imposed for our visualization (>80\% of control LAI). For example figure si** indicates that the lowest values had a x4 increase in GPP under double CO2 scenarios with the lowest values of this parameter, illustrative of very low leaf internal CO$_{2}$ concentrations where stomatal opening is heavily restricted.
+At Niwot Ridge, low values of the Medlyn Slope parameter (with high water use efficiency) were able to respond very strongly to increasing Nitrogen. These cases also had higher GPP in the initial state, and their higher WUE enabled them to take advantage of the increasing N availability.   These cases also ended up with higher vegetation carbon. 
+
+Surpriingly, given its critical role in the responsiveness of stomata to CO$_{2}$, we did not find a widespread impact of the Medlyn parameter on the fertilization reponse, potentially suggesting that the impact on the state condition had already accounted for the impact of this parameter. 
 
 Impact of \emph{lmr\_intercept}\\
-Like \emph{grperc}, the respiration intercept has only a straightforward linear impact on the model state, and while the very high values of this parameter were in some cases completely prohibitive of growth, they do not impact sensitivity to fertilization in any notable fashion. 
+In general the impacts of the maintenance respiration intercept were small, and limited to the impact of large values increasing fertilization responses to CO$_{2}$ and N, potentially on account of the low LAI and thus greater feedback between LAI and GPP. 
 
 Impact of \emph{frac\_ectomy\_fungi}\\
 In line with its limited impact on the system state, \emph{frac\_ectomy\_fungi} had no discernible impact on fertilization responses. 
 
-Impact of \emph{cn\_flex\_a},  \emph{cn\_flex\_b} and \emph{cn\_flex\_c}\\
+Impact of \emph{cn\_flex\_a}, \emph{cn\_flex\_b} and \emph{cn\_flex\_c}\\
+As with it's impact on the state, there was limited impact of \emph{cn\_flex\_a} on the fertilization responses, indicating that this parametr is 
+
+Impact of \emph{cn\_flex\_b}
+Low values of \emph{cn\_flex\_b}, where the leafCN concentration can increase in response to fertilization, showed higher responses to n fertilization, particularly at Harvard Forest. Small values of  \emph{cn\_flex\_b} should  decrease the amount of carbon spent on N uptake when NCosts are high, thus, a relaxation of the cost of N will increase the amount spent on uptake, and subsequently $N_{leaf}$ and all fluxes downstream.  Thus, these changes result from the relaxation of an over-suppression of leaf N content. 
+
+These cases also showed increases in leaf N content for N fertilization, LAI, GPP and NPP. Given that small values of  \emph{cn\_flex\_b} should in fact decrease the amount f carbon spent on N uptake, and thus they 
+
+
+and \emph{cn\_flex\_c}\\
 **These will all need looking at once a more careful set of runs are done**
-Low values of \emph{cn\_flex\_b}, where the leafCN concentration can increase in response to fertilization, showed very high responses to n fertilization, and low responses to CO2 fertilization (where N content of leaves declined). 
+
 
 
 \section{Discussion}
@@ -330,6 +361,10 @@ The analysis presented here deliberately does not focus on the relative fit of t
 
 \subsubsection{Limitations of parameter calibration issues}
 During the development of CLM5, we conducted extensive testing into the possibility of inverse-calibration of the model using neural network derived emulators, in conjunction with a variety of gridded global data products. We did not use the results of this effort for a variety of reasons, including,  1) the high dimensionality of the space, 2) the degree of non-orthogonal behaviour in the parameter response surfaces,  3) the tendency of the modeled ecosystem to die under past low-CO$_{2}$ conditions when calibrated using present-day CO$_{2}$, 4) the dominance of high productivity areas over the calibration of a particular PFT at the expense of marginal areas, and the resulting pattern that those marginal areas die off in model spin-up, 5) the subjectivity in weighting of the different data products and 6) philosophical issues concerning whether the structural validity of the calibrated model could be independently assessed, given the sparsity of validation datasets. Thus, the parameterization used in the default version of the model is a less objective calibration than is ideal, and a limited set of parameters were tuned 'by hand' to avoid excessively spurious values for some model states.  Given the sensitivity of the fertilization responses in the CLM5, we advocate careful interpretation of the outcome of the model, particularly with regard to the climate feedback strength.
+
+\subsubsection{Limitations of the CLM5 revealed by this parameter analysis
+
+1. Lack of optimization of the leaf N area. 
 
 \subsection{Future Investigations}
 \subsubsection{Temperature and water responses}
@@ -424,8 +459,11 @@ The 'fraction of fixers' (\emph{frac\_fixers}) is a proxy for the community leve
 
 \section{Figures}
 
-
-Figure 1: Sensitivity analysis of state of CLM at site to N parameters @ORNL
+\begin{figure}[h]
+     \caption{Sensitivity of system state to parameter perturbation at Niwot Ridge site.}
+     \label{NWRstate}
+  \end{figure}
+Figure 1: Sensitivity analysis of state of CLM at site to N parameters.
 
 Figure 2: Sensitivity analysis of the response of CLM5 to CO2 \& Ndep fertilization @ORNL
 
@@ -443,7 +481,6 @@ Figure 8: Operation of the leaf N retranslocation module
 
 Figure 9: Details on the N uptake in FUN
 
-Figure 10: Some sort of Will figure.
 
 \section{To Do}
 Add data from the CO2 experiment to figures.
@@ -454,8 +491,16 @@ Look at the transient response to ramping CO2 and see if its different to the st
 
 Also add LUNA on and off simulations to figures.
 
-
+Make a figure with a bunch of extra outputs for the state at Niwot Ridge (CUE, fraction NPP nuptake, BTRAN)
 \nocite{*}
+
+Make some SI figures with the high leaf run (state for Niwot?)
+
+Make all on the same figure figure
+
+Slightly re-format the fert figures. (dashes, GPP label)
+Check the CN figures. They don't match the NWT figures. 
+
 
 \bibliography{aguCLM5_bibtex}
 
