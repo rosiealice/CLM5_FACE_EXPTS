@@ -376,26 +376,14 @@ In this study we investigate the impacts of parametric uncertainty on the carbon
 \subsection{The status of the CLM5 representation of plant carbon and nitrogen representation}
 Many model development efforts are motivated under the auspices of 'reducing uncertainty'.  Our efforts to improve the fidelity of the nitrogen cycle in the CLM5 are partly motivated by the need to move the model behaviour closer to several key observable features of the system. Notably, the dynamics of leaf Nitrogen content with respect to environmental scarcity (\cite{zaehle2014}, \cite{brzostek2014}), the dynamics of photosynthetic capacity with respect to environmental conditions (\cite{xu2012}, \cite{ali2016},\cite{rogers2017}), the changes in N fixation rate with vegetation state and the scarcity of N (\cite{vitousek2002}), and to include a means of deploying carbon as a means to acquire additional nitrogen. The latter acts as a proxy for the numerous ways in which plant symbiont systems might adapt to low nutrient conditions, including increases in fine root exudation and allocation, fungal biomass, tissue metabolic rates and turnover/nutrient foraging.  We argue that all of these development generate model emergent behaviour that is closer in essence to reality. However, in doing so, we integrate a suite of physiological processes that lack complete mechanistic and quantitative understanding.
 
-In this study, we found numerous instances where the model reduced carbon use efficiency by increasing tissue C:N ratios in response to forcing. In principle, there exists an optimal leaf CN ratio that maximizes leaf C export under a given set of conditions. Despite its optimal allocation of leaf N within the leaf (to photosynths
-
-\subsubsection{Discourse on how target CN ratio could be optimized but isn't}
-
-\cite{thomas2014}, \cite{friedlingstein1999}, \cite{franklin2012}, \cite{mcmurtrie2013}, \cite{anten2011}, \cite{vanwijk2003}
-
-
-\subsubsection{Discuss geographical spread of predictions for N and CO2 fertilization}
-
-\cite{hickler2008}
+In this study, we found numerous instances where the model reduced carbon use efficiency by increasing tissue C:N ratios in response to forcing. In principle, there exists an optimal leaf CN ratio that maximizes leaf C export under a given set of conditions. Despite its optimal allocation of leaf N within the leaf (to photosynthetic enzymes), CLM5 does not include any scheme that ensures that overall tissue CN ratios conform to any physiological optima. Instead, a heuristic model adjusts tissue CN ratios round the target ratio (an input parameter).  Numerous models have been proposed along these lines in the plant optimal functioning literature (\cite{vanwijk2003}, \cite{mcmurtrie2011}, \cite{a,nten2011} \cite{franklin2012}, \cite{mcmurtrie2013}, \cite{thomas2014}). We chose not to include this feature in CLM5 on account of limited evidence for its statistical strength in analyses of the global leaf trait datasets used in the LUNA model (Xu. C. pers comm), but future nitrogen cycling developments might re-visit this topic. 
 
 
 \subsubsection{Discourse on whether nitrogen fixation is realistic in CLM5}
-The 'fraction of fixers' (\emph{frac\_fixers}) is a proxy for the community level composition of Nitrogen fixing plants. Technically, because plant density is not represented in the CLM5, this parameter really represents the fraction of net assimilated carbon ($gpp$ - $R_{auto}$) that can be used for symbiotic N fixation. Ideally, this feature of the model would be prognostic, and the fraction of N fixing plants would response to changes in environmental conditions and the relative competitive abilities of N fixing plants. In general, Nitrogen fixers are known to primarily exist in early successional parts of ecosystems (references**), and therefore representation of their ecological dynamics would likely include a representation of vegetation demographics and succession (\cite{fisher2018vegetation}, \cite{trugman2016climate}). The results included here indicate that the
+The 'fraction of fixers' (\emph{frac\_fixers}) is a proxy for the community level composition of Nitrogen fixing plants. Technically, because plant density is not represented in the CLM5, this parameter really represents the fraction of net assimilated carbon ($gpp$ - $R_{auto}$) that can be used for symbiotic N fixation. Ideally, this feature of the model would be prognostic, and the fraction of N fixing plants would response to changes in environmental conditions and the relative competitive abilities of N fixing plants. In general, Nitrogen fixers are known to primarily exist in early successional parts of ecosystems (references**), and therefore representation of their ecological dynamics would likely include a representation of vegetation demographics and succession (\cite{fisher2018vegetation}, \cite{trugman2016climate}).
 
-
-
-\cite{thomas2013global} find that the CLM4.0 model responds very strongly to nutrient additions, and is heavily limited by nitrogen availability in the present day.
-
-
+\subsection{Differences between sites}
+The overall response of the different sites to CO$_{2}$ and N fertilization, in terms of the total vegetation carbon, is to some extent a function of their initial limiting conditions.  The Niwot Ridge site is limited by both N availablilty and water in the initial state, and thus demonstrates strong CO$_{2}$ and N responses. 
 
 \section{Conclusions}
 
