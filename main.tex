@@ -202,9 +202,15 @@ The analysis used four sites, with 13 parameters perturbed to 4 different values
 \subsection{Overall system state}
 Figure \ref{NR1 state} shows the one-at-a-time parameter responses of GPP, NPP, LAI, Leaf N content and the carbon spent on N uptake at the Niwot Ridge site (which we choose to highlight as it shows some of the more complex parameter responses). The other site state variation figures are presented in the Supplementary Information (SI \ref{CAX state}, \ref{HVF state}, \ref{MET state}).
 
+\subsubsection{Low leaf area investigations}
 In general, we found that leaf area indices predicted by the CLM5 default parameter set were often low  compared to published estimates for these sites. (for Caxiuana, 3.0 v.s. 5.3 \cite{fisher2007}, for Niwot Ridge, 1.7 vs. 4.2 \cite{bowling2009}, for Harvard Forest 2.6 vs. 3.5 \cite{williams1996} and for Metolius, 0.5 (modeled) v.s. 1.5 (\cite{spadavecchia2011}). This is a somewhat surprising result, given the generally good agreement of globally-driven model output with LAI reported by \cite{lawrence2018}, and may plausibly reflect biases between the use of reanalysis products used to drive the model and site-specific meteorological data. 
 
 To interrogate this further, we ran a separate set of simulations with higher allocation to leaves (generated from lower stem allocation parameters). These indicated that, with the resulting higher LAI's, the model was less sensitive to both CO$_{2}$ and N deposition, given the amplifying effect of increasing leaf area increasing fluxes at unsaturated LAIs.   For example, at Harvard Forest, the high leaf allocation  simulation (LAI of 4.6, vs 2.6 for the default parameters) had a lower CO$_{2}$ response (1.43, 1.66, 1.47 for GPP, NPP and LAI in the control vs. 1.18, 1.17 and 1.22 for the high LAI case) and a lower N response as well (1.1, 1.26, 1.21 for the control GPP, NPP, LAI, and 1.05, 1.20 and 1.15 for the high LAI case). Similar results were found at all other sites.  Thus, by virtue of their lower LAI, the overall fertilization rates at these sites may be substantially larger than those in the model driven with reanalysis meteorology (analysis tbd). 
+
+\subsubsection{Water and N limitation across sites}
+Figure \ref{btran state} illustrates the relative water and nitrogen limitation in the control (unfertilized) parameter ensemble. Water limitation in CLM5 can be expressed via the $B_{tran,mn}$ parameter, which is a model property calculated as a function of prognostic leaf water potential, which impacts gas exchange processes in a similar manner to the $B_{tran}$ parameter in CLM4.5, (in that it is used to reduce assimilation and thus stomatal conductance by scaling the photosynthetic capacity, $V_{c,max}$). Because leaf water potential changes diurnally, we now use the minimum term to calculate relative water stress between sites. For N limitation, the fraction of total NPP which is used to pay for nitrogen uptake, is a direct indicator of how N stress affects the carbon budget.  
+
+The Caxiuana site experienced substantial drought stress in these simulations (with $B_{tran,mn}$ of the default condition ~0.55), and little nutrient stress. Niwot Ridge indicated substantial amounts of drought ($B_{tran,mn}$ ~0.5), and N limitation, spending 27\% of carbon on nutrient acquisition. Harvard Forest site had a moderate drought stress ($B_{tran,mn}$~90\%), and moderate N limitation (~15\% of assimilation spent on uptake). The Metolius site had some drought stress ($B_{tran,mn}$ ~86\%) and very little nutrient stress.  At the sites with dought stress, it is evident that low values of the Medlyn parameter (which reduce stomatal conductance) relieved drought stress as expected from first principles, as do high C:N values, which reduce photosynthetic capacity, and thus also stomatal conductance. Lower root allocation increase drought stress, via reduction in root uptake capacity. 
 
 \subsection{Parametric control over system state}
 
@@ -436,7 +442,13 @@ The overall response of the different sites to CO$_{2}$ and N fertilization, in 
      \label{NR1 state}
  \end{figure}
  
-
+\begin{figure}[h]
+    % \centering\includegraphics[width=0.5\textwidth, right]{lion-lo9
+     \includegraphics[width=1.3\textwidth, left]{matlab/figures/btran_npp.png}
+     \caption{Response of drought index ($B_{tran,mn}$ and the \% of NPP spent on Nitrogen uptake to parameter perturbation across -1 to +1 range of parameter variation at the Caxiuan\~a (CAX), Niwot Ridge (NWR), Harvard Forest (HVF) and Metolious MET) sites.}
+     \label{btran state}
+ \end{figure}
+ 
   \begin{figure}[h]
     % \centering\includegraphics[width=0.5\textwidth, right]{lion-lo9
      \includegraphics[width=1.3\textwidth, left]{matlab/figures/NOVc_FERT_1CLM50defpft_celev_1x1pt_US-NR1_ens_MIC_p1_2012.png}
