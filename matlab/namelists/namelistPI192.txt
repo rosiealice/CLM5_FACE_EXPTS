@@ -1,1 +1,1 @@
-denitrif_respiration_exponent,0.65
+denitrif_respiration_exponent=0.65

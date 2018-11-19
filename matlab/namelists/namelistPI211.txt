@@ -1,1 +1,1 @@
-denitrif_nitrateconc_exponent,0.057
+denitrif_nitrateconc_exponent=0.057
