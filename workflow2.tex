@@ -1,4 +1,4 @@
-f \documentclass{article}
+\documentclass{article}
 \usepackage{hyperref}
 \usepackage[dvipsnames]{color}
 \setlength\parindent{0pt}
@@ -39,10 +39,19 @@ Copy default file into '00'..\\
 {\color{red}\small{\url{gitpath/CLM5_FACE_EXPTS/matlab/FACE_pftfiles/FACE_CLM_params_may1_defpft_pi00.nc }}} \\
 
 \section{Spin-up}
+
+\subsection{Make base Case}
+/gpfs/fs1/work/rfisher/git/clm5.0_may19/cime/scripts/CLM5_POINTSIMS/CLM5.0_may19_basebuild
+Using the /gpfs/fs1/work/rfisher/git/clm5.0_may19/cime/scripts/CLM5_POINTSIMS/CLM5.0_may19_basebuild
+
 \subsection{Make 1850 spin-up default runs from scratch}
 Make single point case from scratch for each site by running this script (based on Charlie's FATES version) 'n' times once for each site (that could be improved on!)..:\\
 {\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/fromscratch_CTSM_make_site_spinup_case_defaults}}}\\
 
+\subsection{Make spinup ensemble}
+/glade/work/rfisher/git/CLM5_FACE_EXPTS/case_scripts
+{\color{blue}\small{\url{gitpath/CLM5_FACE_EXPTS/case_scripts/make_site_spinup_mic_ensembles
+}}}\\
 
 
 \end{document}
