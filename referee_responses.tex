@@ -5,189 +5,172 @@
 \setlength{\parskip}{1em}
 
 \begin{document}
-\title{Referee Responses}
 
-Reviewer 1 Evaluations: 
-Recommendation: Return to author for major revisions 
-Significant (Required): There are major errors or gaps in the paper but it could still become significant with major changes, revisions, and/or additional data. 
-Supported (Required): Mostly yes, but some further information and/or data are needed. 
-Referencing (Required): Mostly yes, but some additions are necessary. 
-Quality (Required): The organization of the manuscript and presentation of the data and results need some improvement. 
-Data (Required): Yes 
-Accurate Key Points (Required): Yes 
+\textsf{Reviewer 1}
 
-Reviewer 1 (Formal Review for Authors (shown to authors)): 
+To be fully transparent I should declare that this review is written by Martin De Kauwe. I agreed to review the paper before I realised Anthony Walker was one of the authors (a potential conflict of interest). I subsequently informed the editor but they were keen for me to still review the manuscript. 
 
-To be fully transparent I should declare that this review is written by Marin De Kauwe. I agreed to review the paper before I realised Anthony Walker was one of the authors (a potential conflict of interest). I subsequently informed the editor but they were keen for me to still review the manuscript. 
-
+\textsf{AR: Fair enough}
 
 In this paper Fisher et al. explore the sensitivity of CLM5's vegetation responses to assumed parameters in relation to the nitrogen cycle. Overall the paper is very thorough, clearly written and sets out to achieve its objectives. I do have a series of small suggestions (below) and a few larger suggestions. which I would outline here. 
 
+\textsf{AR: Thanks for the positive comments. We hope this version is somewhat easier to digest}
+
 1. (Classic reviewer here - sorry) Whilst the paper does do what it said it would, I can't help thinking this paper could be more interesting if it presented the analysis in a slightly different way. Feel free to ignore all of this! 
 
-RR: Noted...
+\textsf{AR: Noted...}
 
-This paper documents three new assumptions (arguably four -> section 2.1.4 as well) to CLM5 related to N; however, it doesn't give much consideration to these hypotheses, instead focussing on a broader list of impacts related to parameter choice. After reading the methods, what I was expecting (hoping) to see, was what impact these different assumptions would have on carbon fluxes. I was then expecting to see the impact of the underlying params from *these schemes (assumptions)* being probed. That isn't what we get from this paper and (my bias) I feel like this is an opportunity missed. I found it hard to interpret the impact of parameters (semi)divorced from the underlying structural assumptions. Moreover, many of the params (in my eyes) had little to do with the new code additions. For example, a lot of text is devoted to exploring the sensitivity to the Medlyn slope parameter. To me, this feels out of scope for what this paper should(could) be. 
+This paper documents three new assumptions (arguably four- section 2.1.4 as well) to CLM5 related to N; however, it doesn't give much consideration to these hypotheses, instead focussing on a broader list of impacts related to parameter choice. After reading the methods, what I was expecting (hoping) to see, was what impact these different assumptions would have on carbon fluxes. I was then expecting to see the impact of the underlying params from *these schemes (assumptions)* being probed. That isn't what we get from this paper and (my bias) I feel like this is an opportunity missed. I found it hard to interpret the impact of parameters (semi)divorced from the underlying structural assumptions. Moreover, many of the params (in my eyes) had little to do with the new code additions. For example, a lot of text is devoted to exploring the sensitivity to the Medlyn slope parameter. To me, this feels out of scope for what this paper should(could) be. 
 
-RR: We appreciate these suggestions. One alternative approach would be to run the simulations with the various pieces of code turned off and returned to the defalt state. The problem with implementing that idea is that large modifications of that type tended to hugely modify the system state, and therefore (as is one of the conclusions of the analysis) impact upon the fertilization responses just because the system state was moved to a more or less light saturated condition. We have to some extent tried to probe the sensitivity space of say, the FUN model by modifying the capacity of the plants to take up and fix nitrogen. \textit{I will look into the possibility of doing this.}
+\textsf{AR: We appreciate the disconnect between the parameter choice being seemingly unrelated to the lengthy discussion of the new nitrogen cycling elements of the model. On further reflection,  our overall aim is to illustrate how the C and N responses of the model, as determined for the global simulations by the Wieder et al. study, are impacted by parameter choice, given their large implications for carbon cycle feedback analysis. We think this is of slightly greater interest than specifically probing the differences between the CLM4.5 and CLM5 N cycle, although the two are related.   While many of the elements that affect the CO2 and N responses are linked to the new model structure, there are several parameters that have large impacts which are not. In the new version of the manuscript, we have chosen to reduce the amount of text devoted to the specific changes to the N cycle, and instead to shift the focus slightly such that we are now looking specifically at how parameters affect the fertilization responses. Parameters of the new model components are included specifically to illustrate their impact. }
 
-So, my suggestion here would be to show the impact of each of the 3(4) new assumptions in relation to how nutrients are treated with CLM5 and then to explore how sensitive those results were to the underlying params. Here, my expectation was that in some cases the results would be insensitive, but in others, it is clear that the notion of a single PFT value does not make sense. As I understand it, the authors varied the gs slope term based on the param range in my 2015 paper. This gives them some erroneous results, but that wouldn't be unexpected as using the C3 grass param (a "spendy" plant) in an arid environment wouldn't make biophysical sense? 
+\textsf{An alternative approach would be to run the simulations with the various pieces of code turned off and returned to the default state. The problem with implementing that idea is that large changes of that type tended to hugely modify the system state, and therefore (as is one of the conclusions of the analysis) impact upon the fertilization responses just because the system state was moved to a more or less light saturated condition. We have to some extent tried to probe the sensitivity space of say, the FUN model by modifying the capacity of the plants to take up and fix nitrogen.}
 
-RR: You are right, wrt. the range of variation across PFTs perhaps being excessively wide. \emph{Perhaps a lower range should be adopted?}
+So, my suggestion here would be to show the impact of each of the 3(4) new assumptions in relation to how nutrients are treated with CLM5 and then to explore how sensitive those results were to the underlying params. Here, my expectation was that in some cases the results would be insensitive, but in others, it is clear that the notion of a single PFT value does not make sense. As I understand it, the authors varied the gs slope term based on the param range in my 2015 paper. This gives them some erroneous results, but that wouldn't be unexpected as using the C3 grass param (a "spendy" plant) in an arid environment wouldn't make biophysical sense?
 
-In my opinion the editor shouldn't impose such a change on the authors as it is potentially a lot of work and not what they wished their paper to be about. It is just my suggestion. Equally, I would have loved to have seen those N hypotheses tested at the Duke/Oak Ridge FACE experiments, perhaps that is for another paper :P. 
+\textsf{AR: We agree with this idea wrt. the range of variation across PFTs perhaps being excessively wide. We have now modified the stomatal slope range to use the standard error reported in Table 2 of de Kauwe et al. 2015}}
 
-RR: We actually ran the model for those sites, but got very low LAI predictions, and therefore very sensitive responses to fertilization. We thought in the end that fixing up the model to perform better at those particular sites was less interesting than the overall controls over the response to CO2 and N forcing. 
+In my opinion the editor shouldn't impose such a change on the authors as it is potentially a lot of work and not what they wished their paper to be about. It is just my suggestion. Equally, I would have loved to have seen those N hypotheses tested at the Duke/Oak Ridge FACE experiments, perhaps that is for another paper :P.
+
+\textsf{AR: We actually ran the model for those sites, but got very low LAI predictions, and therefore very sensitive responses to fertilization. We thought in the end that fixing up the model to perform better at those particular sites was less interesting than the overall controls over the response to CO$_{2}$ and N forcing. }
 
 2. At the very least, I think the number of params considered should be streamlined. Many feel a bit irrelevant and there is a lot of text devoted to each. Whilst I appreciate the lengths the authors have gone to explaining the impact in the results, I found myself drifting because at times it felt out of scope. I think reducing the number considered (even moving N to the supplementary) would make the paper more readable. 
 
-RR: Fair point. It seems better to explore more parameters for the sake of completeness, but maybe some can be parsed out into SI to allow for a more readable paper. 
+\textsf{AR: Fair point. It seems better to explore more parameters for the sake of completeness, but \textbf{maybe some can be parsed out into SI to allow for a more readable paper.} }
 
 3. The manuscript makes a number of citations to CLM papers in review. In many places these references add little to the paper as they provide no detail and I can't look the paper up (obviously at some point soon I will be able to). My sense is that the paper would benefit from either expanding the text in some places or removing the reference entirely. For example, the Kennedy plant hydraulics paper was referenced on five occasions, that seems excessive to me given the paper is on nitrogen. This might seem like I'm being pedantic, but honestly it breaks the readability of the text. 
 
-RR: The MS is part of a special issue, and so the paper will all become available at the same time (except the Kennedy paper which is already published). \emph{We will reduce depdance on these references.} 
+\textsf{AR: The MS is part of a special issue, and so the paper will all become available at the same time (except the Kennedy paper which is already published). \textbf{We will reduce depdance on these references.} }
 
 4. Whilst I wholeheartedly agree that assessing the model simulations against observations doesn't necessarily indicate skill, it does go a bit against the grain the way the authors have presented their results. The plots as presented are quite abstract and the authors may consider this point in revision. As a reviewer, it wouldn't bother me at all if the model seemingly performed worse with added "realism", particularly if the authors could explain why. 
 
-
+\textsf{AR:  \textbf{needs work}} 
 
 5. Finally, with the discussion I'm reading this as a non-CLM user and thinking what can I take away here? Here I struggled a little bit if I'm honest. There is some interesting text about objective calibration (great to be able to cite this :P), but again I'm wondering if this is really in the scope? Six paragraphs are devoted to apparent limitations - seems excessive, there is more to sell here than criticise? I think other modelling groups who haven't yet implemented these hypotheses in relation to the representation of the N cycle could learn a great deal from a paper like this. I'd ask the authors to reflect on what they think the messages they'd like to portray are and see if they feel those messages are in the discussion. 
-
-
 
 Minor stuff (Key points/Abstract/Intro/Methods): 
 ------------------------------------------------ 
 
 - Could the second key point be written in more readable English? In the third key point N has not been defined. Also, fertilisation of what (presumably CO2? But it could be nitrogen...or anything). Finally, "other important parameters depend on the initial system state". This is hard to interpret and without context is limited as a take home point for the reader. I really suggest the authors revise the key points as I take little from them about this study. 
 
-RR: Fair poit. We have modified these points to read
-\item The Community Land Model, version 5, contains numerous modifications to representations of the vegetation carbon and nitrogen cycle.
+\textsf{AR: Fair point. We have modified these points to read 
+"The Community Land Model, version 5, contains numerous modifications to representations of the vegetation carbon and nitrogen cycle."}
 
-\item The control model state, and it's responses to CO$_{2}$ and nitrogen addition are sensitive to parameter choice.
+\textsf{The control model state, and it's responses to CO$_{2}$ and nitrogen addition are sensitive to parameter choice.}
 
-\item Parameters controlling nitrogen fixation dominate fertilization responses. Many other fertilization responses are modified indirectly, via changes in the pre-fertilization state.
+\textsf{Parameters controlling nitrogen fixation dominate fertilization responses. Many other fertilization responses are modified indirectly, via changes in the pre-fertilization state.}
 
 
 - In general, when the authors talk about "model state" - both in the key points and the abstract - doesn't this require some time context? Are we talking about the equilibrium state? The state at 2019? 
 
-RR: We have changed this to 'pre-fertilization state'. 
+\textsf{AR: We have changed this to 'pre-fertilization state'. }
 
 - Line 45: what would a passive nitrogen cycle look like? 
 
-RR: OK. We took out 'active'. and changed to "included nitrogen (N) cycling and limitation of plant growth."
+\textsf{AR:  We took out 'active'. and changed to "included nitrogen (N) cycling and limitation of plant growth."}
 
 - Line 46: why is it "might" the model either said that would happen or it didn't. 
 
-RR: Changed to "In CLM4 projections, the inclusion of N dynamics significantly limits the ability of the terrestrial biosphere to ... "
+\textsf{AR: Changed to "In CLM4 projections, the inclusion of N dynamics significantly limits the ability of the terrestrial biosphere to ... "}
 
 - Line 52-3: Is that true? Unless that can be supported I would suggest omitting. 
-RR: Changed from 'a majority of models' to 'many models'
+\textsf{AR: Changed from 'a majority of models' to 'many models'}
 
-- Line 64: It would be good not to overlook the numerous earlier studies that did actually explore these issues ... e.g. Rastetter et al. (1991) Tree Physiology 9, 101 -126.; Comins & McMurtrie (1993) Ecological Applications 3, 666-681.; Kirscbaum et al. (1994) Plant, Cell & Environment, 17: 1081-1099, etc. 
-RR: Thanks for the references. I didn't know about those. 
+- Line 64: It would be good not to overlook the numerous earlier studies that did actually explore these issues ... e.g. Rastetter et al. (1991) Tree Physiology 9, 101 -126.; Comins \& McMurtrie (1993) Ecological Applications 3, 666-681.; Kirscbaum et al. (1994) Plant, Cell \& Environment, 17: 1081-1099, etc. 
+\textsf{AR: Thanks for the references. I didn't know about those. We've deleted that section as a way to reframe the introduction to be more general and less focused on the N modifications}
 
 - Line 70 onwards. Does this paragraph add anything to the introduction? If anything it is more methods anyway ... 
 
-RR: OK, we will move this to the methods. 
+\textsf{AR: OK, we will move this to the methods. }
 
 - Line 109: Is 1 really a hypothesis as stated? 
 
-RR: Maybe not. \emph{will think of an alternative}
+\textsf{AR: We have deleted this hypothesis and replaced with "2. There is a trade-off between model parameterizations that allow strong CO2 fertilization and those that allow strong N fertilization."}
 
 - Line 152: I realise this is more about the LUNA model paper, but I do wonder about the assumption that day length drives variations in photosynthetic capacity, given that you already account for radiation. This just feels like a fudge for a gap in our knowledge as the mechanistic interpretation is less, clear. Anyway, irrelevant I'm sure. 
-RR: I am inclined to agree, but there's not much that can be done for this paper, at this point. 
+\textsf{AR: I am inclined to agree, but there's not much that can be done for this paper, at this point.} 
 
 - Line 163 onwards: In the description of FUN, it would be helpful to provide a little more detail about how much of the cost is parameterised vs emergent. The text is very clear, but I still found myself wanting to know a little more. Obviously I could read the documentation! 
 
-RR: OK, \emph{we will add more text on the emergence of the costs.}
+\textsf{AR: OK, \textbf{we will add more text on the emergence of the costs.}}
 
 - Line 243: How does the FATES model account for this issue? This seems like it might be an interesting point, but the lack of details means that this statement should either be omitted, or briefly expanded upon. 
 
-RR: \emph{Add description of FATES trimming}
+\textsf{AR: Add description of FATES trimming}
 
 - May I suggest (an optional) text reorganisation? Swap 2.13 and 2.12. Then 2.1.4 follows more logically after the text about FUN for the reader. 
 
-RR: \emph{swop text round}
+\textsf{AR:swop text round}
 
 - Line 291 - it would be hard to see a paper in review? Is it in open review? Otherwise more detail should be added, I have no issue with keeping the citation. 
 
-RR: RR: \emph{It is in review for the special issue at JAMES, and a copy should somehow be in the system to be accessed, although I don't know how referees get access to the other companion papers exactly}
+\textsf{AR: It is in review for the special issue at JAMES, and a copy should somehow be in the system to be accessed, although I don't know how referees get access to the other companion papers exactly}
 
 - Line 303 - how is the analysis in this paper different to Wieder et al. in review? I would argue to remove this statement as it adds nothing. Similarly on line 314, reference to Kennedy. What relevance are these sentences? 
 
-RR: \emph{IAdd description of what wieder did.}
+\textsf{AR: Add description of what wieder did.}
 
 - Line 311 - it's 
 
 - Line 318: I think the approach used by the authors is perfectly legitimate and I see no need to expand words justifying why they did not do a global simulation. I would argue to remove these statements. 
 
-RR: \emph{Maybe remove.}
+AR: \textsf{Maybe remove.}
 
 Results 
 ------- 
 
 - Line 423: To not look at soil outputs feels like an oversight to me. At the very least, linking the results to available plant N in the soil would be very interesting. Many of the changes have feedbacks for the soil and I think it is important to consider the responses of some of these variables too. 
 
-RR: \emph{Think about this.}
+\textsf{AR: Think about this.}
 
 - Fig 2. I can't tell the difference between slatop and stem:leaf. 
 
-RR: One is red and the other is a sort of purple. \emph{Will modify the colormap to increase the purpleness.}
+\textsf{AR: One is red and the other is a sort of purple. Will modify the colormap to increase the purpleness.}
 
 
 - Line 509: this is another example where i feel there is too much assumed knowledge by the reader. Having not read Lawrence et al. in review, it is hard to take much from this. Given I know who Lawrence is, I just end up confused how two CLM papers would contradict each other, but lacking the details. 
 
-RR: OK, \emph{we will remove this refernce to the Lawrence paper.}
+\textsf{AR: We will remove this refernce to the Lawrence paper.}
 
 - Overall, I struggled to see what much of the description around parameter sensitivity had to do with the various nutrient assumptions. For example, the text around the Medlyn model could easily be completely omitted. This is true of a number of these parameter paragraphs. Unless there is a link to the nutrient assumptions I fail to see why these details are included? I also think if you dropped some of these irrelevant params, then the plots (fig 6-8) would be easier to interpret. 
 
 - Lines 576: These response ratios are really quite large? GPP increased by 44\% for an increase of CO2 to 550? Bigger still for NPP, e.g. 1.66 at CAX, presumably the CO2 x water interaction? Are these the responses without a nutrient cycle? I must have missed this point if so. I see that the text on line 582 would imply this to be the case. It might be worth clarifying in the results at this point. 
 
-RR: OK, this does need clarifying. Actually, CLM5 can't be run without its N cycle. I agree the responses are high. They are in contrast to those found in the global analyses. \emph{Maybe this needs calling out directly in the paper. }
+\textsf{AR: OK, this does need clarifying. Actually, CLM5 can't be run without its N cycle. I agree the responses are high. They are in contrast to those found in the global analyses. }
 
 - Line 701: Or that global maps are a poor way to see how comparable models and observations are ... 
-RR: Or that, yes. 
+\textsf{AR: Or that, yes. }
 
-Reviewer 2 Evaluations: 
-Recommendation: Reject and encourage resubmission 
-Significant (Required): There are major errors or gaps in the paper but it could still become significant with major changes, revisions, and/or additional data. 
-Supported (Required): Mostly yes, but some further information and/or data are needed. 
-Referencing (Required): Yes 
-Quality (Required): The organization of the manuscript and presentation of the data and results need some improvement. 
-Data (Required): Yes 
-Accurate Key Points (Required): Yes 
-
-Reviewer 2 (Formal Review for Authors (shown to authors)): 
+Reviewer 2 
 
 This study presents an introduction to some new modifications to the N cycle representation in CLM5 model, investigates how the model state and the responses of the system to CO2 and N addition are sensitive to parameter choices, and showed that parameters controlling N fixation dominate fertilization responses. 
 
 I find it hard to convince myself what does it mean to change parameters for each site without proper calibration. I suppose that most of these parameters are calibratable. Therefore, how these parameters change within a given climate space is somewhat pre-defined. You already suggested that these parameters are influential to plant responses to CO2 and N. Once you calibrated them against a PFT, does it mean that you have significantly reduced degree of freedom in your current testing? The authors made some good points in the discussion (L743-752), for example, calibration does not address the issue of dynamic responses. I think these points are brought in too late. I'd suggest the authors to revise their introduction with these points incorporated more explicitly.
 
-RR: We are unsure how to respond to this statement. \emph{We could reference the text earlier}
+\textsf{AR: We are unsure how to respond to this statement. }
 
 Additionally, I totally agree that it is important to identify how model behaviors are influenced by parameter decisions. However, I don't think that this message is new, and therefore I find the results and interpretations of the results not so informative. To start, I find the section headings in the result section very confusing. For example, within section 3.1, there is only one sub-section, i.e. 3.1.1. Additionally, section 3.3 seems to be just an empty section with no real result included. The result for section 3.3 seems to be in section 3.4. Then section 3.5 is extremely long, and with only one subsection 3.5.1. I suggest the authors to revise the result section entirely, for clearer presentations, and more logical storyline. 
 
-RR: We do not suggest that the message is new. Our model is a new version of a very widely used land surface scheme that will likely generate many hundreds of coupled climate model runs and analysis within the context of the CMIP project. In that context, we consider it useful to specifically map out the features of the model that apply strong controls over climate responses. 
+\textsf{AR: We do not suggest that this particular message is new. Our model is a new version of a very widely used land surface scheme that will likely generate many hundreds of coupled climate model runs and analysis within the context of the CMIP project. In that context, we consider it useful to specifically map out the features of the model that apply strong controls over climate responses.} 
 
-RR: We admit we had not given much thought to balancing the length of the sections under their various subheadings. \emph{Will reorganize}
+\textsf{AR: We admit that we had not given much thought to balancing the length of the sections under their various subheadings. \textbf{Will reorganize}}
 
 Additionally, I think the second half of the abstract (L33-39) not so informative. Instead, I think the author need to be more specific about their findings. Given the increased model complexity, how are model predictions affected by these individual new modifications? Moreover, if the output space is complex, and varied by sites and variables, can the authors identify a list of weaknesses and strengths that the new modifications add to the model? For example, can the authors give more specific recommendations as to what model representations are useful under what circumstances? And, what are the areas of further investigation, both in terms of further data collection to constrain the process, or more focused model sensitivity test to identify uncertainty? I totally understand that you have a tight space in the abstract, but the current form is too general, I think. 
 
-RR: \emph{This is quite vague. Needs thought. }
-
+\textsf{AR: \textbf{This is quite vague. Needs thought. }}
 
 Moreover, I think the authors did not present their hypotheses correctly. The 1st hypothesis presented in this study is really not a hypothesis that is testable. The impact of parameters on what? I think you need to be more specific. Right now, there is really no testable hypothesis presented. How can you prove or disprove it? Given that in the method (L307-309) you have clearly stated that you picked 13 parameters that are influential to your results, you have already "proved" your hypothesis, right? Similar, you haven't defined what a model state means, and therefore, it is my opinion that the 2nd hypothesis is not explicitly testable, either. 
 
-RR: \emph{Maybe we should just ditch the hypotheses? }
+\textsf{AR: \textbf{Maybe we should just ditch the hypotheses? }}
 
 Lastly, I am not convinced what this paper differs significantly from those that they included as "under reviews". Any parameter decision should have an impact to the model predictions, otherwise you wouldn't have it as a parameter in the model. This study is a sensitivity test paper, but the message is too complicated to make any generalizable take-home messages. I think some significant re-writing is needed. 
 
-RR: The paper differs substantially from all the paper in revision, in that it explicitly tests the parameter space of the model.  The remainder of the papers assess the responses of the default configuration. Our aim here is to be transparent about the uncertainties in the model and provide guidance on the interpretation of future results. 
+\textsf{AR: The paper differs substantially from all the paper in revision, in that it explicitly tests the parameter space of the model.  The remainder of the papers assess the responses of the default configuration. Our aim here is to be transparent about the uncertainties in the model and provide guidance on the interpretation of future results.} 
 
 Specific comments 
 
 L 63 and L1082: De Kauwe. 
-RR: Apologies for this Bibtex error. 
+\textsf{AR: Fixed.}
 
 L 88, CO2, not CO2 
 
@@ -195,59 +178,67 @@ L 112: You haven't define what a model state you mean, and therefore, this hypot
 
 L 113 - 117: This is a very long sentence. And it's not easy to follow. Suggest rephrasing.
 
-RR:\emph{ We will break it upas needed. }
+\textsf{AR:\textbf{ We will break it up as needed. }}
 
 L268-269: Here the author refers to the full CLM5 technical report for the description of the new algorithm. I find it not satisfactory. I think the author should give all the details relevant to the result in the paper, not a section within a technical report. 
 
-RR: We have chosen to document the model both in the Lawrence et al. paper and in the technical documentatin online for CLM. The full description of the FUN model and the FlexCN algorithm runs to many pages, which would ad substantially to this already quite long manuscript. An alternative would be to add these descriptions to the supplementry infomation, but this would not necessarily provide a greater utility to the reader than the two sources they are already available and would also consitute publishing the same material twice in different peer reviewed manuscripts. 
+\textsf{AR: We have chosen to document the model both in the Lawrence et al. paper and in the technical documentatin online for CLM. The Lawrence paper is within the same AGU special issue on the CLM5, and we have already obtained editorial support for this strategy.  Further, the full description of the FUN model and the FlexCN algorithm runs to many pages, which would ad substantially to this already quite long manuscript. An alternative would be to add these descriptions to the supplementery infomation, but this would not necessarily provide a greater utility to the reader than the two sources they are already available and would also constitute publishing the same material twice in different peer reviewed manuscripts.  We have nonetheless reframed the manuscript so that it is more generally concerned with the CO2 and N responses, and not with the N updates per-se, so this is less necessary than before. }
 
 L 307 - 309: I am confused here. So you identified a list of 13 parameters which you think should have direct mechanistic impacts on responses to CO2 and N fertilization. Then you performed sensitivity tests around them, and highlighted that the model indeed is sensitive to these parameter decisions. Isn't the answer obvious? 
-RR: This 
 
-L341: You say it's fine root area per unit leaf area in bold, but its calculation is the ratio of fine root biomass to leaf area? What exactly is it? 
+\textsf{AR: Our objective here is not simply to illustrate that the parameters have an impact, but to provide an illustrate of how the different parameters impact the model and under what conditions, (as per hypothesis 1).  Thus, there is value in doing the simulations subsequent to our narrowing of the parameter set to those elements with a direct impact on fertilization responses. }
+
+L341: You say it's fine root area per unit leaf area in bold, but its calculation is the ratio of fine root biomass to leaf area? What exactly is it?
+
+\textsf{AR: Thanks for finding this inconsistancy. It is fine root mass to leaf mass. We will correct accordingly}. 
 
 L372: remove ). 
+\textsf{AR: Done}
 
 L420: Not sure how you ended up with 672 runs. 4 sites x 13 parameters x 5 values * 3 treatments = 780. Did I miss something? 
 
+\textsf{AR: We miscalculated this. It's actually 4*13*3*4 +4*3 = 636, the former term being sites * parameters * experiments * iterations and the latter being the number of control runs at the default (sites * experiments.}
+
 L 436: "The x-axis" to the x-axis. 
+\textsf{AR: Modified accordingly}
 
 L438: Table 1, not table 1. 
+\textsf{AR: Modified accordingly}
 
 L 447: remove ). 
+\textsf{AR:Done}
 
 L458-461: Can you rephrase? I can't follow this sentence. 
 
+\textsf{AR: We have re-phrased this sentence as "Differences in the initial conditions at the sites have implications for the parametric responses. Underlying limitations by various boundary conditions (water, nutrients, light, temperature) can affect both the ability of the system to respond to fertilization and/or parameter modifications affecting other resources, as we describe further in the following sections."}
+
 L528: Figure 1, not figure 1. 
-RR: Done. Thanks for catching. 
+\textsf{: Done. Thanks for catching. }
 
 L560: the both the? 
-RR: Done. Thanks for catching. 
+\textsf{AR: Done. Thanks for catching.} 
  
 L 562: ))? 
-RR: Done. Thanks for catching. 
+\textsf{AR: Done. Thanks for catching.} 
 
 L567: Figures 6 to 8. 
-RR: We are not sure what the suggestion is here. 
+\textsf{AR: We are not sure what the suggestion is here. }
 
 L743 - 752: I think these lines should be more thoroughly discussed. This is clearly the key novelty of this research, but I am afraid that I don't see them identified, and discussed enough throughout the text. 
-RR: \emph{Make this clearer}
+\textsf{AR: \textbf{Make this clearer}}
 
 L782: leaf nitrogen, not leaf Nitrogen. 
-RR: Done. Thanks for catching. 
+\textsf{AR: Done..} 
 
 L811: nitrogen. 
+\textsf{AR: Done..} 
 
 L829: replace "(/citewieder2019" with proper text. 
-RR: Done. Thanks for catching. 
+\textsf{AR: Done.} 
 
 Table 1: What's default? Also, why some scenarios have the same multipliers? 
 
-\section{ideas for how to approach re write}
-Modify to lose focus on N cycle updates.
-OR
-actually do simulations without LUNA etc. 
-
+\textsf{AR:\textbf{this needs some work} }
 
 \end{document}
 
