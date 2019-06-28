@@ -149,11 +149,10 @@ The four sites varied in the degree to which they are limited by water and N ava
 
 The Caxiuan\~a site (CAX) experienced substantial drought stress and little nutrient stress ($B_{tran,mn}$ $\sim$0.6, PNU$\sim$13\%). Niwot Ridge (NWR) experienced substantial amounts of drought and N limitation, ($B_{tran,mn}$, $\sim$0.55, PNU$\sim$21\%). Harvard Forest (HVF) site had very little drought stress, and moderate N limitation ($B_{tran,mn}$ $\sim$0.96, PNU$\sim$15\%).  Metolius (MET)  had some drought stress and the least nutrient stress ($B_{tran,mn}$ $\sim$0.86, PNU$\sim$10\%).  
 Thus, the sites chosen span a range of initial limiting conditions.  
-
 Differences in the initial conditions at the sites have implications for the parametric responses. Underlying limitations by various boundary conditions (water, nutrients, light, temperature) can affect both the ability of the system to respond to fertilization and/or parameter modifications affecting other resources, as we describe further in the following sections. 
 
 \subsubsection{Parametric control over system state}
-At all sites, specific leaf area (\emph{slatop}) has a large first-order impact on LAI, and on leaf N concentrations (Figure \ref{NR1 state}), as expected, since it is used directly in the calculation of both of these quantities. For GPP, the impact of SLA is always positive, despite the higher LAI causing lower N per unit area of leaf (which reduces per-unit leaf area photosynthetic capacity). The impact of SLA on NPP can, however, be negative (e.g., Metolius), since the fixed-fraction allometry model in CLM5 can generate shaded leaves that are in negative carbon balance at high LAI. At Niwot Ridge, the parameter range straddles an optimal SLA (or local maximum at the second-largest parameter values) for NPP, again reflecting the assimilation/respiration cost trade-off.
+At all sites, specific leaf area (\emph{slatop}) has a large first-order impact on LAI, and on leaf N concentrations (Figure \ref{NR1 state}), as expected, since it is used directly in the calculation of both of these quantities. For GPP, the impact of SLA is always positive, despite the higher LAI causing lower N per unit area of leaf (which reduces per-unit leaf area photosynthetic capacity). The impact of SLA on NPP can, however, be negative (CAX, NWR), since the fixed-fraction allometry model in CLM5 can generate shaded leaves that are in negative carbon balance at high LAI. At Niwot Ridge, the parameter range straddles an optimal SLA (or local maximum at the second-largest parameter values) for NPP, again reflecting the assimilation/respiration cost trade-off.
 
 Root:leaf ratio (\emph{froot\_leaf}) has 1) a direct effect on LAI, via changes in allocation fractions to different tissues, 2) an indirect effect on NPP, given the modified maintenance costs of the resultant fine root biomass pools, 3) an effect on the uptake of water via root biomass and 4) an effect on nutrient limitation through root-mediated N uptake costs.  The first two impacts decrease NPP with \emph{froot\_leaf} and the latter two increase it.  Both types of effect are seen here, with the Niwot Ridge and Metolius sites (which have the lowest productivity and LAI, and thus presumably very low root biomass in the first place) suffering very large reductions in GPP, NPP, and LAI at low \emph{froot\_leaf} ratios, reflecting mechanisms 3 and 4.  Harvard forest and Caxiuan\~a both show increases in all variables with low \emph{froot\_leaf}.  In Figure \ref{btran state}, we can see that low \emph{froot\_leaf} is a primary control over drought stress at Metolius, in particular. 
 
@@ -308,31 +307,31 @@ Data from these simulations will be made available, prior to publication, on the
 
 \section{Figures}
 \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/btran_npp.png}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_MEANCOND_-r200_1999.png}
      \caption{Response of drought index ($B_{tran,mn}$) and the \% of NPP spent on Nitrogen uptake to parameter perturbation across -1 to +1 range of parameter variation at the Caxiuan\~a (CAX), Niwot Ridge (NWR), Harvard Forest (HVF) and Metolious MET) sites. Legend colours as for Figure \ref{NR1 state}}
      \label{btran state}
  \end{figure}
  
  \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/NOVc_STATE_1CLM50defpft_trans_1x1pt_US-NR1_ens_MIC_y1_2012.png}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_1-r200_CLM50defpft_trans_1x1pt_US-NR1_ens_MIC_y1999.png}
      \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Niwot Ridge.}
      \label{NR1 state}
  \end{figure}
 
  \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/NOVc_STATE_1CLM50defpft_trans_1x1pt_Br-cax_ens_MIC_y1_2012.png}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_1-r200_CLM50defpft_trans_1x1pt_Br-cax_ens_MIC_y1999.png}
      \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Caxiuan\~a National Forest}
      \label{CAX state}
   \end{figure}
  
  \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/NOVc_STATE_1CLM50defpft_trans_1x1pt_US_Ha1_ens_MIC_y1_2012.png}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_1-r200_CLM50defpft_trans_1x1pt_US_Ha1_ens_MIC_y1999.png}
      \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Harvard Forest}
      \label{HVF state}
  \end{figure}
  
  \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/NOVc_STATE_1CLM50defpft_trans_1x1pt_US-Me2_ens_MIC_y1_2012.png}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_1-r200_CLM50defpft_trans_1x1pt_US-Me2_ens_MIC_y1999.png}
      \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Metolius Forest}
      \label{MET state}
  \end{figure}
