@@ -189,10 +189,9 @@ The time-dependence of the responses generates an interesting issue for interpre
 \subsubsection{Impact of parameters}
 The parameter response space of the model is complex, and parameter impacts on fertilization responses vary with changing initial conditions and with treatment. Here, we discuss the major impacts of each parameter on the responses and how they relate to expectations based on model structure. 
 
-The impact of \emph{slatop} on fertilization was different at every site. For MET, \emph{slatop} was the most important control over N responses, with higher values allowing a greater LAI/GPP feedback in response to the N fertilization. At NWR, the opposite behaviour was found, with high SLA reducing the impact of N in cases where the pre-fertilization LAI meant that a saturating response of GPP was found. At HVF, higher values of \emph{slatop} slightly reduced both CO$_{2}$ and N fertilization for the same reason (although the range of variation at HVF is only 5\% between the highest and lowest values, as opposed to 40\% at NWR). 
+The impact of \emph{slatop} on fertilization was different at every site (figs. \ref{GPP_CN}, figures \ref{LAI_CN}). For MET, \emph{slatop} was the most important control over N responses, with higher values allowing a greater LAI/GPP feedback in response to the N fertilization. At NWR, the opposite behaviour was found, with high SLA reducing the impact of N in cases where the pre-fertilization LAI meant that a saturating response of GPP was found. At HVF, higher values of \emph{slatop} slightly reduced both CO$_{2}$ and N fertilization for the same reason (although the range of variation at HVF is only 5\% between the highest and lowest values, as opposed to 40\% at NWR). 
    
-
-Despite its strong impact on the system state,\emph{froot\_leaf} had very little impact on fertilization responses, except in the case of very low values at Metolius, where it increased the CO$_{2}$ responsiveness, and at Harvard, where low values decrease both responses. At Harvard the low root allocation runs had higher initial LAI, and thus the responsiveness of the system to fertilization is lower since the feedback from LAI to GPP (which is a non-linear response related to the saturation of light interception). 
+\emph{froot\_leaf} had contrasting impacts at different sites.  At MET,  where low values increased the CO$_{2}$ fertilization, probably due to the increased drought stress under those conditions. At HVF, low \emph{froot\_leaf} decreased both CO$_{2}$ and N fertilization on account of higher initial LAI, mirroring the respnse to \emph{slatop}. 
 
 Low values of \emph{stem\_leaf} ratio caused lower responses to fertilization for GPP and LAI at Caxiuan\~a and Harvard Forest (Figures \ref{GPP CO2 and N respones 2001} and \ref{LAI CO2 and N respones 2001}). Initial LAI was larger in these cases, explaining the decrease in fertilization response as above (lower increases in GPP for a unit change in LAI).  At Niwot Ridge, low values of \emph{stem\_leaf} were associated with very high LAI and high water limitation (Figure \ref{btran state}), and CO$_{2}$ fertilization thus had a large impact on GPP and NPP (as for \emph{slatop}), but the high NPP has no impact on LAI (SI Figure 3), reflecting the still-high N limitation.  Correspondingly, adding Nitrogen in the low \emph{stem\_leaf} runs increases LAI substantially, but only has a very limited impact on GPP and NPP, given water limitations.
 
@@ -201,8 +200,6 @@ The $N_{costs}$ parameterization primarily impacts the respiration expended on N
 The fraction of N fixers (\emph{frac\_fixers}) has a particularly dominant role over the model response to step changes in N and to CO$_{2}$. For GPP and LAI, all sites displayed a 'trade-off', whereby high N fixer systems responded strongly to CO$_{2}$ but not N, and low fixer systems responded strongly to N but not CO$_{2}$ (Figure \ref{GPP CO2 and N respones 2001}, \ref{LAI CO2 and N respones 2001}).  For NPP, N deposition responses were muted at Metolius, and reversed in sign at Caxiuan\~a, where the low N fixer cases had a very negative (-8\%) NPP response (despite a +7.6\% GPP response), on account of the model increasing the N content of the leaves (and thus respiration rates) by up to 10\% in the lowest N cost case (SI Figure 6). Nonetheless, given the lower N uptake costs in the fertilized N experiment, leaf area was substantially increased (up to 14\%) in these cases too.  At Niwot Ridge the changing fixation capacity had no impact on the response of GPP to N fixation, despite its influence on LAI, suggesting that water limitation was a greater constraint on total GPP than leaf area.  At Metolius, again the changing fixation capacity had no impact on the response of GPP to N deposition (Figure \ref{GPP CO2 and N respones 2001}) but in this case, it had no impact on LAI either. Only \emph{slatop} and \emph{stem\_leaf} had large impacts on N fertilization at this site, suggesting fundamental metabolic limitations to canopy carbon economics (e.g. a short growing season) that render only higher LAI simulations sensitive to fertilization. 
 
 The impact of target \emph{leafcn} on fertilization responses was not particularly dominant (recalling that this was a significant control over the system state at all sites), an exception being Niwot Ridge, where low values of \emph{leafcn} had very strong to CO$_{2}$ fertilization (the strongest response at this site for GPP). These cases suffered from high water limitation, given their high $N\_{leaf}$ values and high gas exchange fluxes (Figure \ref{btran state}) and thus CO$_{2}$ fertilization alleviates this problem. At Caxiuan\~a, high \emph{leafcn} cases had stronger responses to N fertilization, but responses to N fertilization were low at this site in general.  
-
-\emph{grperc}, or the degree to which growth is 'taxed', is constant and not responsive to any of the physiological processes upstream that depend on fertilization, thus, at most sites, its impacts are minimal, or indirect. 
 
 At Niwot Ridge, runs with low values of the \emph{medlyn\_slope} parameter (and thus high water use efficiency) were able to respond very strongly to increasing Nitrogen (SI Figure 4), given their lower initial water stress (Figure \ref{btran state}). Surprisingly, however, given its critical role in the responsiveness of stomata to CO$_{2}$, we did not find a widespread impact of the Medlyn parameter on the fertilization response, potentially suggesting that the impact on the state condition had already accounted for the impact of this parameter. 
 
@@ -304,28 +301,12 @@ Data from these simulations will be made available, prior to publication, on the
  \end{figure}
  
  \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_-r200_NWR_y2000.png}
-     \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Niwot Ridge.}
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_y1999.png}
+     \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) for GPP, NPP, LAI and N$+{leaf}$ at the CAX, NWR, HVF and MET sites}
      \label{NR1 state}
  \end{figure}
 
- \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_-r200_CAX_y2000.png}
-     \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Caxiuan\~a National Forest}
-     \label{CAX state}
-  \end{figure}
- 
- \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_-r200_HVF_y2000.png}
-     \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Harvard Forest}
-     \label{HVF state}
- \end{figure}
- 
- \begin{figure}[h]
-     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_STATE_-r200_MET_y2000.png}
-     \caption{Response of control model states and fluxes to parameter perturbation across -1 to +1 range of parameter variation (Table \ref{table_ranges}) at Metolius Forest}
-     \label{MET state}
- \end{figure}
+
 
   \begin{figure}[h]
      \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_CNtime_defpft.png}
