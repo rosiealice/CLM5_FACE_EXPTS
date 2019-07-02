@@ -1,4 +1,4 @@
-\documentclass[draft,linenumbers]{agujournal}
+\usepackage{}\documentclass[draft,linenumbers]{agujournal}
 
 \draftfalse
 
@@ -107,12 +107,10 @@ For each site/parameter/value combination, we also ran one elevated CO$_{2}$ and
 The CLM5 has a large array of parameters that might have direct and indirect impacts on biogeochemical cycling in the model.  Here we focus on an array of thirteen parameters, chosen for their direct mechanistic impacts on responses to CO$_{2}$ and N fertilization. These parameters are narrowed down from the much larger complete set of CLM5 parameters (which will not enumerate here, since calculation of this number in a model as complex as CLM5 is a scientific exercise in its own right) using a process informed primarily by the model structure, as well as the extensive iterative investigations of the CLM5 model during the development process.  We focus here on biogeochemically important inputs. Parameters relevant to the hydrology and surface energy balance processes (with the exception of the stomatal slope) since sensitivity to these will be assessed by studies currently underway, and parameters of the new plant hydraulics scheme are discussed in \cite{kennedy2019}.
 
 To reduce the complexity involved in understanding and attributing changes in model behaviour with parameter variation, we conducted one-at-a-time (OAAT) perturbations of the parameters around the default state, which (compared to a global parameter sensitivity analysis) allows more straightforward visualization and interpretation of the results.  At each site, we conduct simulations with five values of each parameter (one of which is the default) across the ranges described below. We recognize that a global parameter sensitivity analysis would also be of interest, and indeed have conducted many such analyses. We concluded that OAAT analysis provides clearer insight into the functionality of the parameters with respect to biogeochemical forcing. 
-
 \subsection{Default parameter determination}
 During the development of CLM5, we conducted extensive testing into the possibility of inverse-calibration of the model using neural network derived emulators, in conjunction with a variety of gridded global data products. We did not use the results of this effort for a variety of reasons, including,  1) the high dimensionality of the space, 2) the degree of non-orthogonal behaviour in the parameter response surfaces, 3) the tendency of the modeled ecosystem to die under lower pre-industrial CO$_{2}$ conditions when calibrated using present-day CO$_{2}$, 4) the dominance of high productivity areas over the calibration of a particular PFT at the expense of marginal areas, and the resulting effect that those marginal areas die off in model spin-up, 5) the subjectivity in weighting of the various observational data products and 6) philosophical issues concerning whether the structural validity of the calibrated model could be independently assessed, given the sparsity of validation datasets. The parameterization used in the default version of the model consequentially utilized the mean trait values where possible from trait datasets (\cite{lawrence2018}) in combination with targeted manual tuning of parameters (including allocation parameters and Nitrogen costs) that were less well constrained by data, to avoid excessively unrealistic values for some model simulated states. We recognize that this more subjective calibration method is less than ideal, and ongoing studies will focus on more limited scope calibration attempts to overcome the difficulties described above, as illustrated by \cite{fer2018}. 
 
 \subsubsection{Parameters selected for perturbation experiment}
-
 The parameters included in our sensitivity analysis are listed in Table \ref{table_ranges}. Their impact on model functionality is described below.  The shorthand version of the parameter name is given in italics.  
 
 \textbf{Specific Leaf Area}, \emph{`SLA'}, is a parameter common to almost all land surface models, which determines the area of leaves (in m$^{2}$) derived from one gram of leaf biomass. High SLA values correspond to thinner, 'cheaper' leaves which lead to thicker vegetation canopies and greater interception of light. In CLM5 high SLA leaves also have lower N per unit area (given a target mass-based C:N ratio) and thus lower photosynthestic capacity per unit area.
@@ -167,7 +165,7 @@ Increasing $N_{costs}$ increases the respiration losses associated with nitrogen
 
 Increasing \emph{fracfixers} affects the maximum amount of carbon that plants can pay towards symbiotic nitrogen uptake (N fixation). For all sites and variables here, it has a relatively moderate and positive impact on the control state. As is the case for $N_{costs}$, \emph{fracfixers} does not appear to be a first-order control over the pre-fertilization system state.
 
-Changing \emph{leafcn} over one standard deviation from the mean TRY values, had substantial impacts on all the output variables at all sites. Higher \emph{leafcn} values decrease $N_{leaf}$, decreasing photosynthetic capacity and GPP.  In particular, at MET and HVF the higher \emph{leafcn} values had $N_{leaf}$ and photosynthetic capacities so low that GPP was almost zero Figures \ref{HVF state}, \ref{MET state}).  GPP continues to increase almost linearly with declining \emph{leafcn} (increasing $N_{leaf}$), indicating a lack of saturation of photosynthesis with respect to photosynthetic capacity.  This is consistent with the analysis by \cite{lawrence2018} who find that V${_c,max}$ numbers in CLM5 might be low compared to observations.  For NPP, respiration costs of modified $N_{leaf}$ and altered PNU (Figure \ref{btran state}) buffered the larger changes in GPP. At CAX, for example, the lowest \emph{leafcn} had a GPP 225 gC/m$^{2}$/y higher, while the corresponding NPP increase was only 52 gC/$m^{2}$/y.
+Changing \emph{leafcn} over one standard deviation from the mean TRY values, had substantial impacts on all the output variables at all sites. Higher \emph{leafcn} values decrease $N_{leaf}$, decreasing photosynthetic capacity and GPP.  In particular, at MET and HVF the higher \emph{leafcn} values had $N_{leaf}$ and photosynthetic capacities so low that GPP was almost zero (Figures \ref{HVF state}, \ref{MET state}).  GPP continues to increase almost linearly with declining \emph{leafcn}  (increasing $N_{leaf}$) at all sites except HVF, indicating a lack of saturation of photosynthesis with respect to photosynthetic capacity.  This is consistent with the analysis by \cite{lawrence2018} who find that V${_c,max}$ numbers in CLM5 might be low compared to observations.  For NPP, respiration costs of modified $N_{leaf}$ and altered PNU (Figure \ref{btran state}) buffered the larger changes in GPP. At CAX, for example, the lowest \emph{leafcn} had a GPP 225 gC/m$^{2}$/y higher, while the corresponding NPP increase was only 52 gC/$m^{2}$/y.
 
 Changes in \emph{medlyn\_slope}, the stomatal slope parameter, across the range shown here, have limited impacts on the pre-fertilized system state, with the exception of NWR, where lower values of the slope parameter generated higher photosynthesis, consistent with this site experiencing severe drought stress and thus benefiting from increased water efficiency. 
 
@@ -176,29 +174,19 @@ Changes in \emph{medlyn\_slope}, the stomatal slope parameter, across the range 
 \subsection{CO$_{2}$ and Nitrogen deposition responses}
 
 \subsubsection{Timescale dependence of responses to fertilization}
-The initial changes in carbon economy induced by the fertilization experiments are, where conditions permit, amplified by increases in the leaf area index.  Figure \ref{timescales} illustrates, for the default parameter set, the evolution through time of output variables (GPP, NPP, LAI, $B_{tran,mn}$, NPP spent on N uptake). These results illustrate the complexities of the response. 
+The initial changes in carbon economy induced by the fertilization experiments are, where conditions permit, amplified by increases in LAI. Figure \ref{timescales} illustrates, for the default parameter set, the evolution through time of GPP, NPP, LAI, $B_{tran,mn}$ and PNU, illustrating the complexities of the response. 
 
-For example, the initial stimulation of GPP by high CO$_{2}$ ($\sim$1.37) lead to a $\sim$50\% increase in LAI. This, however, lead to increase drought stress (lower $B_{tran,mn}$), and hence no large increase in GPP. At Metolious, in contrast, initial GPP stimulation was similar, the resulting growth in LAI was much slower, given the lower overall carbon turnover at this colder site. The 50\% increase in  carbon at 80 years had, however, a much larger impact on GPP, giving a stimulation of ** at 80 years. 
- At Harvard forest, the initial stimulation in the first year was lower (25\%) potentially on account of the higher carboxylation capacity at this site (as illustrated by the lower response to decreasing leaf C:N ratios in figure ** than other figures).  At all sites, the fraction of NPP spent on N uptake increased, but most dramatically at Metolius, where initial N expenditure was lowest initially on account of low growth rates. 
+For CO$_{2}$ fertilization at CAX the initial stimulation of GPP ($\sim$1.37) lead to an almost 50\% increase in LAI. At this site, water limitations (lower $B_{tran,mn}$), prevented any further increase in GPP. 
+
+ At MET, in contrast, initial GPP stimulation was lower (26\%) on account of the lesser water stress. This resulted in slow but prolonged LAI increase, given the lower overall carbon turnover at this colder site. The 50\% increase in carbon at 80 years had, however, a much larger impact on GPP and NPP giving a stimulation of 53-69\% and 49-71\% respectively, (varying through the cycling climate forcing data). Thus, the overall impact of fertilization appears much greater than is typically reported in elevated CO$_{2}$ experiments, but \cite{king2005} report both large response to $sim$530 ppm CO$_{2}$ in Aspen stands, with increases in LAI and biomass of around 60\%.
  
-As expected from the initial conditions, Niwot Ridge responded most strongly to nutrient additions. An initial NPP stimulation of 1.3 for NPP was magnified by subsequent increases in LAI to nearly 1.8 times the control value, causing a stimulation of 1.7 in NPP. None of the other sites exhibited such a dramatic change. In particular, Caxiuana, which was heavily water limited in the first instance, adding nitrogen only resulting in stimulation in LAI, GPP and NPP of around 10\%. Stimulation at Metolious was higher than Caxiuana, despite it's lower initial N limitation, given it's lack of limitation by water.
+ At HVF, the initial stimulation in the first year was lower (25\%) potentially on account of the higher carboxylation capacity at this site (HVF has a smaller response to decreasing higher leaf N ratios, Fig. \ref{HVF state}). NWR had moderate (25\%) increases in initial GPP and LAI ($sim$30\%).  At all sites, the fraction of NPP spent on N uptake increased, but most dramatically at Metolius, where initial N expenditure was lowest initially on account of low growth rates. 
+ 
+N addition most strongly affects carbon expenditure on N uptake, and thus NPP, rather than GPP directly. At NWR an initial NPP stimulation of 1.3 for NPP was magnified by subsequent increases in LAI to nearly 1.8 times the control value, causing a stimulation of 1.7 in NPP, reflected the high N limitation at this site in the pre-fertilization state. None of the other sites exhibited such a dramatic change. In particular, for CAX, which was heavily water limited in the first instance, adding nitrogen only resulting in stimulation in LAI, GPP and NPP of around 10\%. 
 
-The time-dependence of the responses generates an interesting issue for interpretation, since where LAI increases a lot, the responses tend to be dominated by this feature of the response. The first year responses, by way of contrast, tend to be much more similar across sites, but do not reflect the overall response of the system. 
+The time-dependence of the responses generates an interesting issue for interpretation. The first year responses are illustrative of the short-term immediate impacts of change, whereas the longer-term responses are heavily dominated by the feedback responses. Further, depiction of absolute vs. relative differences can serve to highlight different aspects of the model response. Here we report values from 15-20 years after fertilization began, to be consistent with the methodology used by \cite{wieder2019} in their analysis of global fertilization of the default model, and to capture the dynamics of the whole system feedbacks captured in Fig. \ref{timescales}. 
 
-\subsubsection{Overall responses to fertilization}
-
-
-\subsubsection{Differences across sites}
-
-Figures \ref{GPP CO2 and N respones 2001}, \ref{NPP CO2 and N respones 2001} and \ref{LAI CO2 and N respones 2001} illustrate the responses to both N and to CO$_{2}$ fertilization simultaneously, for GPP, NPP and, LAI. Corresponding figures for vegetation carbon and $N_{area}$ are in the supplemental information (SI Figures 1 and 2). Figures for each site showing the individual N and CO$_{2}$ responses are also included in the SI (Figures 3 to 10).
-
-
-
-The responses to CO$_{2}$ and Nitrogen fertilization were substantially different between sites and across parameter ranges. 
-
-For the default parameterization (the intersection of all lines in figures \ref{GPP CO2 and N respones 2001} to \ref{LAI CO2 and N respones 2001}), the impacts of CO$_{2}$ fertilization on  GPP (1.44; CAX, 1.44 NWR, 1.24 HVF, 1.45; MET) were fairly constant across sites, but for NPP (1.66; CAX, 1.28; NWR, 1.22; HVF, 1.62; MET) the sites with higher responses had higher N limitation in the control cases.  LAI responses (1.47; CAX, 1.24 NWR, 1.25; NVF, 1.27 MET) reflected the NPP change, except for at Metolius where the canopy did not respond to the higher NPP. 
-
-For Nitrogen responses, while impacts on  GPP were all slightly positive, (1.02; CAX, 1.04; NWR, 1.12; HVF, 1.13 MET), they were lower for the drought-stressed Caxiuan\~a and Niwot sites.  For NPP (0.96; CAX, 0.98; NWR, 1.25; HVF, 1.06 MET), increasing $N_{leaf}$ (1.04; CAX, 1.01; NWR 1.02 NVF; 1.01 MET) caused increasing respiration and negative impacts on NPP at some sites, even though impacts on LAI (1.06; CAX, 2.09 NWR, 1.21; HVF, 1.12 MET) were all positive, reflecting the lower costs of N uptake and greater capacity to acquire N to build tissues and retain carbon for growth.  
+Figures \ref{GPP CO2 and N responses 2001}, \ref{NPP CO2 and N respones 2001} and \ref{LAI CO2 and N respones 2001} illustrate the responses to both N and to CO$_{2}$ fertilization simultaneously, for GPP, NPP and, LAI. Corresponding figures for vegetation carbon and $N_{area}$ are in the supplemental information (SI Figures 1 and 2). Figures for each site showing the individual N and CO$_{2}$ responses are also included in the SI (Figures 3 to 10).
 
 \subsubsection{Impact of parameters}
 Across the four sites, parametric impacts on fertilization responses were very varied, when compared to the relatively consistent impact of parameters on the initial system state. A majority of parameters show no consistent relationship with CO$_{2}$ or N deposition responses across sites, and the range of their impacts varied over an order of magnitude. Thus, the parameter response space of the model is complex with regard to these changing initial conditions, environments, and drivers on global change. Again, we go through the parameters one at a time to highlight the primary features of the model response and how they relate to expectations based on model structure. 
@@ -340,24 +328,28 @@ Data from these simulations will be made available, prior to publication, on the
      \label{MET state}
  \end{figure}
 
- 
+  \begin{figure}[h]
+     \includegraphics[width=1.2\textwidth]{matlab/figures/MAY19jp_CNtime_defpft.png}
+     \caption{Fertilization responses of the default model though time since the (step-change) in CO$_{2}$ (top row) and Nitrogen deposition (bottom row) for CAX (blue), NWR (red), HVF (yellow), MET (purple).}
+     \label{MET state}
+ \end{figure}
      
  \begin{figure}[h]
-     \includegraphics[width=1.35\textwidth]{matlab/figures/NOVc_CNdep_GPP1__p2012.png}
-     \caption{Influence of parameteric variation on the model response (fertilized/control) to 15 years of CO$_{2}$ and N fertilization on gross primary productivity (GPP), across the Caxiuan\~a (CAX), Niwot Ridge (NWR), Harvard Forest (HVF) and Metolious MET) sites. }
-     \label{GPP CO2 and N respones 2001}
+     \includegraphics[width=1.35\textwidth]{matlab/figures/MAY19jp_relCNdep_defpft_GPP_y2013.png}
+     \caption{Influence of parameteric variation on the model response (fertilized/control) to 15 years of 500ppm CO$_{2}$ and +5Kg/m$^{-2}$/y N fertilization on gross primary productivity (GPP). }
+     \label{GPP_CN_2016}
   \end{figure}
  
  \begin{figure}[h]
-     \includegraphics[width=1.35\textwidth]{matlab/figures/NOVc_CNdep_NPP1__p2012.png}
-     \caption{Influence of parametric variation on the model response (fertilized/control) to 15 years of CO$_{2}$ and N fertilization on net primary productivity (NPP), across the Caxiuan\~a (CAX), Niwot Ridge (NWR), Harvard Forest (HVF) and Metolious MET) sites.}
-     \label{NPP CO2 and N respones 2001}
+     \includegraphics[width=1.35\textwidth]{matlab/figures/MAY19jp_relCNdep_defpft_GPP_y2013.png}
+     \caption{Influence of parametric variation on the model response (fertilized/control) to 15 years of 500ppm CO$_{2}$ and +5Kg/m$^{-2}$/y N fertilization on net primary productivity (NPP).}
+     \label{NPP_CN_2016}
   \end{figure}
  
   \begin{figure}[h]
-     \includegraphics[width=1.35\textwidth]{matlab/figures/NOVc_CNdep_TLAI1__p2012.png}
-     \caption{Influence of parametric variation on the model response (fertilized/control) to 15 years of CO$_{2}$ and N fertilization on leaf area index (LAI), across the Caxiuan\~a (CAX), Niwot Ridge (NWR), Harvard Forest (HVF) and Metolious MET) sites.}
-     \label{LAI CO2 and N respones 2001}
+     \includegraphics[width=1.35\textwidth]{matlab/figures/MAY19jp_relCNdep_defpft_GPP_y2013.png}
+     \caption{Influence of parametric variation on the model response (fertilized/control) to 15 years of 500ppm CO$_{2}$ and +5Kg/m$^{-2}$/y N fertilization on leaf area index (LAI).}
+     \label{LAI_CN_2016}
   \end{figure}
 
 \end{document}
