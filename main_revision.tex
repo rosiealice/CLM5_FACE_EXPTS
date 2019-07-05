@@ -13,8 +13,8 @@ urlcolor=cyan}
 
 \begin{document}
 %tentative author list...
-\authors{Rosie A. Fisher\affil{1},
-William R. Wieder\affil{1,2},
+\authors{Rosie A. Fisher\affil{1,1},
+William R. Wieder\affil{1,3},
 Benjamin M. Sanderson\affil{3},
 Charles D. Koven\affil{4},
 Keith W. Oleson\affil{1},
@@ -27,13 +27,13 @@ David M. Lawrence\affil{1}
 
 \title{Parametric controls on vegetation responses to biogeochemical forcing in the CLM5}
 \author{Rosie Fisher}
-\date{November 2018}
+\date{June 2019}
 
 \affiliation{1}{National Center for Atmospheric Research, Table Mesa Drive, Boulder, Colorado, USA}
 
-\affiliation{2}{Institute of Arctic and Alpine Research, University of Colorado, Boulder Colorado, USA}
+\affiliation{2}{Centre Europ\'een Research et de Formation Avenc\'ee en Calcul Scientifique, Toulouse, France}
 
-\affiliation{3}{Centre Europ\'een Research et de Formation Avenc\'ee en Calcul Scientifique, Toulouse, France}
+\affiliation{3}{Institute of Arctic and Alpine Research, University of Colorado, Boulder Colorado, USA}
 
 \affiliation{4}{Lawrence Berkeley National Laboratory, Berkeley, California, USA}
 
@@ -47,25 +47,27 @@ David M. Lawrence\affil{1}
 
 
 \begin{keypoints}
-\item The Community Land Model, version 5, contains numerous modifications to representations of the vegetation carbon and nitrogen cycle.
+\item The Community Land Model, version 5, contains numerous modifications to representations of the vegetation carbon and nitrogen cycles.\\
 
-\item The control model state, and it's responses to CO$_{2}$ and nitrogen addition are sensitive to parameter choice, but parameter responses are varied between sites that differ in their pre-fertilization water and nitrogen limitation. 
+\item The control model state, and it's responses to CO$_{2}$ and nitrogen addition. are sensitive to parameter choice, and parameter responses further vary with pre-fertilization water and nitrogen limitation. \\
 
 \item Parameters controlling nitrogen fixation rates dominate fertilization responses. Many other fertilization responses are modified indirectly, via changes in the pre-fertilization state. 
 \end{keypoints}
 
 \begin{abstract}
-Future projections of land carbon uptake in Earth System Models are affected by land surface model responses to both CO$_{2}$ and nitrogen fertilization. The Community Land Model, version 5, contains a suite of modifications to carbon and nitrogen cycle representation, and globally, has a lower nitrogen response and higher CO$_{2}$ response than it's predecessors. To improve our understanding of the controls over the fertilization responses of the new model, we assess the sensitivity of the model to a suite of thirteen parameters pertinent to the cycling of carbon and nitrogen by vegetation. We assess the parameter dependence of the model state, and also the responses of the system to CO$_{2}$ and nitrogen fertilization at individual sites in temperate, tropical and boreal systems.
+Future projections of land carbon uptake in Earth System Models are affected by land surface model responses to both CO$_{2}$ and nitrogen fertilization. The Community Land Model (CLM), version 5, contains a suite of modifications to carbon and nitrogen cycle representation. Globally, the CLM5 has a larger CO$_{2}$ responses and smaller nitrogen response than its predecessors. To improve our understanding of the controls over the fertilization responses of the new model, we assess sensitivity to eight parameters pertinent to the cycling of carbon and nitrogen by vegetation, both under present-day conditions and with CO$_{2}$ and nitrogen fertilization.
 
- The impact of fertilization is dependant both on parametric variation explored here varies with the balance of limiting factors (water, temperature, nutrients, light) in the pre-fertilization model state.  The model parameters that impact the pre-fertilization state are in general not the same as those that control fertilization responses, meaning that calibration to present-day conditions will not necessarily constrain future projections. Where pre-fertilization state has low leaf area, fertilization induced increases in leaf production amplify the model response to the initial fertilization.  Model responses to CO$_{2}$ and N fertilization are strongly impacted by how much plant communities can increase their fixation of nitrogen.  Further studies focused on how alternative parameters impact biogeochemical function would provide useful compliments to the ongoing CMIP6 process.
+ The impact of fertilization varies with both model parameters and with the balance of limiting factors (water, temperature, nutrients, light) in the pre-fertilization model state.  The model parameters that impact the pre-fertilization state are in general not the same as those that control fertilization responses, meaning that goodness of fit to present-day conditions does not necessarily imply a constraint on future transient projections. Where pre-fertilization state has low leaf area, fertilization-induced increases in leaf production amplify the model response to the initial fertilization via further increases in photosynthesis.  Model responses to CO$_{2}$ and N fertilization are strongly impacted by how much plant communities can increase their rates of nitrogen fixation, and also directly affected by costs of N extraction from soil and stoichiometric flexibility. Illustration of how parameteric flexibility impacts model outputs should help inform the interpretation of carbon-climate feedbacks estimated by in fully-coupled Earth system model simulations. 
 \end{abstract}
 
 \section{Introduction}
-Simulating the cycling of nutrients, and how nutrient availability impacts ecosystem growth and function, has been repeatedly identified as a crucial element of Earth system models (\cite{piao2013}, \cite{gruber2008}, \cite{wang2009}). In the CMIP5 multi-model inter-comparison, one land model, the Community Land Model v4 (CLM4), included nitrogen (N) cycling and limitation of plant growth. In CLM4 projections, the inclusion of N dynamics significantly limits the ability of the terrestrial biosphere to respond to fertilization by increasing atmospheric carbon dioxide (\cite{friedlingstein2006}, \cite{thornton2007} \cite{friedlingstein2014}, \cite{arora2013}), leading to speculation that the addition of nitrogen limitation as a more general feature of models might reduce the capacity for vegetation to respond to CO2 fertilization and hence reduce the degree to which the terrestrial biosphere can mitigate increasing atmospheric CO$_{2}$. 
+The response of the terrestrial biosphere to carbon dioxide enrichment and increasing nitrogen (N) deposition represents a major source of uncertainty in predictions of the evolution of the climate system (\cite{friedlingstein2006},  \cite{arora2013}, \cite{friedlingstein2014}). In the CMIP5 multi-model inter-comparison, the smallest response to CO$_{2}$ forcing was predicted by the Community Land Model v4 (CLM4, \cite{thornton2007}, \cite{lawrence2011}), the only model in that comparison that represented the impacts of nitrogen availability on plant growth, leading to suggesting that the addition of nitrogen limitation might substantially reduce the capacity for vegetation to respond to CO$_{2}$ fertilization (and hence reduce the degree to which the terrestrial biosphere can mitigate increasing atmospheric CO$_{2}$. 
 
-The newly-released CLM version 5  (CLM5,\cite{lawrence2018}) includes numerous major updates relative to CLM4 and CLM4.5 (\cite{lawrence2011}). The introduction of several new dynamical features, including substantial modification of the vegetation nitrogen cycling, as well as the introduction of plant hydrodynamics, altered surface hydrology and dynamic crop representation, has implications for responses to environmental forcing. \cite{wieder2019} report the global carbon cycle implications of these changes and note that, in CLM5, carbon uptake responds more strongly to CO$_{2}$ and less strongly to N fertilization than its predecessors, with both fertilization responses being closer to experimental results than the previous versions of the model. 
+The newly-released CLM version 5  (CLM5, \cite{lawrence2018}) includes numerous updates relative to the CLM4 and CLM4.5  (\cite{oleson2013} ). The introduction of several new dynamical features, including substantial modification of the vegetation nitrogen cycling, a new plant hydrodynamics scheme (\cite{kennedy2019}), altered surface hydrology, snow physics and dynamic crop representation, has implications for responses to environmental forcing. \cite{wieder2019} report the global carbon cycle implications of these changes and note that, in CLM5, carbon uptake responds more strongly to CO$_{2}$ and less strongly to N fertilization than its predecessors, with both fertilization responses being closer to experimental results than the previous versions of the model. 
 
-Given the large amount of analysis and attention devoted to assessing the impacts of transient CO$_{2}$ and N in the context of global biogeochemical feedback analysis, including the controls on global carbon fertilization `$\beta$' values (the change in ecosystem carbon storage in response to CO$_{2}$ fertilization) (\cite{arora2013}, \cite{friedlingstein2014}), we consider the illustration of how parametric choices in the CLM5 might affect and be responsible for overall behaviour in larger-scale simulations to be an important feature of the documentation of the new model.
+Large quantities of analysis and computing resources will likely be devoted to assessing the impacts of transient CO$_{2}$ and N on CMIP class models, such as CLM5, in the context of global biogeochemical feedback analysis (e.g. \cite{arora2013}, \cite{friedlingstein2014}). Land surface models, in particular the elements related to biogeochemical cycling, are nonetheless subject to very high degrees of parametric and structural uncertainty (\cite{bonan2018}, \cite{zaehle2014}) Given this,  we consider that the illustration of how parametric choices affect the responses to biogeochemical forcing in such models is an important feature of model documentation.
+
+might affect and be responsible for overall behaviour in larger-scale simulations to be an important feature of the documentation of the new model.
 
 In this paper, to that end, we describe the new components of the biogeochemical cycling in CLM5, and assess in detail the sensitivity of the CLM5 model parameterization of ecosystem biogeochemistry. We use a range of single site simulations, combined with one-at-a-time parameter uncertainty analyses, and CO$_{2}$ and N fertilization experiments, to investigate the dynamics of the model under steady-state and step-change modifications in forcing. We also hope to highlight areas of process and parameteric uncertainty that appear to require greater attention in future model development and testing cycles.
 
